@@ -4,6 +4,8 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.util.Random;
+
 /**
  *
  * @author user
@@ -23,6 +25,7 @@ public class Point2D {
         this.y=p.getY();
     }
     
+    
     public int getX() {
         return x;
     }
@@ -39,13 +42,13 @@ public class Point2D {
         this.y = y;
     }
     
-    public void setPosition(int x,int y){
+    public void setPos(int x,int y){
         this.x=x;
         this.y=y;
     }
     
     public void translate(int dx, int dy){
-        setPosition(x+dx,y+dy);
+        setPos(x+dx,y+dy);
     }
     
     public void affiche(){
@@ -55,6 +58,21 @@ public class Point2D {
     public double distance(Point2D p){
         double d = Math.sqrt(Math.pow(p.getX()-x,2)+Math.pow(p.getY()-y,2));
         return d;
+    }
+
+
+    public boolean equals(Point2D pos){
+        return this.x==pos.getX() && this.y==pos.getY();
+    }
+    
+    Point2D generePointDiff(Point2D p){
+        
+        Random ga = new Random();
+        Point2D p1 = new Point2D(ga.nextInt(50),ga.nextInt(50));
+        while(p.equals(p1)){
+            p1 = new Point2D(ga.nextInt(50),ga.nextInt(50));
+        }
+        return p1;
     }
 }
 

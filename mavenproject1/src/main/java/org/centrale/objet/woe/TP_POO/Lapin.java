@@ -6,20 +6,21 @@ package org.centrale.objet.woe.TP_POO;
 
 /**
  *
- * @author Mouad
+ * @author user
  */
-public class Paysan extends Personnage{
+public class Lapin extends Monstre {
     
-    Paysan(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p){
-        super(n,pV,dA,pPar,paAtt,paPar,dMax,p);
+    Lapin(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
+        super(pV, dA, pPar, paAtt, paPar, p);
     }
     
-    Paysan(Paysan p){
-        super(p);
+    Lapin(Lapin l){
+        super(l);
     }
     
-    Paysan(){
+    Lapin(){
         super();
     }
+    
     
 }

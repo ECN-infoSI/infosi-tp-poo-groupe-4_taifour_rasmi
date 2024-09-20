@@ -6,9 +6,21 @@ package org.centrale.objet.woe.TP_POO;
 import java.util.Random;
 /**
  *
- * @author user
+ * @author Mouad
+ * Classe personnage
  */
 public class Personnage {
+    //Attributs de la classe
+    /**
+     * nom du personnage
+     * ptVie : points de vie du personnage
+     * degAtt : dégats des attacks
+     * ptPar : points de parade
+     * pageAtt : pourcentage d'attack
+     * pagePar : pourcentage de parade
+     * distAttMax : distance d'attack maximale
+     * pos : position
+     */
     private String nom;
     private int ptVie;
     private int degAtt;
