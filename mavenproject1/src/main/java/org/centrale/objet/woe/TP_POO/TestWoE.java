@@ -5,8 +5,8 @@
 package org.centrale.objet.woe.TP_POO;
 
 /**
- *
- * @author user
+ * cette classe a pour but de créer les différents objets nécessaires aux tests de la classe World et des autres classes
+ * @author Mouad, Kaoutar
  */
 public class TestWoE {
 
@@ -16,9 +16,14 @@ public class TestWoE {
      */
     public static void main(String[] args){
         World monde = new World();
-        monde.creerMondeAlea();
+        //monde.creerMondeAlea();
         
-        monde.robin.setNom("robin");
+        
+        
+        
+        
+        
+        /*monde.robin.setNom("robin");
         monde.peon.setNom("peon");
         monde.guillaumeT.setNom("guillaumeT");
         monde.grosBill.setNom("groBill");
@@ -31,6 +36,11 @@ public class TestWoE {
         monde.wolfie.affiche();
         monde.bugs1.affiche();
         monde.bugs2.affiche();
+        */
+        
+        
+        
+        monde.afficheWord();
         
         /*monde.bugs.deplace();
         monde.peon.deplace();

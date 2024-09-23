@@ -15,10 +15,11 @@ public class World {
      * robin: un archer
      * guillaumeT : un archer
      * peon : un paysan 
-     * bugs1 : un lapin
-     * bugs2 : un lapin
-     * grosBill : un guerrier
-     * wolfie : un loup
+     * bugs1: le premier lapin 
+     * bugs2: le deuxième lapin
+     * grosBill: un guerier
+     * wolfie: un loup
+     * W: la surface sur laquelle les pretagonistes se place
      */
     /**
      * @see org.centrale.objet.woe.TP_POO.Archer
@@ -51,7 +52,7 @@ public class World {
     public Guerrier grosBill;
     
     /**
-     *@see org.centrale.objet.woe.TP_POO.Guerrier
+     *@see org.centrale.objet.woe.TP_POO.Loup
      */
     public Loup wolfie;
     
@@ -68,11 +69,11 @@ public class World {
         W = new String[40][40];
         
     }
+  
     /**
-     * Crée le monde en positionnat  l'archer, le paysant et le lapin de manière aléatoire dans le monde.
-     * @return 
+     * génération d'une position non occupée par un autre protagoniste
+     * @return la position
      */
-    
     public Point2D genererPosUnique() {
             Point2D p;
             Random ga = new Random();
@@ -81,6 +82,10 @@ public class World {
             } while (!W[p.getX()][p.getY()].equals(".")); 
             return p;
         }
+    /**
+     * Crée le monde en positionnat  les pretagonistes de manière aléatoire dans le monde.
+     * les pretagonistes n'ont pas la même position 
+     */
     
     
     public void creerMondeAlea() {
@@ -124,6 +129,21 @@ public class World {
         p = genererPosUnique();
         wolfie.setPos(p);
         W[p.getX()][p.getY()] = "Loup";
+    }
+    
+    /**
+     * Affichage de Word
+     */
+    public void afficheWord(){
+    
+        
+        for (String[] W1 : W) {
+            for (String W11 : W1) {
+                System.out.print(W11 + "\t"); 
+            }
+            System.out.println(); 
+        }
+    
     }
 
 }
