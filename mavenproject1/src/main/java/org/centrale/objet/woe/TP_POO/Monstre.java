@@ -4,7 +4,6 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
-import java.util.Random;
 
 /**
  * Classe Monstre
@@ -24,7 +23,13 @@ public class Monstre extends Creature{
         super();
     }
 
-
+    /**
+     * Affiche la position de la creature
+     */
+    public void affiche(){
+        System.out.print("le monstre se trouve dans la position : ");
+        this.getPos().affiche();
+    }
 
  
     

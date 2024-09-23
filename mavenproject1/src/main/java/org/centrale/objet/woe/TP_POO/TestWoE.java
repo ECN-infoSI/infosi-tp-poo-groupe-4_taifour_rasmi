@@ -16,7 +16,7 @@ public class TestWoE {
      */
     public static void main(String[] args){
         World monde = new World();
-        //monde.creerMondeAlea();
+        monde.creerMondeAlea();
         
         monde.robin.setNom("robin");
         monde.guillaumeT.setNom("guillaumeT");
@@ -37,6 +37,8 @@ public class TestWoE {
         //monde.peon.affiche();
         monde.robin.affiche();
         monde.guillaumeT.affiche();
+        
+        monde.afficheWord();
     }
     
 }

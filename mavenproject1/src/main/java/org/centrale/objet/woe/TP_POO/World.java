@@ -25,9 +25,6 @@ public class World {
      */
     public Archer robin;
 
-    /**
-     *
-     */
     public Archer guillaumeT;
     /**
      *@see org.centrale.objet.woe.TP_POO.Paysan
@@ -40,9 +37,6 @@ public class World {
      */
     public Lapin bugs1;
 
-    /**
-     *
-     */
     public Lapin bugs2;
     
     /**
@@ -127,6 +121,19 @@ public class World {
         p = genererPosUnique();
         wolfie.setPos(p);
         W[p.getX()][p.getY()] = "Loup";
+    }
+    /**
+     * Affichage de Word
+     */
+    public void afficheWord(){
+    
+        for (String[] W1 : W) {
+            for (String W11 : W1) {
+                System.out.print(W11 + "\t"); 
+            }
+            System.out.println(); 
+        }
+    
     }
 
 }
