@@ -14,7 +14,11 @@ public class World {
     /**
      * robin: un archer
      * peon : un paysan 
-     * bugs : un lapin 
+     * bugs1: le premier lapin 
+     * bugs2: le deuxième lapin
+     * grosBill: un guerier
+     * wolfie: un loup
+     * W: la surface sur laquelle les pretagonistes se place
      */
     /**
      * @see org.centrale.objet.woe.TP_POO.Archer
@@ -22,39 +26,107 @@ public class World {
     public Archer robin;
 
     /**
+     *
+     */
+    public Archer guillaumeT;
+    /**
      *@see org.centrale.objet.woe.TP_POO.Paysan
      */
+    
     public Paysan peon;
 
     /**
      *@see org.centrale.objet.woe.TP_POO.Lapin
      */
-    public Lapin bugs;
+    public Lapin bugs1;
+
+    /**
+     *
+     */
+    public Lapin bugs2;
+    
+    /**
+     *@see org.centrale.objet.woe.TP_POO.Guerrier
+     */
+    public Guerrier grosBill;
+    
+    /**
+     *@see org.centrale.objet.woe.TP_POO.Loup
+     */
+    public Loup wolfie;
+    
+    public String[][] W;
     
     World(){
         robin = new Archer();
         peon = new Paysan();
-        bugs = new Lapin();
+        bugs1 = new Lapin();
+        bugs2 = new Lapin();
+        guillaumeT = new Archer(robin);
+        grosBill = new Guerrier();
+        wolfie = new Loup();
+        W = new String[40][40];
+        
     }
+  
     /**
-     * Crée le monde en positionnant l'archer, le paysant et le lapin de manière aléatoire dans le monde.
-     * l'archer, le paysant et le lapin n'ont pas la même position initiale
+     * génération d'une position non occupée par un autre protagoniste
+     * @return la position
      */
-    void creerMondeAlea(){
-        
-        Random ga = new Random();
-        Point2D p = new Point2D(ga.nextInt(50),ga.nextInt(50));
-        robin.setPos(p);
-        /**
-         * @see Point2D.generePointDiff
-         */
-        p = p.generePointDiff(p);
-        peon.setPos(p);
-        p = p.generePointDiff(p);
-        while(p.equals(robin.getPos())){
-            p = p.generePointDiff(p);
+    public Point2D genererPosUnique() {
+            Point2D p;
+            Random ga = new Random();
+            do {
+                p = new Point2D(ga.nextInt(W.length), ga.nextInt(W[0].length));
+            } while (!W[p.getX()][p.getY()].equals(".")); 
+            return p;
         }
-        bugs.setPos(p);
+    /**
+     * Crée le monde en positionnat  les pretagonistes de manière aléatoire dans le monde.
+     * les pretagonistes n'ont pas la même position 
+     */
+    public void creerMondeAlea() {
+
+        for (String[] W1 : W) {
+            for (int j = 0; j < W1.length; j++) {
+                W1[j] = "."; 
+            }
+        }
+
         
+        Point2D p = genererPosUnique();
+        robin.setPos(p);
+        W[p.getX()][p.getY()] = "Archer";
+
+        
+        p = genererPosUnique();
+        peon.setPos(p);
+        W[p.getX()][p.getY()] = "Paysan";
+
+        
+        p = genererPosUnique();
+        bugs1.setPos(p);
+        W[p.getX()][p.getY()] = "Lapin1";
+
+        
+        p = genererPosUnique();
+        bugs2.setPos(p);
+        W[p.getX()][p.getY()] = "Lapin2";
+
+        
+        p = genererPosUnique();
+        guillaumeT.setPos(p);
+        W[p.getX()][p.getY()] = "Archer2";
+
+        
+        p = genererPosUnique();
+        grosBill.setPos(p);
+        W[p.getX()][p.getY()] = "Guerrier";
+
+       
+        p = genererPosUnique();
+        wolfie.setPos(p);
+        W[p.getX()][p.getY()] = "Loup";
     }
+
 }

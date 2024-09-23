@@ -29,23 +29,47 @@ public class Point2D {
         this.y=p.getY();
     }
     
+    Point2D(){
+        
+    }
     
+    /**
+     *
+     * @return
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     *
+     * @param x
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     *
+     * @param y
+     */
     public void setY(int y) {
         this.y = y;
     }
     
+    /**
+     *
+     * @param x
+     * @param y
+     */
     public void setPos(int x,int y){
         this.x=x;
         this.y=y;
@@ -58,6 +82,7 @@ public class Point2D {
     public void translate(int dx, int dy){
         setPos(x+dx,y+dy);
     }
+
     /**
      * affichage de la position
      */
