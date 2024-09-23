@@ -3,16 +3,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.woe.TP_POO;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
- *
- * @author user
+ * Cette classe a pour but de représenter le « monde » dans lequel  évolueront les différents protagonistes de WoE
+ * @author Mouad, Kaoutar
  */
 public class World {
+    //Attributs de la classe
+    /**
+     * robin: un archer
+     * peon : un paysan 
+     * bugs : un lapin 
+     */
+    /**
+     * @see org.centrale.objet.woe.TP_POO.Archer
+     */
     public Archer robin;
+
+    /**
+     *@see org.centrale.objet.woe.TP_POO.Paysan
+     */
     public Paysan peon;
+
+    /**
+     *@see org.centrale.objet.woe.TP_POO.Lapin
+     */
     public Lapin bugs;
     
     World(){
@@ -20,12 +36,17 @@ public class World {
         peon = new Paysan();
         bugs = new Lapin();
     }
-    
+    /**
+     * Crée le monde en positionnat  l'archer, le paysant et le lapin de manière aléatoire dans le monde.
+     */
     void creerMondeAlea(){
         
         Random ga = new Random();
         Point2D p = new Point2D(ga.nextInt(50),ga.nextInt(50));
         robin.setPos(p);
+        /**
+         * @see Point2D.generePointDiff
+         */
         p = p.generePointDiff(p);
         peon.setPos(p);
         p = p.generePointDiff(p);

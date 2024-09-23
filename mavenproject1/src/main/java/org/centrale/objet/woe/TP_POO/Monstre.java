@@ -7,15 +7,28 @@ package org.centrale.objet.woe.TP_POO;
 import java.util.Random;
 
 /**
- *
- * @author Mouad
+ * Classe Monstre
+ * @author Mouad, Kaoutar
+ * 
  */
 public class Monstre {
+    //Attributs de la classe
+    /**
+     * ptVie : points de vie du Monstre
+     * degAtt : dégats des attacks
+     * ptPar : points de parade
+     * pageAtt : pourcentage d'attack
+     * pagePar : pourcentage de parade
+     * pos : position du Monstre
+     */
     private int ptVie;
     private int degAtt;
     private int ptPar;
     private int pageAtt;
     private int pagePar;
+    /**
+     * @see org.centrale.objet.woe.TP_POO.Point2D
+     */
     private Point2D pos;
     
     Monstre(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
@@ -87,12 +100,16 @@ public class Monstre {
     public void setPos(Point2D pos) {
         this.pos = pos;
     }
-    
+    /**
+     * deplacer un monstre
+     */
     public void deplace(){
         Random ga = new Random();
         this.pos.translate(ga.nextInt(2)-1, ga.nextInt(2)-1);
     }
-    
+    /**
+     * Affiche la position du monstre
+     */
     public void affiche(){
         System.out.print("le monstre se trouve dans la position : ");
         pos.affiche();
