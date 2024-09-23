@@ -6,16 +6,8 @@ package org.centrale.objet.woe.TP_POO;
 
 /**
  *
- * @author Mouad
+ * @author user
  */
-public class TestPoint2D {
-
-    /**
-     *
-     * @param args
-     */
-    public static void main(String[] args){
-        Point2D p = new Point2D(6,8);
-        p.affiche();
-    }
+public class Guerrier extends Personnage{
+    
 }

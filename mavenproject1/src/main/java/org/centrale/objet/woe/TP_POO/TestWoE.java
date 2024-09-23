@@ -9,6 +9,11 @@ package org.centrale.objet.woe.TP_POO;
  * @author user
  */
 public class TestWoE {
+
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args){
         World monde = new World();
         //monde.creerMondeAlea();

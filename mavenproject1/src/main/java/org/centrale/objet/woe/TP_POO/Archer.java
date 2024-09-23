@@ -25,10 +25,18 @@ public class Archer extends Personnage {
         super();
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNbFleches() {
         return nbFleches;
     }
 
+    /**
+     *
+     * @param nbFleches
+     */
     public void setNbFleches(int nbFleches) {
         this.nbFleches = nbFleches;
     }
