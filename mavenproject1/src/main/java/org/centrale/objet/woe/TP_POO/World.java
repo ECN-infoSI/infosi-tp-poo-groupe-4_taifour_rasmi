@@ -13,8 +13,12 @@ public class World {
     //Attributs de la classe
     /**
      * robin: un archer
+     * guillaumeT : un archer
      * peon : un paysan 
-     * bugs : un lapin 
+     * bugs1 : un lapin
+     * bugs2 : un lapin
+     * grosBill : un guerrier
+     * wolfie : un loup
      */
     /**
      * @see org.centrale.objet.woe.TP_POO.Archer
@@ -78,6 +82,7 @@ public class World {
             return p;
         }
     
+    
     public void creerMondeAlea() {
 
         for (String[] W1 : W) {
@@ -86,7 +91,6 @@ public class World {
             }
         }
 
-        
         Point2D p = genererPosUnique();
         robin.setPos(p);
         W[p.getX()][p.getY()] = "Archer";
@@ -109,7 +113,7 @@ public class World {
         
         p = genererPosUnique();
         guillaumeT.setPos(p);
-        W[p.getX()][p.getY()] = "Archer2";
+        W[p.getX()][p.getY()] = "guillaumeT";
 
         
         p = genererPosUnique();

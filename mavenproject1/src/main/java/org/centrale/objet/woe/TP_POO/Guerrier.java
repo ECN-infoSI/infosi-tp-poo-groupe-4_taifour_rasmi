@@ -10,4 +10,6 @@ package org.centrale.objet.woe.TP_POO;
  */
 public class Guerrier extends Personnage{
     
+    
+    
 }

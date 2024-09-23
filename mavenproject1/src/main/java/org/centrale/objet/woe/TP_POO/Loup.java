@@ -10,4 +10,10 @@ package org.centrale.objet.woe.TP_POO;
  */
 public class Loup extends Monstre{
     
+    
+    public void affiche(){
+        System.out.print("le loup est dans la position : ");
+        getPos().affiche();
+    }
+    
 }
