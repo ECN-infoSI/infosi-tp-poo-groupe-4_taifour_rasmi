@@ -4,11 +4,12 @@
  */
 package org.centrale.objet.woe.TP_POO;
 import java.util.Random;
+
 /**
- *
- * @author Mouad
  * Classe personnage
+ * @author Mouad,Kaoutar
  */
+
 public class Personnage {
     //Attributs de la classe
     /**
@@ -19,7 +20,7 @@ public class Personnage {
      * pageAtt : pourcentage d'attack
      * pagePar : pourcentage de parade
      * distAttMax : distance d'attack maximale
-     * pos : position
+     * pos : position du personnage
      */
     private String nom;
     private int ptVie;
@@ -28,6 +29,10 @@ public class Personnage {
     private int pageAtt;
     private int pagePar;
     private int distAttMax;
+    
+    /**
+     * @see org.centrale.objet.woe.TP_POO.Point2D
+     */
     private Point2D pos;
     
     Personnage(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p){
@@ -120,11 +125,17 @@ public class Personnage {
         this.pos = pos;
     }
     
+    /**
+     * deplacer un personnage
+     * 
+     */
     public void deplace(){
         Random ga = new Random();
         this.pos.translate(ga.nextInt(2)-1, ga.nextInt(2)-1);
     }
-    
+    /**
+     * affiche la position du personnage avec son nom
+     */
     public void affiche(){
         System.out.print("le personnage "+nom+" est dans la position : ");
         pos.affiche();
