@@ -7,11 +7,15 @@ package org.centrale.objet.woe.TP_POO;
 import java.util.Random;
 
 /**
- *
- * @author user
+ * Classe Point2D pour définir la position 
+ * @author Mouad, Kaoutar
  */
 public class Point2D {
-
+    //Attributs 
+    /**
+     * x: position 
+     * y: position
+     */
     private int x;
     private int y;
     
@@ -46,25 +50,43 @@ public class Point2D {
         this.x=x;
         this.y=y;
     }
-    
+    /**
+     * changement de la position par translation
+     * @param dx
+     * @param dy 
+     */
     public void translate(int dx, int dy){
         setPos(x+dx,y+dy);
     }
-    
+    /**
+     * affichage de la position
+     */
     public void affiche(){
         System.out.println("("+x+","+y+")");
     }
-    
+    /**
+     * calcule de la distance par rapport à un autre point 
+     * @param p: le ponit avec lequel nous voulons calculer la distance
+     * @return la distance
+     */
     public double distance(Point2D p){
         double d = Math.sqrt(Math.pow(p.getX()-x,2)+Math.pow(p.getY()-y,2));
         return d;
     }
 
-
+    /**
+     * tester si les deux objets ont la même position
+     * @param pos
+     * @return 
+     */
     public boolean equals(Point2D pos){
         return this.x==pos.getX() && this.y==pos.getY();
     }
-    
+    /**
+     * génération d'un point différent de celui passé en paramètre 
+     * @param p
+     * @return 
+     */
     Point2D generePointDiff(Point2D p){
         
         Random ga = new Random();

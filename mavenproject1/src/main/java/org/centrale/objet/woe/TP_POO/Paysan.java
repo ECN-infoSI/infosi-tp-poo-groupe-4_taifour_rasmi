@@ -5,8 +5,8 @@
 package org.centrale.objet.woe.TP_POO;
 
 /**
- *
- * @author Mouad
+ * Classe Paysan
+ * @author Mouad, Kaoutar
  */
 public class Paysan extends Personnage{
     

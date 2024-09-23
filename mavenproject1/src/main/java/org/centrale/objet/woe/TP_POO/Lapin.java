@@ -5,8 +5,8 @@
 package org.centrale.objet.woe.TP_POO;
 
 /**
- *
- * @author user
+ * Classe Lapin
+ * @author Mouad, Kaoutar
  */
 public class Lapin extends Monstre {
     

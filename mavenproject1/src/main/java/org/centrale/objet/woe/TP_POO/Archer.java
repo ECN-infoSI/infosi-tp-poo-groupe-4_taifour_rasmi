@@ -5,10 +5,14 @@
 package org.centrale.objet.woe.TP_POO;
 
 /**
- *
- * @author Mouad
+ *  Classe Archer
+ *  @author Mouad, Kaoutar
  */
 public class Archer extends Personnage {
+    //Attributs 
+    /**
+     * nbFleches: nombre de flèches possédées par l'arher
+     */
     private int nbFleches;
     
     Archer(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p, int nbFleches){
@@ -32,9 +36,6 @@ public class Archer extends Personnage {
     public void setNbFleches(int nbFleches) {
         this.nbFleches = nbFleches;
     }
-    
-    
-    
-    
+   
     
 }

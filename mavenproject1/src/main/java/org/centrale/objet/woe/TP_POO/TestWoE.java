@@ -5,8 +5,8 @@
 package org.centrale.objet.woe.TP_POO;
 
 /**
- *
- * @author user
+ * cette classe a pour but de créer les différents objets nécessaires aux tests de la classe World et des autres classes
+ * @author Mouad, Kaoutar
  */
 public class TestWoE {
     public static void main(String[] args){

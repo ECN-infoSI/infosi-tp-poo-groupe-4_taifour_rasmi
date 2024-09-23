@@ -37,7 +37,8 @@ public class World {
         bugs = new Lapin();
     }
     /**
-     * Crée le monde en positionnat  l'archer, le paysant et le lapin de manière aléatoire dans le monde.
+     * Crée le monde en positionnant l'archer, le paysant et le lapin de manière aléatoire dans le monde.
+     * l'archer, le paysant et le lapin n'ont pas la même position initiale
      */
     void creerMondeAlea(){
         
