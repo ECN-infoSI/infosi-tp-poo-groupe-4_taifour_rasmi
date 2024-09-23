@@ -25,6 +25,10 @@ public class Point2D {
         this.y=p.getY();
     }
     
+    Point2D(){
+        
+    }
+    
     
     public int getX() {
         return x;
@@ -46,6 +50,7 @@ public class Point2D {
         this.x=x;
         this.y=y;
     }
+    
     
     public void translate(int dx, int dy){
         setPos(x+dx,y+dy);

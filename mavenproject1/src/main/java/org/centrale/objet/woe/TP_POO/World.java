@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.woe.TP_POO;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -12,6 +11,7 @@ import java.util.Random;
  */
 public class World {
     public Archer robin;
+    public Archer guillaumeT;
     public Paysan peon;
     public Lapin bugs;
     
@@ -19,6 +19,8 @@ public class World {
         robin = new Archer();
         peon = new Paysan();
         bugs = new Lapin();
+        guillaumeT= new Archer(robin);
+        
     }
     
     void creerMondeAlea(){

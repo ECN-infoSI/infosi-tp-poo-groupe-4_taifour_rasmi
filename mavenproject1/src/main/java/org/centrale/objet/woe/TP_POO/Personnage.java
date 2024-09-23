@@ -49,11 +49,11 @@ public class Personnage {
         this.pageAtt=perso.getPageAtt();
         this.pagePar=perso.getPagePar();
         this.distAttMax=perso.getDistAttMax();
-        this.pos= new Point2D(perso.getPos());
+        this.pos=new Point2D(perso.getPos());
     }
     
     Personnage(){
-        
+       this.pos = new Point2D(); 
     }
 
     public String getNom() {
