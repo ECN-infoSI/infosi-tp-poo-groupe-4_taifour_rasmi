@@ -9,5 +9,10 @@ package org.centrale.objet.woe.TP_POO;
  * @author Mouad, kaoutar
  */
 public class Objet {
+    private Point2D pos;
+    
+    Objet(){
+        pos = new Point2D();
+    }
     
 }
