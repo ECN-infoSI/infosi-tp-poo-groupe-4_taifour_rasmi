@@ -132,9 +132,9 @@ public class World {
     }
     
     /**
-     * Affichage de Word
+     * Affichage de World
      */
-    public void afficheWord(){
+    public void afficheWorld(){
     
         
         for (String[] W1 : W) {

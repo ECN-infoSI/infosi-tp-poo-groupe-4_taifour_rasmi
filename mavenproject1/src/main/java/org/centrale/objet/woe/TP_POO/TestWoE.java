@@ -63,7 +63,7 @@ public class TestWoE {
         
         
         
-        monde.afficheWord();
+        monde.afficheWorld();
         
         /*monde.bugs.deplace();
         monde.peon.deplace();

@@ -14,5 +14,14 @@ public class Objet {
     Objet(){
         pos = new Point2D();
     }
+
+    public Point2D getPos() {
+        return pos;
+    }
+
+    public void setPos(Point2D pos) {
+        this.pos = pos;
+    }
+    
     
 }
