@@ -4,6 +4,8 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.util.Random;
+
 /**
  *  Classe Archer
  *  @author Mouad, Kaoutar
@@ -45,5 +47,18 @@ public class Archer extends Personnage {
         this.nbFleches = nbFleches;
     }
    
+    public void combattre(Creature crea){
+        if(getPos().distance(crea.getPos())>1 && getPos().distance(crea.getPos())<getDistAttMax()){ 
+            Random ga = new Random();
+            int rand = (int)(ga.nextInt(100)+1);
+            if(rand>getPageAtt()){
+                System.out.println("l'attaque est ratée.");
+            }
+            else{
+                System.out.println("attaque réussite");
+                crea.setPtVie(crea.getPtVie()-getDegAtt());
+            }
+        }
+    }
     
 }

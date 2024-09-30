@@ -38,9 +38,11 @@ public class Creature {
         pagePar=paPar;
         pos=new Point2D(p);
     }
+    
     Creature(){
         pos=new Point2D();
     }
+    
     public int getPtVie() {
         return ptVie;
     }

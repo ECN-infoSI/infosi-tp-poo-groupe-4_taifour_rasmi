@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.woe.TP_POO;
+import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -12,116 +13,159 @@ import java.util.Random;
 public class World {
     //Attributs de la classe
     /**
-     * robin: un archer
-     * peon : un paysan 
-     * bugs1: le premier lapin 
-     * bugs2: le deuxième lapin
-     * grosBill: un guerier
-     * wolfie: un loup
      * W: la surface sur laquelle les pretagonistes se place
+     * listeC: la liste de l'ensemble des crétures 
+     * listeO: la liste de l'ensemble des objets 
      */
-    /**
-     * @see org.centrale.objet.woe.TP_POO.Archer
-     */
-    public Archer robin;
-
-    public Archer guillaumeT;
-    /**
-     *@see org.centrale.objet.woe.TP_POO.Paysan
-     */
-    
-    public Paysan peon;
-
-    /**
-     *@see org.centrale.objet.woe.TP_POO.Lapin
-     */
-    public Lapin bugs1;
-
-    public Lapin bugs2;
-    
-    /**
-     *@see org.centrale.objet.woe.TP_POO.Guerrier
-     */
-    public Guerrier grosBill;
-    
-    /**
-     *@see org.centrale.objet.woe.TP_POO.Loup
-     */
-    public Loup wolfie;
-    
+   
     public String[][] W;
     
+    public LinkedList<Creature> listeC=new LinkedList<>();
+    public LinkedList<Objet> listeO=new LinkedList<>();
+    
     World(){
-        robin = new Archer();
-        peon = new Paysan();
-        bugs1 = new Lapin();
-        bugs2 = new Lapin();
-        guillaumeT = new Archer(robin);
-        grosBill = new Guerrier();
-        wolfie = new Loup();
-        W = new String[40][40];
+        
+        W = new String[40][40]; 
+    }
+    /**
+     * génération d'un nombre aléatoire 
+     * @return un nombre alèatoire
+     */
+    
+    public int genNombreAleatoire(){
+        Random ga = new Random();
+        return ga.nextInt(20);
+    }
+    
+    /**
+     * génération d'un tableau des 5 nombre aléatires 
+     * @return tableau des 5 nombre aléatires 
+     */
+    
+    public int[] geneTabl(){
+        int[] t=new int[5];
+        t[0]=genNombreAleatoire();
+        //System.out.print("["+t[0]+"]");
+        for(int i=1;i<=4;i++){
+            t[i]=genNombreAleatoire();
+            for(int j=1;j<=i;j++){
+                while(t[j-1]==t[i]) t[i]=genNombreAleatoire();
+            }  
+            //System.out.print("["+t[i]+"]");
+        }
+        return t;
         
     }
-  
+    
+    /**
+     * creation des pretagonistes  
+     * @param k: le nombre aléatoire pour créer la créature
+     */
+    
+    public void creaArcher(int k){
+        for(int i=0;i<k;i++){
+            Archer a=new Archer();
+            a.setPos(new Point2D(genererPosUnique()));
+            a.setNom("archer"+i);
+            a.affiche();
+            listeC.add(a);
+        }
+    }
+    /**
+     * creation des pretagonistes  
+     * @param k: le nombre aléatoire pour créer la créature
+     */
+    public void creaPaysan(int k){
+        for(int i=0;i<k;i++){
+            Paysan p=new Paysan();
+            p.setPos(new Point2D(genererPosUnique()));
+            p.setNom("paysan"+i);
+            p.affiche();
+            listeC.add(p);
+        }
+        
+    }
+    /**
+     * creation des pretagonistes  
+     * @param k: le nombre aléatoire pour créer la créature
+     */
+    public void creaLapin(int k){
+        for(int i=0;i<k;i++){
+            Lapin p=new Lapin();
+            p.setPos(new Point2D(genererPosUnique()));
+            p.affiche();
+            listeC.add(p);
+        }
+        
+    }
+    /**
+     * creation des pretagonistes  
+     * @param k: le nombre aléatoire pour créer la créature
+     */
+    public void creaGuerrier(int k){
+        for(int i=0;i<k;i++){
+            Guerrier p=new Guerrier();
+            p.setPos(new Point2D(genererPosUnique()));
+            p.setNom("guerrier"+i);
+            p.affiche();
+            listeC.add(p);
+        }
+        
+    }
+    /**
+     * creation des pretagonistes  
+     * @param k: le nombre aléatoire pour créer la créature
+     */
+    public void creaLoup(int k){
+        for(int i=0;i<k;i++){
+            Loup p=new Loup();
+            p.setPos(new Point2D(genererPosUnique()));
+            p.affiche();
+            listeC.add(p);
+        }
+        
+    }
+    
+    
+    
     /**
      * génération d'une position non occupée par un autre protagoniste
-     * @return la position
+     * @return une position unique 
      */
     public Point2D genererPosUnique() {
-            Point2D p;
-            Random ga = new Random();
-            do {
-                p = new Point2D(ga.nextInt(W.length), ga.nextInt(W[0].length));
-            } while (!W[p.getX()][p.getY()].equals(".")); 
-            return p;
-        }
+        Point2D p;
+        Random ga = new Random();
+        p = new Point2D(ga.nextInt(30), ga.nextInt(30));
+        for(int i=0;i<listeC.size();i++){
+            for(int j=0;j<=i;j++){
+                while(listeC.get(j).getPos().equals(p)) p = new Point2D(ga.nextInt(30), ga.nextInt(30));
+            }  
+        }   
+        
+        for(int i=0;i<listeO.size();i++){
+            for(int j=0;j<=i;j++){
+                while(listeO.get(j).getPos().equals(p)) p = new Point2D(ga.nextInt(30), ga.nextInt(30));
+            }  
+        }  
+        
+        return p;
+    }
     /**
      * Crée le monde en positionnat  les pretagonistes de manière aléatoire dans le monde.
      * les pretagonistes n'ont pas la même position 
      */
+    
     public void creerMondeAlea() {
 
-        for (String[] W1 : W) {
-            for (int j = 0; j < W1.length; j++) {
-                W1[j] = "."; 
-            }
-        }
-
-        
-        Point2D p = genererPosUnique();
-        robin.setPos(p);
-        W[p.getX()][p.getY()] = "Archer";
-
-        
-        p = genererPosUnique();
-        peon.setPos(p);
-        W[p.getX()][p.getY()] = "Paysan";
-
-        
-        p = genererPosUnique();
-        bugs1.setPos(p);
-        W[p.getX()][p.getY()] = "Lapin1";
-
-        
-        p = genererPosUnique();
-        bugs2.setPos(p);
-        W[p.getX()][p.getY()] = "Lapin2";
-
-        
-        p = genererPosUnique();
-        guillaumeT.setPos(p);
-        W[p.getX()][p.getY()] = "Archer2";
-
-        
-        p = genererPosUnique();
-        grosBill.setPos(p);
-        W[p.getX()][p.getY()] = "Guerrier";
-
-       
-        p = genererPosUnique();
-        wolfie.setPos(p);
-        W[p.getX()][p.getY()] = "Loup";
+        int[] t=geneTabl();
+        creaArcher(t[0]);
+        creaPaysan(t[1]);
+        creaGuerrier(t[2]);
+        creaLapin(t[3]);
+        creaLoup(t[4]);
     }
+        
+        
     /**
      * Affichage de Word
      */

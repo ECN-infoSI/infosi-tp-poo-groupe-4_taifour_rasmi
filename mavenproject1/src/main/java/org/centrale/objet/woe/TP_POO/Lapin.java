@@ -22,5 +22,10 @@ public class Lapin extends Monstre {
         super();
     }
     
+    public void affiche(){
+        System.out.print("le lapin est dans la position : ");
+        getPos().affiche();
+    }
+    
     
 }

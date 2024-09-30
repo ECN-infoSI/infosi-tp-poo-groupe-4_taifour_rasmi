@@ -72,7 +72,7 @@ public class Personnage extends Creature{
      * Affiche la position de la Personnage
      */
     public void affiche(){
-        System.out.print("le monstre se trouve dans la position : ");
+        System.out.print("le personnage "+nom+" se trouve dans la position : ");
         this.getPos().affiche();
     }
    
