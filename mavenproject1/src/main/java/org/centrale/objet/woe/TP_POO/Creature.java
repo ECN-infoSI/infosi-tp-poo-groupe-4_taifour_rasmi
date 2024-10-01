@@ -109,11 +109,5 @@ public class Creature {
         Random ga = new Random();
         this.getPos().translate(ga.nextInt(2)-1, ga.nextInt(2)-1);
     }
-    /**
-     * Affiche la position de la creature
-     */
-    public void affiche(){
-        System.out.print("le monstre se trouve dans la position : ");
-        this.getPos().affiche();
-    }
+    
 }

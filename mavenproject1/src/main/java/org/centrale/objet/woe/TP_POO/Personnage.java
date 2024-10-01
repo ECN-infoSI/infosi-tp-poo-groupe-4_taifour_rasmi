@@ -68,7 +68,13 @@ public class Personnage extends Creature{
     public void setDistAttMax(int distAttMax) {
         this.distAttMax = distAttMax;
     }
-
+    /**
+     * Affiche la position de la Personnage
+     */
+    public void affiche(){
+        System.out.print("le personnage "+nom+" se trouve dans la position : ");
+        this.getPos().affiche();
+    }
    
 
 

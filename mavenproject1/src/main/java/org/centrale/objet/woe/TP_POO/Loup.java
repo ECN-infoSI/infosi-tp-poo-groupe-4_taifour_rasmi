@@ -8,7 +8,7 @@ import java.util.Random;
 
 /**
  *
- * @author user
+ * @author Mouad, Kaoutar
  */
 public class Loup extends Monstre{
     
