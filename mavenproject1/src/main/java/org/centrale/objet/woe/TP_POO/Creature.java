@@ -110,4 +110,10 @@ public class Creature {
         this.getPos().translate(ga.nextInt(2)-1, ga.nextInt(2)-1);
     }
     
+    /**
+     * affichage de la creature
+     */
+    void affiche(){
+    }
+    
 }
