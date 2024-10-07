@@ -22,12 +22,15 @@ public class World {
    
     public String[][] W;
     
-    public ArrayList<Creature> listeC=new ArrayList<>();
-    public ArrayList<Objet> listeO=new ArrayList<>();
+    public ArrayList<Creature> listeC;
+    public ArrayList<Objet> listeO;
     
-    World(){
+    public World(){
         
         W = new String[20][20]; 
+        listeC = new ArrayList<>();
+        listeO = new ArrayList<>();
+        
     }
     /**
      * génération d'un nombre aléatoire 
@@ -170,7 +173,6 @@ public class World {
 
         //int[] t=geneTabl();
         
-            
 
         creaArcher(10);
         creaPaysan(40);

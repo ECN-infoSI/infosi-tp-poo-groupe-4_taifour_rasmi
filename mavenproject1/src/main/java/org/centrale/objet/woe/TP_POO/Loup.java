@@ -12,6 +12,17 @@ import java.util.Random;
  */
 public class Loup extends Monstre{
     
+    public Loup(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
+        super(pV, dA, pPar, paAtt, paPar, p);
+    }
+    
+    public Loup(Lapin l){
+        super(l);
+    }
+    
+    public Loup(){
+        super();
+    }
     
     public void affiche(){
         System.out.print("le loup est dans la position : ");

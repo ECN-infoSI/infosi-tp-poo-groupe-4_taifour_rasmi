@@ -10,15 +10,15 @@ package org.centrale.objet.woe.TP_POO;
  */
 public class Paysan extends Personnage{
     
-    Paysan(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p){
+    public Paysan(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p){
         super(n,pV,dA,pPar,paAtt,paPar,dMax,p);
     }
     
-    Paysan(Paysan p){
+    public Paysan(Paysan p){
         super(p);
     }
     
-    Paysan(){
+    public Paysan(){
         super();
     }
     

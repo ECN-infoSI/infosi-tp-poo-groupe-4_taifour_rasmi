@@ -10,15 +10,15 @@ package org.centrale.objet.woe.TP_POO;
  */
 public class Lapin extends Monstre {
     
-    Lapin(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
+    public Lapin(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
         super(pV, dA, pPar, paAtt, paPar, p);
     }
     
-    Lapin(Lapin l){
+    public Lapin(Lapin l){
         super(l);
     }
     
-    Lapin(){
+    public Lapin(){
         super();
     }
     

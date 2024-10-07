@@ -1,2 +1,2 @@
-# infosi-tp-poo-groupe-4_taifour_rasmi
-infosi-tp-poo-groupe-4_taifour_rasmi created by GitHub Classroom
+# BDONN_TP
+Gestion d'une base de données Postgresql d'un jeu "World of ECN"

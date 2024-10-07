@@ -30,7 +30,7 @@ public class Creature {
      */
     private Point2D pos;
     
-    Creature(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
+    public Creature(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
         ptVie=pV;
         degAtt=dA;
         ptPar=pPar;
@@ -39,7 +39,7 @@ public class Creature {
         pos=new Point2D(p);
     }
     
-    Creature(){
+    public Creature(){
         pos=new Point2D();
     }
     
