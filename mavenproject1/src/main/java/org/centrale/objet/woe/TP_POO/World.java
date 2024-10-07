@@ -21,16 +21,15 @@ public class World {
      */
    
     public String[][] W;
-    
+    private final int taille=20;
     public ArrayList<Creature> listeC;
     public ArrayList<Objet> listeO;
     
     public World(){
         
-        W = new String[20][20]; 
+        W = new String[taille][taille]; 
         listeC = new ArrayList<>();
         listeO = new ArrayList<>();
-        
     }
     /**
      * génération d'un nombre aléatoire 
@@ -137,7 +136,7 @@ public class World {
      * génération d'une position non occupée par un autre protagoniste / objet
      * @return une position unique 
      */
-    public Point2D genererPosUnique() {
+    /*public Point2D genererPosUnique() {
         Point2D p;
         Random ga = new Random();
         p = new Point2D(ga.nextInt(1000), ga.nextInt(1000));
@@ -145,17 +144,30 @@ public class World {
             for(int j=0;j<=i;j++){
                 while(listeC.get(j).getPos().equals(p)) p = new Point2D(ga.nextInt(1000), ga.nextInt(1000));
             }  
-        }  
+        }/**/
         //Pour la liste des objets
         /*
         for(int i=0;i<listeO.size();i++){
             for(int j=0;j<=i;j++){
                 while(listeO.get(j).getPos().equals(p)) p = new Point2D(ga.nextInt(1000), ga.nextInt(1000));
             }  
-        }*/ 
+        }
+
+        
         
         return p;
     }
+    */
+    
+    public Point2D genererPosUnique(){
+        Point2D p;
+        Random ga = new Random();
+        do{
+            p=new Point2D(ga.nextInt(W.length), ga.nextInt(W[0].length));
+        }while(!W[p.getX()][p.getY()].equals("."));
+        return p;
+    }
+    
     
     
     /**
