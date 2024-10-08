@@ -10,7 +10,7 @@ import java.util.Random;
  *
  * @author Mouad, Kaoutar
  */
-public class Loup extends Monstre{
+public class Loup extends Monstre implements Combattant{
     
     public Loup(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
         super(pV, dA, pPar, paAtt, paPar, p);
@@ -24,11 +24,16 @@ public class Loup extends Monstre{
         super();
     }
     
+
     public void affiche(){
         System.out.print("le loup est dans la position : ");
         getPos().affiche();
     }
-    
+    /**
+     * méthode combattre de la creature de type Loup
+     * @param crea 
+     */
+    @Override
     public void combattre(Creature crea){
         if(getPos().distance(crea.getPos())==1){ 
             Random ga = new Random();

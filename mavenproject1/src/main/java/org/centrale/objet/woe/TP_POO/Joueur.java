@@ -8,36 +8,41 @@ import java.util.Scanner;
 import java.util.Random;
 
 /**
- *
- * @author user
+ *Cette classe a pour but de céer un joueur. Ce joueur peut choisir le type de personnage et la manière de jeu (se déplacer ou bien combattre)
+ * @author Mouad, Kaoutar
+ * 
  */
 public class Joueur {
-    
+    //Attributs de la classe
+    /**
+     * perso: le personnage choisi par l'utilisateur 
+     */
     private Personnage perso;
-    
-
-   
     
     public Joueur(){
     
     }
-    
+    /**
+     * cette méthode a pour but de permettre au joueur le choix du personnage et so nom
+     */
     public void choisirType(){
+        
         Scanner sc = new Scanner(System.in);
+        
         System.out.println("Veuillez choisir le type de votre personnage en choisissant le numéro correspondant :");
         System.out.println("1 - Guerrier");
         System.out.println("2 - Archer");
         
         int s = sc.nextInt();
+        //pour gerer les valeurs saisies par le joueur 
         while(s!=1 && s!=2){
+            
             System.out.println("Veuillez saisir le numéro correspondant à votre choix :");
             s = sc.nextInt();
-            
         }
+        
         sc.nextLine();
-        
         System.out.println("Entrez le nom de votre personnage");
-        
         String nom = sc.nextLine();
         
         Random ga = new Random();

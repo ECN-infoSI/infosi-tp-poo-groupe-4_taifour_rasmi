@@ -10,7 +10,7 @@ import java.util.Random;
  * Classe Creature 
  * @author Mouad, Kaoutar
  */
-public class Creature {
+public abstract class Creature implements Deplacable {
     //Attributs de la classe
     /**
      * ptVie : points de vie de la creature
@@ -102,18 +102,11 @@ public class Creature {
         this.pos = pos;
     }
     
-    /**
-     * deplace la creature
-     */
-    public void deplace(){
-        Random ga = new Random();
-        this.getPos().translate(ga.nextInt(2)-1, ga.nextInt(2)-1);
-    }
+
     
     /**
      * affichage de la creature
      */
-    public void affiche(){
-    }
+    public abstract void afficher();
     
 }

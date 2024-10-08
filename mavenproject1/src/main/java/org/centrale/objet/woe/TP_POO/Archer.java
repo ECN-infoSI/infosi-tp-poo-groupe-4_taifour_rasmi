@@ -10,7 +10,7 @@ import java.util.Random;
  *  Classe Archer
  *  @author Mouad, Kaoutar
  */
-public class Archer extends Personnage {
+public class Archer extends Personnage implements Combattant{
     //Attributs 
     /**
      * nbFleches: nombre de flèches possédées par l'arher
@@ -31,22 +31,18 @@ public class Archer extends Personnage {
         super();
     }
 
-    /**
-     *
-     * @return
-     */
     public int getNbFleches() {
         return nbFleches;
     }
 
-    /**
-     *
-     * @param nbFleches
-     */
     public void setNbFleches(int nbFleches) {
         this.nbFleches = nbFleches;
     }
-   
+    /**
+     * méthode combattre de la creature de type Archer
+     * @param crea 
+    */
+    @Override
     public void combattre(Creature crea){
         if(getPos().distance(crea.getPos())>1 && getPos().distance(crea.getPos())<getDistAttMax()){ 
             nbFleches -= 1;

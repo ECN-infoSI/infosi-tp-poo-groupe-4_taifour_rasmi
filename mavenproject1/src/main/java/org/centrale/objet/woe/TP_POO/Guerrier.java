@@ -7,8 +7,8 @@ package org.centrale.objet.woe.TP_POO;
 import java.util.Random;
 
 /**
- *
- * @author user
+ * Cette class définit un type de personnage qui est Guerrier
+ * @author Mouad, Kaoutar
  */
 public class Guerrier extends Personnage{
     
@@ -23,9 +23,12 @@ public class Guerrier extends Personnage{
     public Guerrier(){
         super();
     }
-    
-    public void combattre(Creature crea){
-        if(getPos().distance(crea.getPos())==1){ 
+    /**
+     * cette méthode a pour but de permettre le combat entre deux creature
+     * @param creature 
+     */
+    public void combattre(Creature creature){
+        if(getPos().distance(creature.getPos())==1){ 
             Random ga = new Random();
             int rand = (int)(ga.nextInt(100)+1);
             if(rand>getPageAtt()){
@@ -34,11 +37,11 @@ public class Guerrier extends Personnage{
             else{
                 System.out.println("attaque réussite");
                 rand = (int)(ga.nextInt(100)+1);
-                if(rand>crea.getPagePar()){
-                    crea.setPtVie(crea.getPtVie()-getDegAtt());
+                if(rand>creature.getPagePar()){
+                    creature.setPtVie(creature.getPtVie()-getDegAtt());
                 }
                 else{
-                    crea.setPtVie(crea.getPtVie()-getDegAtt()+crea.getPtPar());
+                    creature.setPtVie(creature.getPtVie()-getDegAtt()+creature.getPtPar());
                 }
             }
         }  

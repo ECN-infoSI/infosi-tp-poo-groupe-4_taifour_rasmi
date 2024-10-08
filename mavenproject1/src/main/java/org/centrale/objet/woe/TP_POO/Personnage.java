@@ -4,13 +4,15 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.util.Random;
+
 
 /**
  * Classe personnage
  * @author Mouad,Kaoutar
  */
 
-public class Personnage extends Creature{
+public abstract class Personnage extends Creature{
     //Attributs de la classe
     /**
      * nom du personnage
@@ -68,10 +70,22 @@ public class Personnage extends Creature{
     public void setDistAttMax(int distAttMax) {
         this.distAttMax = distAttMax;
     }
+    
+    
+    /**
+     * deplace le personnage
+     */
+    @Override
+    public void deplacer(){
+        Random ga = new Random();
+        this.getPos().translate(ga.nextInt(2)-1, ga.nextInt(2)-1);
+    }
+    
     /**
      * Affiche la position de la Personnage
      */
-    public void affiche(){
+    @Override
+    public void afficher(){
         System.out.print("le personnage "+nom+" se trouve dans la position : ");
         this.getPos().affiche();
     }

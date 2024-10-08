@@ -5,7 +5,7 @@
 package org.centrale.objet.woe.TP_POO;
 
 /**
- *
+ * Classe Epee
  * @author Mouad, Kaoutar
  */
 public class Epee extends Objet {

@@ -4,33 +4,44 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.util.Random;
+
 
 /**
  * Classe Monstre
  * @author Mouad, Kaoutar
  * 
  */
-public class Monstre extends Creature{
+public abstract class Monstre extends Creature{
     
-    Monstre(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
+    public Monstre(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
         super(pV, dA, pPar, paAtt, paPar, p);
     }
-    Monstre(Monstre m){
+    public Monstre(Monstre m){
         super(m.getPtVie(),m.getDegAtt(),m.getPtPar(),m.getPageAtt(),m.getPagePar(),new Point2D(m.getPos()));
     }
     
-    Monstre(){
+    public Monstre(){
         super();
     }
 
-    /**
-     * Affiche la position de la creature
+    
+     /**
+     * deplace le personnage
      */
-    public void affiche(){
+    @Override
+    public void deplacer(){
+        Random ga = new Random();
+        this.getPos().translate(ga.nextInt(2)-1, ga.nextInt(2)-1);
+    }
+    
+    /**
+     * Affiche la position du monstre
+     */
+    @Override
+    public void afficher(){
         System.out.print("le monstre se trouve dans la position : ");
         this.getPos().affiche();
     }
-
- 
-    
+   
 }
