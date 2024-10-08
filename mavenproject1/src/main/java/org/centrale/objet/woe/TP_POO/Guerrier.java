@@ -12,7 +12,8 @@ import java.util.Random;
  */
 public class Guerrier extends Personnage{
     
-    
+    public Guerrier(){
+    }
     public void combattre(Creature crea){
         if(getPos().distance(crea.getPos())==1){ 
             Random ga = new Random();

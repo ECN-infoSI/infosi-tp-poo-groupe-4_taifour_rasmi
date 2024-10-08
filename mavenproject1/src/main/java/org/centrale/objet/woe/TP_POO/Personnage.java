@@ -23,19 +23,19 @@ public class Personnage extends Creature{
      * @see org.centrale.objet.woe.TP_POO.Point2D
      */
     
-    Personnage(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p){
+    public Personnage(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p){
         super(pV,dA,pPar,paAtt,paPar,new Point2D(p));
         nom=n;
         distAttMax=dMax;
     }
     
-    Personnage(Personnage perso){
+    public Personnage(Personnage perso){
         super(perso.getPtVie(),perso.getDegAtt(),perso.getPtPar(),perso.getPageAtt(),perso.getPagePar(),new Point2D(perso.getPos()));
         this.nom=perso.getNom();
         this.distAttMax=perso.getDistAttMax();
     }
     
-    Personnage(){
+    public Personnage(){
         
     }
 

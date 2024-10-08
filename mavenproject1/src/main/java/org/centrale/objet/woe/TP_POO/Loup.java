@@ -12,7 +12,8 @@ import java.util.Random;
  */
 public class Loup extends Monstre{
     
-    
+    public Loup(){
+    }
     public void affiche(){
         System.out.print("le loup est dans la position : ");
         getPos().affiche();

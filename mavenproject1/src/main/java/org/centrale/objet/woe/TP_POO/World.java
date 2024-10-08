@@ -12,7 +12,7 @@ import java.util.Random;
  * Cette classe a pour but de représenter le « monde » dans lequel  évolueront les différents protagonistes de WoE
  * @author Mouad, Kaoutar
  */
-public class World {
+public  class World {
     //Attributs de la classe
     /**
      * W: la surface sur laquelle les pretagonistes se place
@@ -25,7 +25,7 @@ public class World {
     public ArrayList<Creature> listeC=new ArrayList<>();
     public ArrayList<Objet> listeO=new ArrayList<>();
     
-    World(){
+    public World(){
         
         W = new String[20][20]; 
     }
@@ -64,7 +64,7 @@ public class World {
      * @param k: le nombre aléatoire pour créer la créature
      */
     
-    public void creaArcher(int k){
+    public  void creaArcher(int k){
         for(int i=0;i<k;i++){
             Archer a=new Archer();
             //a.setPos(new Point2D(genererPosUnique()));
@@ -200,5 +200,6 @@ public class World {
         }
     
     }
+   
 
 }

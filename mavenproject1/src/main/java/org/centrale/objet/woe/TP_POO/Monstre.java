@@ -12,14 +12,14 @@ package org.centrale.objet.woe.TP_POO;
  */
 public class Monstre extends Creature{
     
-    Monstre(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
+    public Monstre(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
         super(pV, dA, pPar, paAtt, paPar, p);
     }
-    Monstre(Monstre m){
+    public Monstre(Monstre m){
         super(m.getPtVie(),m.getDegAtt(),m.getPtPar(),m.getPageAtt(),m.getPagePar(),new Point2D(m.getPos()));
     }
     
-    Monstre(){
+    public Monstre(){
         super();
     }
 
