@@ -5,7 +5,6 @@
 package org.centrale.objet.woe.TP_POO;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -20,7 +19,7 @@ public  class World {
      * listeO: la liste de l'ensemble des objets 
      */
     public String[][] W;
-    private final int taille=20;
+    private final int taille=40;
     public ArrayList<Creature> listeC;
     public ArrayList<Objet> listeO;
     
@@ -67,8 +66,10 @@ public  class World {
     public  void creaArcher(int k){
         for(int i=0;i<k;i++){
             Archer a=new Archer();
-            //a.setPos(new Point2D(genererPosUnique()));
-            a.setNom("archer"+i);
+            a.setPos(new Point2D(genererPosUnique()));
+            a.setNom("Ar"+i);
+            W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
+            a.getPos().affiche();
             a.setPtVie(100);
             listeC.add(a);
         }
@@ -79,11 +80,12 @@ public  class World {
      */
     public void creaPaysan(int k){
         for(int i=0;i<k;i++){
-            Paysan p=new Paysan();
-            p.setPtVie(80);
-            //p.setPos(new Point2D(genererPosUnique()));
-            p.setNom("paysan"+i);
-            listeC.add(p);
+            Paysan a=new Paysan();
+            a.setPtVie(80);
+            a.setPos(new Point2D(genererPosUnique()));
+            a.setNom("Pay"+i);
+            W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
+            listeC.add(a);
         }
         
     }
@@ -94,10 +96,11 @@ public  class World {
     public void creaLapin(int k){
         
         for(int i=0;i<k;i++){
-            Lapin p=new Lapin();
-            //p.setPos(new Point2D(genererPosUnique()));
-            p.setPtVie(50);
-            listeC.add(p);
+            Lapin a=new Lapin();
+            a.setPos(new Point2D(genererPosUnique()));
+            W[a.getPos().getX()][a.getPos().getY()]="La"+i;
+            a.setPtVie(50);
+            listeC.add(a);
         }
         
     }
@@ -107,11 +110,12 @@ public  class World {
      */
     public void creaGuerrier(int k){
         for(int i=0;i<k;i++){
-            Guerrier p=new Guerrier();
-            //p.setPos(new Point2D(genererPosUnique()));
-            p.setNom("guerrier"+i);
-            p.setPtVie(150);
-            listeC.add(p);
+            Guerrier a=new Guerrier();
+            a.setPos(new Point2D(genererPosUnique()));
+            a.setNom("Guer"+i);
+            W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
+            a.setPtVie(150);
+            listeC.add(a);
         }
         
     }
@@ -121,44 +125,14 @@ public  class World {
      */
     public void creaLoup(int k){
         for(int i=0;i<k;i++){
-            Loup p=new Loup();
-            //p.setPos(new Point2D(genererPosUnique()));
-            p.setPtVie(100);
-            listeC.add(p);
+            Loup a=new Loup();
+            a.setPos(new Point2D(genererPosUnique()));
+            W[a.getPos().getX()][a.getPos().getY()]="Lou"+i;
+            a.setPtVie(100);
+            listeC.add(a);
         }
         
     }
-    
-    
-    
-    /**
-     * génération d'une position non occupée par un autre protagoniste / objet
-     * @return une position unique 
-     */
-    /*public Point2D genererPosUnique() {
-        Point2D p;
-        Random ga = new Random();
-        p = new Point2D(ga.nextInt(1000), ga.nextInt(1000));
-        for(int i=0;i<listeC.size();i++){
-            for(int j=0;j<=i;j++){
-                while(listeC.get(j).getPos().equals(p)) p = new Point2D(ga.nextInt(1000), ga.nextInt(1000));
-            }  
-        }/**/
-        //Pour la liste des objets
-        /*
-        for(int i=0;i<listeO.size();i++){
-            for(int j=0;j<=i;j++){
-                while(listeO.get(j).getPos().equals(p)) p = new Point2D(ga.nextInt(1000), ga.nextInt(1000));
-            }  
-        }
-
-        
-        
-        return p;
-    }
-    */
-    
-    
     
     /**
      * génération d'une position non occupée par un autre protagoniste / objet
@@ -173,8 +147,6 @@ public  class World {
         return p;
     }
     
-    
-    
     /**
      * Crée le monde en positionant les protagonistes et les objets de manière aléatoire dans le monde.
      * les protagonistes et les objets n'ont pas les mêmes positions
@@ -188,29 +160,12 @@ public  class World {
             }
         }
 
-        //int[] t=geneTabl();
-        
-
         creaArcher(10);
-        creaPaysan(40);
+        creaPaysan(30);
         creaGuerrier(15);
-        creaLapin(150);
-        creaLoup(200);
-        int pointVieT=0;
-        Iterator<Creature> listIt = listeC.iterator();
-        /*long debutN=System.nanoTime();
-        for(int i=0;i<listeC.size();i++){
-            pointVieT+=listeC.get(i).getPtVie();
-        } */
+        creaLapin(30);
+        creaLoup(10);
         
-        long debutN=System.nanoTime();
-        while(listIt.hasNext()) {
-            Creature p = listIt.next();
-            pointVieT+=p.getPtVie();
-        }
-        System.out.println("Le nombre total des poitns de vie est ="+pointVieT);
-        long finN=System.nanoTime();
-        System.out.println("Le temps écoulé en ns: "+(finN-debutN));
     }
         
         
@@ -227,6 +182,17 @@ public  class World {
             System.out.println(); 
         }
     
+    }
+    
+    
+        /**
+     * méthode qui définit le tour du jeu   
+     * @param joueur: le joueur humain
+     */
+    public void tourDeJeu(Joueur joueur){
+        Random ga = new Random();
+        int i = ga.nextInt(2);
+        
     }
 
 }

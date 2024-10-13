@@ -22,6 +22,16 @@ public class Joueur {
     public Joueur(){
     
     }
+     public Personnage getPerso() {
+        return perso;
+    }
+
+    public void setPerso(Personnage perso) {
+        this.perso = perso;
+    }
+    
+    
+    
     /**
      * cette méthode a pour but de permettre au joueur le choix du personnage et so nom
      */
@@ -68,15 +78,73 @@ public class Joueur {
         
         System.out.println(perso instanceof Guerrier);
         
+    }
+    /**
+     * une méthode pour donner au joueur la possibilité de choisir de combattre ou bien de se déplacer
+     * @return une chaîne de caractère correspondante au choix
+     */
+    public String choixJeu(){
+        
+        System.out.println("Choisissez le chiffre correspondant à votre action pour votre tour de rôle: ");
+        System.out.println("1- Combattre");
+        System.out.println("2- Se déplacer");
+        Scanner sc = new Scanner(System.in);
+        int s = sc.nextInt();
+        //tant que la saisie n'égale à 0 ni à 1
+        while(s!=1 && s!=2){
+            
+            System.out.println("Veuillez saisir le numéro correspondant à votre choix :");
+            s = sc.nextInt();
+        }
+        if(s==1){
+            return ("combattre");
+        }else{
+            return ("se deplacer");
+        }   
         
     }
-
-    public Personnage getPerso() {
-        return perso;
+     
+    
+    public void deplacerJoueur(World monde){
+        int taille=monde.W.length;
+        int x=perso.getPos().getX();
+        int y=perso.getPos().getY();
+        System.out.println("choisir la position pour le déplacement");
+        System.out.println("1- En haut"); // (i-1,j)
+        System.out.println("2- En bas"); // (i+1,j)
+        System.out.println("3- A droite"); // (i,j+1)
+        System.out.println("4- A gauche");// (i,j-1)
+        System.out.println("5- Diagonale en haut à droite");// (i-1,j+1)
+        System.out.println("6- Diagonale en bas à gauche"); // (i+1,j-1)
+        System.out.println("7- Diagonale en haut à gauche"); // (i-1,j-1)
+        System.out.println("8- Diagonale en bas à droite"); // (i+1,j+1)
+        
+        int k=valeurEntrer();
+        
+        switch(k){
+            case 1:
+                if(x-1>=0 && x-1<taille){
+                    if(".".equals(monde.W[x-1][y])) perso.setPos(new Point2D(x-1,y));
+                    else 
+                }
+        }
+        
+    } 
+    
+    private int valeurEntrer(World monde){
+        int taille=monde.W.length;
+        int x=perso.getPos().getX();
+        int y=perso.getPos().getY();
+        Scanner sc = new Scanner(System.in);
+        int s = sc.nextInt();
+        //tant que la saisie n'égale à 0 ni à 1
+        while(!(s>0 && s<9 && (x<taille) &&(x>=0) && (y<taille) && (y>=0))){
+            System.out.println("Veuillez saisir le numéro correspondant à votre choix :");
+            s = sc.nextInt();
+        }
+        return s;
     }
-
-    public void setPerso(Personnage perso) {
-        this.perso = perso;
-    }
+   
+    
     
 }

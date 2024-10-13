@@ -17,12 +17,13 @@ public class TestWoE {
      */
     public static void main(String []args){
     
-        /*World monde=new World();
+        World monde=new World();
         monde.creerMondeAlea();
-    */
-        Joueur kaoutar = new Joueur();
+        monde.afficheWorld();
+    
+        /*Joueur kaoutar = new Joueur();
         
-        kaoutar.choisirType();
+        kaoutar.choisirType();*/
        
     }
 }
