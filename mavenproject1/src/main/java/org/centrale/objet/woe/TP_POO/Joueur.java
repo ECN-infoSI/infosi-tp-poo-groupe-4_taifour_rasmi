@@ -20,7 +20,6 @@ public class Joueur {
     private Personnage perso;
     
     public Joueur(){
-    
     }
      public Personnage getPerso() {
         return perso;
@@ -94,6 +93,8 @@ public class Joueur {
         while(s!=1 && s!=2){
             
             System.out.println("Veuillez saisir le numéro correspondant à votre choix :");
+            System.out.println("1- Combattre");
+            System.out.println("2- Se déplacer");
             s = sc.nextInt();
         }
         if(s==1){
@@ -109,41 +110,122 @@ public class Joueur {
         int taille=monde.W.length;
         int x=perso.getPos().getX();
         int y=perso.getPos().getY();
-        System.out.println("choisir la position pour le déplacement");
-        System.out.println("1- En haut"); // (i-1,j)
-        System.out.println("2- En bas"); // (i+1,j)
-        System.out.println("3- A droite"); // (i,j+1)
-        System.out.println("4- A gauche");// (i,j-1)
-        System.out.println("5- Diagonale en haut à droite");// (i-1,j+1)
-        System.out.println("6- Diagonale en bas à gauche"); // (i+1,j-1)
-        System.out.println("7- Diagonale en haut à gauche"); // (i-1,j-1)
-        System.out.println("8- Diagonale en bas à droite"); // (i+1,j+1)
-        
-        int k=valeurEntrer();
-        
-        switch(k){
-            case 1:
-                if(x-1>=0 && x-1<taille){
-                    if(".".equals(monde.W[x-1][y])) perso.setPos(new Point2D(x-1,y));
-                    else 
-                }
-        }
-        
+        valeurEntrer(monde,x,y,taille);
     } 
     
-    private int valeurEntrer(World monde){
-        int taille=monde.W.length;
-        int x=perso.getPos().getX();
-        int y=perso.getPos().getY();
-        Scanner sc = new Scanner(System.in);
-        int s = sc.nextInt();
-        //tant que la saisie n'égale à 0 ni à 1
-        while(!(s>0 && s<9 && (x<taille) &&(x>=0) && (y<taille) && (y>=0))){
-            System.out.println("Veuillez saisir le numéro correspondant à votre choix :");
+    private void valeurEntrer(World monde,int x,int y,int taille){
+        int s;
+        do{
+            Scanner sc = new Scanner(System.in);
+            System.out.println("choisir la position pour le déplacement: ");
+            System.out.println("1- En haut"); // (i-1,j)
+            System.out.println("2- En bas"); // (i+1,j)
+            System.out.println("3- A droite"); // (i,j+1)
+            System.out.println("4- A gauche");// (i,j-1)
+            System.out.println("5- Diagonale en haut à droite");// (i-1,j+1)
+            System.out.println("6- Diagonale en bas à gauche"); // (i+1,j-1)
+            System.out.println("7- Diagonale en haut à gauche"); // (i-1,j-1)
+            System.out.println("8- Diagonale en bas à droite"); 
             s = sc.nextInt();
         }
-        return s;
+        //tant que la saisie n'est pas correcte
+        while(!(s>0 && s<9));
+                
+        switch(s){
+            case 1:
+                if(x-1>=0){ // (i-1,j)
+                    if(".".equals(monde.W[x-1][y])) {
+                        perso.setPos(new Point2D(x-1,y));
+                        monde.W[x][y]=".";
+                        monde.W[x-1][y]=perso.getNom();
+                    }
+                    else valeurEntrer(monde,x,y,taille);
+                }
+                else valeurEntrer(monde,x,y,taille);
+                break;
+            case 2:
+                if(x+1<taille ){ // (i+1,j)
+                    if(".".equals(monde.W[x+1][y])) {
+                        perso.setPos(new Point2D(x+1,y));
+                        monde.W[x][y]=".";
+                        monde.W[x+1][y]=perso.getNom();
+                    }
+                    else valeurEntrer(monde,x,y,taille);
+                }
+                else valeurEntrer(monde,x,y,taille);
+                break;
+            case 3:
+                if(y+1<taille){ // (i,j+1)
+                    if(".".equals(monde.W[x][y+1])) {
+                        perso.setPos(new Point2D(x,y+1));
+                        monde.W[x][y]=".";
+                        monde.W[x][y+1]=perso.getNom();
+                    }
+                        
+                    else valeurEntrer(monde,x,y,taille);
+                }
+                else valeurEntrer(monde,x,y,taille);
+                break;
+            case 4:
+                if(y-1>0){ // (i,j-1)
+                    if(".".equals(monde.W[x][y-1]))
+                    {
+                     perso.setPos(new Point2D(x,y-1));
+                     monde.W[x][y]=".";
+                     monde.W[x][y-1]=perso.getNom();
+                    }
+                    else valeurEntrer(monde,x,y,taille);
+                }
+                else valeurEntrer(monde,x,y,taille);
+                break;
+            case 5:
+                if(x-1>=0 && y+1<taille){ // (i-1,j+1)
+                    if(".".equals(monde.W[x-1][y+1])){
+                         perso.setPos(new Point2D(x-1,y+1));
+                         monde.W[x][y]=".";
+                         monde.W[x-1][y+1]=perso.getNom();
+                    }
+                    else valeurEntrer(monde,x,y,taille);
+                }
+                else valeurEntrer(monde,x,y,taille);
+                break;
+            case 6:
+                if(y-1>=0 && x+1<taille){ // (i+1,j-1)
+                    if(".".equals(monde.W[x+1][y-1])) 
+                    {perso.setPos(new Point2D(x+1,y-1));
+                    monde.W[x][y]=".";
+                        monde.W[x+1][y-1]=perso.getNom();
+                    
+                    }
+                    else valeurEntrer(monde,x,y,taille);
+                }
+                else valeurEntrer(monde,x,y,taille);
+                break;
+            case 7: 
+                if(x-1>=0 && y-1>=0){  // (i-1,j-1)
+                    if(".".equals(monde.W[x-1][y-1])) {
+                        perso.setPos(new Point2D(x-1,y-1));
+                        monde.W[x][y]=".";
+                         monde.W[x-1][y-1]=perso.getNom();
+                    }
+                    else valeurEntrer(monde,x,y,taille);
+                }
+                else valeurEntrer(monde,x,y,taille);
+                break;
+            case 8:
+                if(x+1<taille && y+1<taille){ // (i+1,j+1)
+                    if(".".equals(monde.W[x+1][y+1])) {
+                        perso.setPos(new Point2D(x+1,y+1));
+                        monde.W[x][y]=".";
+                        monde.W[x+1][y+1]=perso.getNom();
+                    }
+                    else valeurEntrer(monde,x,y,taille);
+                }
+                else valeurEntrer(monde,x,y,taille);
+                break;   
+        }
     }
+    
    
     
     

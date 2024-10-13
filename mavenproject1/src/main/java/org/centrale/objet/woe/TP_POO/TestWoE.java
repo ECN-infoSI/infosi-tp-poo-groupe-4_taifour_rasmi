@@ -18,12 +18,15 @@ public class TestWoE {
     public static void main(String []args){
     
         World monde=new World();
+        Joueur kaoutar = new Joueur();
+        kaoutar.choisirType();
+        kaoutar.getPerso().setPos(new Point2D(0,0));
         monde.creerMondeAlea();
+        monde.W[0][0]=kaoutar.getPerso().getNom();
         monde.afficheWorld();
-    
-        /*Joueur kaoutar = new Joueur();
+        kaoutar.deplacerJoueur(monde);
+        monde.afficheWorld();
         
-        kaoutar.choisirType();*/
        
     }
 }

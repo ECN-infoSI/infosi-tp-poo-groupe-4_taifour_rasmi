@@ -19,7 +19,7 @@ public  class World {
      * listeO: la liste de l'ensemble des objets 
      */
     public String[][] W;
-    private final int taille=40;
+    private final int taille=20;
     public ArrayList<Creature> listeC;
     public ArrayList<Objet> listeO;
     
@@ -28,6 +28,12 @@ public  class World {
         W = new String[taille][taille]; 
         listeC = new ArrayList<>();
         listeO = new ArrayList<>();
+                
+        for (String[] W1 : W) {
+            for (int j = 0; j < W1.length; j++) {
+                W1[j] = "."; 
+            }
+        }
     }
     /**
      * génération d'un nombre aléatoire 
@@ -135,6 +141,35 @@ public  class World {
     }
     
     /**
+     * creation des potions  
+     * @param k: le nombre aléatoire de potions
+     */
+    public void creePotions(int k){
+        for(int i=0;i<k;i++){
+            PotionSoin a=new PotionSoin();
+            a.setPos(new Point2D(genererPosUnique()));
+            a.setNom("Soin"+i);
+            W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
+            a.setPtSoin(20);
+            listeO.add(a);
+        }    
+    }
+    
+    /**
+     * creation des potions  
+     * @param k: le nombre aléatoire de potions
+     */
+    public void creeEpee(int k){
+        for(int i=0;i<k;i++){
+            Epee a=new Epee();
+            a.setPos(new Point2D(genererPosUnique()));
+            W[a.getPos().getX()][a.getPos().getY()]="epee"+1;
+            listeO.add(a);
+        }    
+    }
+    
+    
+    /**
      * génération d'une position non occupée par un autre protagoniste / objet
      * @return une position unique de type Point2D
      */
@@ -153,22 +188,15 @@ public  class World {
      */
     
     public void creerMondeAlea() {
-        
-        for (String[] W1 : W) {
-            for (int j = 0; j < W1.length; j++) {
-                W1[j] = "."; 
-            }
-        }
-
         creaArcher(10);
         creaPaysan(30);
         creaGuerrier(15);
         creaLapin(30);
         creaLoup(10);
-        
+        creePotions(5);
+        creeEpee(6);
     }
-        
-        
+         
     /**
      * Affichage de World
      */
@@ -185,10 +213,10 @@ public  class World {
     }
     
     
-        /**
+    /**
      * méthode qui définit le tour du jeu   
      * @param joueur: le joueur humain
-     */
+    */
     public void tourDeJeu(Joueur joueur){
         Random ga = new Random();
         int i = ga.nextInt(2);
