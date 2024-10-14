@@ -5,6 +5,7 @@
 package org.centrale.objet.woe.TP_POO;
 
 import java.util.Random;
+import java.util.StringTokenizer;
 
 /**
  *  Classe Archer
@@ -57,4 +58,21 @@ public class Archer extends Personnage implements Combattant{
             }
         }
     } 
+    /**
+     * 
+     * @param ligne 
+     */
+    public Archer(String ligne){
+        StringTokenizer tokenizer = new StringTokenizer(ligne);
+        String mot = tokenizer.nextToken();
+        setIdentifiant(tokenizer.nextToken());
+        setPtVie(Integer.parseInt(tokenizer.nextToken()));
+        setDegAtt(Integer.parseInt(tokenizer.nextToken()));
+        setPtPar(Integer.parseInt(tokenizer.nextToken()));
+        setPageAtt(Integer.parseInt(tokenizer.nextToken()));
+        setPagePar(Integer.parseInt(tokenizer.nextToken()));
+        setDistAttMax(Integer.parseInt(tokenizer.nextToken()));
+        setPos(new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
+        this.nbFleches=Integer.parseInt(tokenizer.nextToken());
+    }
 }

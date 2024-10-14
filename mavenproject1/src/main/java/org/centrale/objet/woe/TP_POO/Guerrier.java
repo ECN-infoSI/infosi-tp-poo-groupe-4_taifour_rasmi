@@ -5,6 +5,7 @@
 package org.centrale.objet.woe.TP_POO;
 
 import java.util.Random;
+import java.util.StringTokenizer;
 
 /**
  * Cette class définit un type de personnage qui est Guerrier
@@ -46,5 +47,8 @@ public class Guerrier extends Personnage{
             }
         }  
     }
+    
+    
+    
     
 }

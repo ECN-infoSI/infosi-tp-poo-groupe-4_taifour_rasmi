@@ -4,6 +4,8 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.util.StringTokenizer;
+
 /**
  * Classe Paysan
  * @author Mouad, Kaoutar
@@ -21,5 +23,7 @@ public class Paysan extends Personnage{
     public Paysan(){
         super();
     }
+    
+    
     
 }

@@ -5,6 +5,7 @@
 package org.centrale.objet.woe.TP_POO;
 
 import java.util.Random;
+import java.util.StringTokenizer;
 
 /**
  *
@@ -12,13 +13,15 @@ import java.util.Random;
  */
 public class Loup extends Monstre implements Combattant{
     
-    public Loup(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
-        super(pV, dA, pPar, paAtt, paPar, p);
+    public Loup(String identifiant,int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
+        super(identifiant,pV, dA, pPar, paAtt, paPar, p);
     }
     
     public Loup(Lapin l){
         super(l);
     }
+        
+    
     
     public Loup(){
         super();

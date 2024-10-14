@@ -5,6 +5,7 @@
 package org.centrale.objet.woe.TP_POO;
 
 import java.util.Random;
+import java.util.StringTokenizer;
 
 
 /**
@@ -13,12 +14,11 @@ import java.util.Random;
  * 
  */
 public abstract class Monstre extends Creature{
-    
-    public Monstre(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
-        super(pV, dA, pPar, paAtt, paPar, p);
+    public Monstre(String identifiant,int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
+        super(identifiant,pV, dA, pPar, paAtt, paPar, p);
     }
     public Monstre(Monstre m){
-        super(m.getPtVie(),m.getDegAtt(),m.getPtPar(),m.getPageAtt(),m.getPagePar(),new Point2D(m.getPos()));
+        super(m.getIdentifiant(),m.getPtVie(),m.getDegAtt(),m.getPtPar(),m.getPageAtt(),m.getPagePar(),new Point2D(m.getPos()));
     }
     
     public Monstre(){
@@ -42,6 +42,22 @@ public abstract class Monstre extends Creature{
     public void afficher(){
         System.out.print("le monstre se trouve dans la position : ");
         this.getPos().affiche();
+    }
+    
+    /**
+     * 
+     */
+    //constructeur pour le chargement de l'élément 
+    public Monstre(String ligne){
+        StringTokenizer tokenizer = new StringTokenizer(ligne);
+        String mot = tokenizer.nextToken();
+        setIdentifiant(tokenizer.nextToken());
+        setPtVie(Integer.parseInt(tokenizer.nextToken()));
+        setDegAtt(Integer.parseInt(tokenizer.nextToken()));
+        setPtPar(Integer.parseInt(tokenizer.nextToken()));
+        setPageAtt(Integer.parseInt(tokenizer.nextToken()));
+        setPagePar(Integer.parseInt(tokenizer.nextToken()));
+        setPos(new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
     }
    
 }

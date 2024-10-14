@@ -10,8 +10,8 @@ package org.centrale.objet.woe.TP_POO;
  */
 public class Lapin extends Monstre {
     
-    public Lapin(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
-        super(pV, dA, pPar, paAtt, paPar, p);
+    public Lapin(String identifiant,int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
+        super(identifiant,pV, dA, pPar, paAtt, paPar, p);
     }
     
     public Lapin(Lapin l){
@@ -23,7 +23,7 @@ public class Lapin extends Monstre {
     }
     
     public void affiche(){
-        System.out.print("le lapin est dans la position : ");
+        System.out.print("le lapin"+getIdentifiant()+" est dans la position : ");
         getPos().affiche();
     }
     

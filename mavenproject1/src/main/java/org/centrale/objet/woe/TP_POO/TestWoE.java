@@ -4,6 +4,9 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+
 /**
  * cette classe a pour but de créer les différents objets nécessaires aux tests de la classe World et des autres classes
  * @author Mouad, Kaoutar
@@ -15,18 +18,21 @@ public class TestWoE {
      *
      * @param args
      */
-    public static void main(String []args){
+    public static void main(String []args) throws IOException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
     
         World monde=new World();
-        Joueur kaoutar = new Joueur();
-        kaoutar.choisirType();
+        monde.chargementPartie("source.txt");
+        monde.updateWorld();
+        monde.afficheWorld();
+        /*Joueur kaoutar = new Joueur();
+        kaoutar.choisirType();*/
         /*kaoutar.getPerso().setPos(new Point2D(0,0));
         monde.creerMondeAlea();
         monde.W[0][0]=kaoutar.getPerso().getNom();
         monde.afficheWorld();
         kaoutar.deplacerJoueur(monde);
-        monde.afficheWorld();*/
-        monde.tourDeJeu(kaoutar);
+        monde.afficheWorld();
+        monde.tourDeJeu(kaoutar);*/
         
        
     }
