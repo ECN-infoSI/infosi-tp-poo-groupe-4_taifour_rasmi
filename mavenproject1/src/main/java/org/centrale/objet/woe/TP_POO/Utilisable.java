@@ -6,8 +6,9 @@ package org.centrale.objet.woe.TP_POO;
 
 /**
  *
- * @author user
+ * @author Mouad, Kaoutar
  */
 public interface Utilisable {
     
+    public void activer(Joueur j,Integer s);
 }

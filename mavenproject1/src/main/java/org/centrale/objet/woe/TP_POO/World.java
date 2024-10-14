@@ -30,16 +30,27 @@ public  class World {
     public String[][] W;
     private final int taille=20;
     //public ArrayList<Creature> listeC;
-    public HashMap<String,Creature> listeC;
-    public ArrayList<Objet> listeO;
+    private HashMap<String,Creature> listeC;
+    private HashMap<String,Objet> listeO;
+
+    public int getTaille() {
+        return taille;
+    }
+
+    public HashMap<String, Creature> getListeC() {
+        return listeC;
+    }
+
+    public HashMap<String, Objet> getListeO() {
+        return listeO;
+    }
     
     
     public World(){
         W = new String[taille][taille]; 
         //listeC = new ArrayList<>();
-        listeC = new HashMap<String,Creature>();
-        listeO = new ArrayList<>();
-                
+        listeC = new HashMap<>();
+        listeO = new HashMap<>();
         for (String[] W1 : W) {
             for (int j = 0; j < W1.length; j++) {
                 W1[j] = "."; 
@@ -132,7 +143,7 @@ public  class World {
             a.setPos(new Point2D(genererPosUnique()));
             a.setNom("Guer"+i);
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
-            a.setPtVie(150);
+            a.setPtVie(100);
             listeC.put(a.getNom(),a);
         }
         
@@ -157,27 +168,42 @@ public  class World {
      * creation des potions  
      * @param k: le nombre aléatoire de potions
      */
-    public void creePotions(int k){
+    public void creerPotions(int k){
         for(int i=0;i<k;i++){
             PotionSoin a=new PotionSoin();
             a.setPos(new Point2D(genererPosUnique()));
             a.setNom("Soin"+i);
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
             a.setPtSoin(20);
-            listeO.add(a);
+            listeO.put(a.getNom(),a);
         }    
     }
     
     /**
-     * creation des potions  
+     * creation des épées  
      * @param k: le nombre aléatoire de potions
      */
-    public void creeEpee(int k){
+    public void creerEpee(int k){
         for(int i=0;i<k;i++){
             Epee a=new Epee();
+            a.setNom("Epee"+i);
             a.setPos(new Point2D(genererPosUnique()));
             W[a.getPos().getX()][a.getPos().getY()]="epee"+1;
-            listeO.add(a);
+            listeO.put(a.getNom(),a);
+        }    
+    }
+    
+    /**
+     * creation de nourritures  
+     * @param k: le nombre aléatoire de potions
+     */
+    public void creerNourriture(int k){
+        for(int i=0;i<k;i++){
+            Nourriture a=new Nourriture();
+            a.setNom("Nour"+i);
+            a.setPos(new Point2D(genererPosUnique()));
+            W[a.getPos().getX()][a.getPos().getY()]="Nour"+1;
+            listeO.put(a.getNom(),a);
         }    
     }
     
@@ -206,8 +232,8 @@ public  class World {
         creaGuerrier(15);
         creaLapin(30);
         creaLoup(10);
-        creePotions(5);
-        creeEpee(6);
+        creerPotions(5);
+        creerEpee(6);
     }
     
          
@@ -232,7 +258,7 @@ public  class World {
      * @param joueur: le joueur humain
     */
     public void tourDeJeu(Joueur joueur){
-        listeC.put(joueur.getPerso().getNom(),joueur.getPerso());
+        
         Random ga = new Random();
         //Random gc = new Random();
         int a = ga.nextInt(taille);

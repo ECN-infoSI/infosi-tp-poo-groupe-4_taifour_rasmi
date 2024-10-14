@@ -4,6 +4,7 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import static java.lang.Math.sqrt;
 import java.util.Random;
 import java.util.StringTokenizer;
 
@@ -17,7 +18,7 @@ public class Loup extends Monstre implements Combattant{
         super(identifiant,pV, dA, pPar, paAtt, paPar, p);
     }
     
-    public Loup(Lapin l){
+    public Loup(Loup l){
         super(l);
     }
         
@@ -26,6 +27,7 @@ public class Loup extends Monstre implements Combattant{
     public Loup(){
         super();
     }
+    
     
 
     public void affiche(){
@@ -38,7 +40,7 @@ public class Loup extends Monstre implements Combattant{
      */
     @Override
     public void combattre(Creature crea){
-        if(getPos().distance(crea.getPos())==1){ 
+        if(getPos().distance(crea.getPos())==1 || getPos().distance(crea.getPos())==sqrt(2)){ 
             Random ga = new Random();
             int rand = (int)(ga.nextInt(100)+1);
             if(rand>getPageAtt()){

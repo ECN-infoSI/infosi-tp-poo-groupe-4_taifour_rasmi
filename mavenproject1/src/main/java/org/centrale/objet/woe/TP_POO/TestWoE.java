@@ -21,6 +21,9 @@ public class TestWoE {
     public static void main(String []args) throws IOException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
     
         World monde=new World();
+        Joueur kaoutar = new Joueur();
+        kaoutar.choisirType();
+        kaoutar.getPerso().setPos(new Point2D(0,0));
         monde.chargementPartie("source.txt");
         monde.updateWorld();
         monde.afficheWorld();
@@ -32,8 +35,8 @@ public class TestWoE {
         monde.afficheWorld();
         kaoutar.deplacerJoueur(monde);
         monde.afficheWorld();
-        monde.tourDeJeu(kaoutar);*/
+        //monde.tourDeJeu(kaoutar);
         
-       
+       */
     }
 }
