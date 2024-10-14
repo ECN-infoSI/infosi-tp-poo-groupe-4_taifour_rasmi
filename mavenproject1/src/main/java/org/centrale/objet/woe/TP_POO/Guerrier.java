@@ -4,6 +4,7 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import static java.lang.Math.sqrt;
 import java.util.Random;
 
 /**
@@ -28,7 +29,7 @@ public class Guerrier extends Personnage{
      * @param creature 
      */
     public void combattre(Creature creature){
-        if(getPos().distance(creature.getPos())==1){ 
+        if(getPos().distance(creature.getPos())==1 || getPos().distance(creature.getPos())==sqrt(2)){ 
             Random ga = new Random();
             int rand = (int)(ga.nextInt(100)+1);
             if(rand>getPageAtt()){

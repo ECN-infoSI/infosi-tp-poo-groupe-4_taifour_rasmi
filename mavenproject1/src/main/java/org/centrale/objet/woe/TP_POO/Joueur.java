@@ -4,6 +4,7 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -16,10 +17,16 @@ public class Joueur {
     //Attributs de la classe
     /**
      * perso: le personnage choisi par l'utilisateur 
+ effets : une collection des effets activés par le joueur
+ inventaire : une collection des objets collectés par le joueur
      */
     private Personnage perso;
+    private HashMap<Integer,Objet> inventaire;
+    private HashMap<Integer,Objet> effets;
     
     public Joueur(){
+        effets = new HashMap<>();
+        inventaire = new HashMap<>();
         
     }
      public Personnage getPerso() {
@@ -28,6 +35,14 @@ public class Joueur {
 
     public void setPerso(Personnage perso) {
         this.perso = perso;
+    }
+
+    public HashMap<Integer, Objet> getInventaire() {
+        return inventaire;
+    }
+
+    public HashMap<Integer, Objet> getEffets() {
+        return effets;
     }
     
     
@@ -89,32 +104,46 @@ public class Joueur {
         System.out.println("Choisissez le chiffre correspondant à votre action pour votre tour de rôle: ");
         System.out.println("1- Combattre");
         System.out.println("2- Se déplacer");
+        System.out.println("3- Utiliser un objet");
         Scanner sc = new Scanner(System.in);
         int s = sc.nextInt();
         //tant que la saisie n'égale à 0 ni à 1
-        while(s!=1 && s!=2){
+        while(s!=1 && s!=2 && s!=3){
             
             System.out.println("Veuillez saisir le numéro correspondant à votre choix :");
             System.out.println("1- Combattre");
             System.out.println("2- Se déplacer");
+            System.out.println("3- Utiliser un objet");
             s = sc.nextInt();
         }
-        if(s==1){
-            return ("combattre");
-        }else{
-            return ("se deplacer");
-        }   
+        switch (s) {
+            case 1:
+                return ("combattre");
+            case 2:
+                return ("se deplacer");
+            default:
+                return ("utiliser un objet");
+        }
         
     }
      
-    
+    /**
+     * la méthode a pour but de déplacer le joueur
+     * 
+     * @param monde : prend en paramètre le monde dans lequel le joueur souhaite effectuer son déplacement
+     */
     public void deplacerJoueur(World monde){
         int taille=monde.W.length;
         int x=perso.getPos().getX();
         int y=perso.getPos().getY();
         valeurEntrer(monde,x,y,taille);
+        
     } 
     
+    /**
+     * la méthode sert à permettre au joueur de choisir les valeurs d'entrée pour son déplacement et gère les différents déplacements possibles
+     * 
+     */
     private void valeurEntrer(World monde,int x,int y,int taille){
         int s;
         do{
@@ -226,6 +255,21 @@ public class Joueur {
                 else valeurEntrer(monde,x,y,taille);
                 break;   
         }
+    }
+    
+    /**
+     * la méthode permet au joueur d'activer un objet qu'il dispose dans son inventaire
+     * 
+     */
+    public void activerobjet(){
+        System.out.println("Veuillez choisir l'objet à activer :");
+        inventaire.forEach((key, value) -> {
+        System.out.println(key + "- " + value.getNom());
+        });
+        Scanner sc = new Scanner(System.in);
+        Integer s = sc.nextInt();
+        inventaire.get(s).activer(this,s);
+        
     }
     
    
