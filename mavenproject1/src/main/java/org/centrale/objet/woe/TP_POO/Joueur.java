@@ -27,8 +27,8 @@ public class Joueur {
     public Joueur(){
         effets = new HashMap<>();
         inventaire = new HashMap<>();
-        
     }
+    
      public Personnage getPerso() {
         return perso;
     }
