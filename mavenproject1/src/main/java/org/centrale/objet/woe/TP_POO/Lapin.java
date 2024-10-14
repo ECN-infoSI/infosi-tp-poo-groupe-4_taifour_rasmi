@@ -4,14 +4,16 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.util.StringTokenizer;
+
 /**
  * Classe Lapin
  * @author Mouad, Kaoutar
  */
 public class Lapin extends Monstre {
     
-    public Lapin(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
-        super(pV, dA, pPar, paAtt, paPar, p);
+    public Lapin(String identifiant,int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
+        super(identifiant,pV, dA, pPar, paAtt, paPar, p);
     }
     
     public Lapin(Lapin l){
@@ -22,8 +24,17 @@ public class Lapin extends Monstre {
         super();
     }
     
+    /**
+     * 
+     */
+    //constructeur pour le chargement de l'élément 
+    public Lapin(String ligne){
+        StringTokenizer tokenizer = new StringTokenizer(ligne);
+        String mot = tokenizer.nextToken();
+        super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
+    }
     public void affiche(){
-        System.out.print("le lapin est dans la position : ");
+        System.out.print("le lapin"+getIdentifiant()+" est dans la position : ");
         getPos().affiche();
     }
     

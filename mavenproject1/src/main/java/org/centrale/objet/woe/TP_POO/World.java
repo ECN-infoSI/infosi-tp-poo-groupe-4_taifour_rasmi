@@ -3,11 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package org.centrale.objet.woe.TP_POO;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /**
  * Cette classe a pour but de représenter le « monde » dans lequel  évolueront les différents protagonistes de WoE
@@ -119,9 +126,10 @@ public  class World {
         for(int i=0;i<k;i++){
             Lapin a=new Lapin();
             a.setPos(new Point2D(genererPosUnique()));
-            W[a.getPos().getX()][a.getPos().getY()]="La"+i;
+            a.setIdentifiant("La"+i);
+            W[a.getPos().getX()][a.getPos().getY()]=a.getIdentifiant();
             a.setPtVie(50);
-            listeC.put("La"+i,a);
+            listeC.put(a.getIdentifiant(),a);
         }
         
     }
@@ -148,9 +156,10 @@ public  class World {
         for(int i=0;i<k;i++){
             Loup a=new Loup();
             a.setPos(new Point2D(genererPosUnique()));
-            W[a.getPos().getX()][a.getPos().getY()]="Lou"+i;
-            a.setPtVie(100);
-            listeC.put("Lou"+i,a);
+            a.setIdentifiant("Loup"+i);
+            W[a.getPos().getX()][a.getPos().getY()]=a.getIdentifiant();
+            a.setPtVie(150);
+            listeC.put(a.getIdentifiant(),a);
         }
         
     }
@@ -283,5 +292,70 @@ public  class World {
         
         
     }
-
+    
+    
+    
+    /**
+     * cette méthode a pour but de charger une partie déjà enregistrée
+     * @param source: le nom du fichier de sauvegarde à charger
+     * @throws java.io.IOException
+     * @throws java.lang.NoSuchMethodException
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.lang.InstantiationException
+     * @throws java.lang.IllegalAccessException
+     * @throws java.lang.reflect.InvocationTargetException
+     */
+    
+    public void chargementPartie(String source) throws IOException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+           try{
+               String ligne;
+               BufferedReader fichier =new BufferedReader(new FileReader(source)) ;
+               ligne=fichier.readLine();
+               while(ligne!=null){
+                    creerElementJeu(ligne);
+                   ligne=fichier.readLine();
+               }
+           }
+           catch(FileNotFoundException e){
+                e.getMessage();
+           }
+    }
+    
+    /**
+     * cette méthode a pour but de créer un élèment de jeu
+     * @param ligne: c'est le tokenizer qu'on va découper (correspond à la ligne)
+     * @throws java.lang.NoSuchMethodException
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.lang.InstantiationException
+     * @throws java.lang.IllegalAccessException
+     * @throws java.lang.reflect.InvocationTargetException
+     */
+    
+    public void creerElementJeu(String ligne) throws NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+        StringTokenizer tokenizer = new StringTokenizer(ligne);
+        String nomClass=tokenizer.nextToken();
+        System.out.println(nomClass);
+        Package p = this.getClass().getPackage();
+        try{
+            Class classe= Class.forName(p.getName()+"."+nomClass);
+            Constructor ct= classe.getConstructor(String.class);
+            ElementDeJeu element = (ElementDeJeu)ct.newInstance((Object)ligne);
+            if(element instanceof Creature) listeC.put(element.getIdentifiant(),(Creature)element);
+        }
+        catch(NoSuchMethodException e){
+            e.getMessage();
+        }
+       
+    }
+    
+    /**
+     * cette méthode a pour objectif de modifier le word
+     */  
+    public void updateWorld(){
+        
+        listeC.forEach((key,value)-> {
+            W[value.getPos().getX()][value.getPos().getY()]=key;
+        });
+    
+    }
 }

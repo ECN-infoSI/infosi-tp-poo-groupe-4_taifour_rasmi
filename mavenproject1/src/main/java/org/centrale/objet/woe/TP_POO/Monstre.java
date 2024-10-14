@@ -5,6 +5,7 @@
 package org.centrale.objet.woe.TP_POO;
 
 import java.util.Random;
+import java.util.StringTokenizer;
 
 
 /**
@@ -13,12 +14,11 @@ import java.util.Random;
  * 
  */
 public abstract class Monstre extends Creature{
-    
-    public Monstre(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
-        super(pV, dA, pPar, paAtt, paPar, p);
+    public Monstre(String identifiant,int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
+        super(identifiant,pV, dA, pPar, paAtt, paPar, p);
     }
     public Monstre(Monstre m){
-        super(m.getPtVie(),m.getDegAtt(),m.getPtPar(),m.getPageAtt(),m.getPagePar(),new Point2D(m.getPos()));
+        super(m.getIdentifiant(),m.getPtVie(),m.getDegAtt(),m.getPtPar(),m.getPageAtt(),m.getPagePar(),new Point2D(m.getPos()));
     }
     
     public Monstre(){
@@ -43,5 +43,7 @@ public abstract class Monstre extends Creature{
         System.out.print("le monstre se trouve dans la position : ");
         this.getPos().affiche();
     }
+    
+    
    
 }

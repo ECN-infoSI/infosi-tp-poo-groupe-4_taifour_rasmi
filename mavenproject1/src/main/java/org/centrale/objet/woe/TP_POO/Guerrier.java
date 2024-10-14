@@ -6,6 +6,7 @@ package org.centrale.objet.woe.TP_POO;
 
 import static java.lang.Math.sqrt;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 /**
  * Cette class définit un type de personnage qui est Guerrier
@@ -24,6 +25,16 @@ public class Guerrier extends Personnage{
     public Guerrier(){
         super();
     }
+    /**
+     * @param ligne
+     */
+    //constructeur pour le chargement de l'élément 
+    public Guerrier(String ligne){
+        StringTokenizer tokenizer = new StringTokenizer(ligne);
+        String mot = tokenizer.nextToken();
+        super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
+    }
+    
     /**
      * cette méthode a pour but de permettre le combat entre deux creature
      * @param creature 
@@ -47,5 +58,8 @@ public class Guerrier extends Personnage{
             }
         }  
     }
+    
+    
+    
     
 }

@@ -4,7 +4,6 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
-import java.util.Random;
 
 /**
  * Classe Creature 
@@ -30,7 +29,8 @@ public abstract class Creature extends ElementDeJeu implements Deplacable  {
      */
     private Point2D pos;
     
-    public Creature(int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
+    public Creature(String identifiant,int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
+        super(identifiant);
         ptVie=pV;
         degAtt=dA;
         ptPar=pPar;

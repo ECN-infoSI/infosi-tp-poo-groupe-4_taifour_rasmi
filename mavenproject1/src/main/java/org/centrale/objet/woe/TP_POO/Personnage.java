@@ -5,6 +5,7 @@
 package org.centrale.objet.woe.TP_POO;
 
 import java.util.Random;
+import java.util.StringTokenizer;
 
 
 /**
@@ -26,13 +27,13 @@ public abstract class Personnage extends Creature{
      */
     
     public Personnage(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p){
-        super(pV,dA,pPar,paAtt,paPar,new Point2D(p));
+        super(n,pV,dA,pPar,paAtt,paPar,new Point2D(p));
         nom=n;
         distAttMax=dMax;
     }
     
     public Personnage(Personnage perso){
-        super(perso.getPtVie(),perso.getDegAtt(),perso.getPtPar(),perso.getPageAtt(),perso.getPagePar(),new Point2D(perso.getPos()));
+        super(perso.getNom(),perso.getPtVie(),perso.getDegAtt(),perso.getPtPar(),perso.getPageAtt(),perso.getPagePar(),new Point2D(perso.getPos()));
         this.nom=perso.getNom();
         this.distAttMax=perso.getDistAttMax();
     }
@@ -89,8 +90,6 @@ public abstract class Personnage extends Creature{
         System.out.print("le personnage "+nom+" se trouve dans la position : ");
         this.getPos().affiche();
     }
-   
-
-
     
+   
 }

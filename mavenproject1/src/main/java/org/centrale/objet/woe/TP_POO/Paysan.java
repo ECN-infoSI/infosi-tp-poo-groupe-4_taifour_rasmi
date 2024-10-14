@@ -4,6 +4,8 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.util.StringTokenizer;
+
 /**
  * Classe Paysan
  * @author Mouad, Kaoutar
@@ -21,5 +23,17 @@ public class Paysan extends Personnage{
     public Paysan(){
         super();
     }
+    
+    /**
+     * @param ligne
+     */
+    //constructeur pour le chargement de l'élément 
+    public Paysan(String ligne){
+        StringTokenizer tokenizer = new StringTokenizer(ligne);
+        String mot = tokenizer.nextToken();
+        super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
+    }
+    
+    
     
 }
