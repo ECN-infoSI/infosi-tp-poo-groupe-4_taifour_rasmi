@@ -25,6 +25,24 @@ public class Guerrier extends Personnage{
     public Guerrier(){
         super();
     }
+    
+    /**
+     * 
+     */
+    
+    public Guerrier(String ligne){
+        StringTokenizer tokenizer = new StringTokenizer(ligne);
+        String mot = tokenizer.nextToken();
+        setIdentifiant(tokenizer.nextToken());
+        setPtVie(Integer.parseInt(tokenizer.nextToken()));
+        setDegAtt(Integer.parseInt(tokenizer.nextToken()));
+        setPtPar(Integer.parseInt(tokenizer.nextToken()));
+        setPageAtt(Integer.parseInt(tokenizer.nextToken()));
+        setPagePar(Integer.parseInt(tokenizer.nextToken()));
+        setDistAttMax(Integer.parseInt(tokenizer.nextToken()));
+        setPos(new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
+    } 
+    
     /**
      * @param ligne
      */

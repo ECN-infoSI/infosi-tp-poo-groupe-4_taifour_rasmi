@@ -38,7 +38,8 @@ public class Loup extends Monstre implements Combattant{
         String mot = tokenizer.nextToken();
         super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
     }
-    
+
+     
 
     public void affiche(){
         System.out.print("le loup est dans la position : ");

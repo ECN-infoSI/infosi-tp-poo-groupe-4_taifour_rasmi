@@ -91,5 +91,5 @@ public abstract class Personnage extends Creature{
         this.getPos().affiche();
     }
     
-   
+    
 }

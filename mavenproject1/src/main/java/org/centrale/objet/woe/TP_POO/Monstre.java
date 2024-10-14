@@ -44,6 +44,6 @@ public abstract class Monstre extends Creature{
         this.getPos().affiche();
     }
     
-    
+
    
 }
