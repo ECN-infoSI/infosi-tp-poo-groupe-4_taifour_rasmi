@@ -10,7 +10,7 @@ import java.util.Random;
  * Classe Creature 
  * @author Mouad, Kaoutar
  */
-public abstract class Creature implements Deplacable {
+public abstract class Creature extends ElementDeJeu implements Deplacable  {
     //Attributs de la classe
     /**
      * ptVie : points de vie de la creature

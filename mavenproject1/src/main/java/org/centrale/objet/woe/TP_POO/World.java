@@ -4,8 +4,11 @@
  */
 package org.centrale.objet.woe.TP_POO;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Cette classe a pour but de représenter le « monde » dans lequel  évolueront les différents protagonistes de WoE
@@ -20,13 +23,15 @@ public  class World {
      */
     public String[][] W;
     private final int taille=20;
-    public ArrayList<Creature> listeC;
+    //public ArrayList<Creature> listeC;
+    public HashMap<String,Creature> listeC;
     public ArrayList<Objet> listeO;
     
     
     public World(){
         W = new String[taille][taille]; 
-        listeC = new ArrayList<>();
+        //listeC = new ArrayList<>();
+        listeC = new HashMap<String,Creature>();
         listeO = new ArrayList<>();
                 
         for (String[] W1 : W) {
@@ -77,7 +82,7 @@ public  class World {
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
             a.getPos().affiche();
             a.setPtVie(100);
-            listeC.add(a);
+            listeC.put(a.getNom(),a);
         }
     }
     /**
@@ -91,7 +96,7 @@ public  class World {
             a.setPos(new Point2D(genererPosUnique()));
             a.setNom("Pay"+i);
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
-            listeC.add(a);
+            listeC.put(a.getNom(),a);
         }
         
     }
@@ -106,7 +111,7 @@ public  class World {
             a.setPos(new Point2D(genererPosUnique()));
             W[a.getPos().getX()][a.getPos().getY()]="La"+i;
             a.setPtVie(50);
-            listeC.add(a);
+            listeC.put("La"+i,a);
         }
         
     }
@@ -121,7 +126,7 @@ public  class World {
             a.setNom("Guer"+i);
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
             a.setPtVie(150);
-            listeC.add(a);
+            listeC.put(a.getNom(),a);
         }
         
     }
@@ -135,7 +140,7 @@ public  class World {
             a.setPos(new Point2D(genererPosUnique()));
             W[a.getPos().getX()][a.getPos().getY()]="Lou"+i;
             a.setPtVie(100);
-            listeC.add(a);
+            listeC.put("Lou"+i,a);
         }
         
     }
@@ -196,6 +201,7 @@ public  class World {
         creePotions(5);
         creeEpee(6);
     }
+    
          
     /**
      * Affichage de World
@@ -218,8 +224,38 @@ public  class World {
      * @param joueur: le joueur humain
     */
     public void tourDeJeu(Joueur joueur){
+        listeC.put(joueur.getPerso().getNom(),joueur.getPerso());
         Random ga = new Random();
-        int i = ga.nextInt(2);
+        //Random gc = new Random();
+        int a = ga.nextInt(taille);
+        int b = ga.nextInt(taille);
+        
+        while(".".equals(W[a][b])){
+            a = ga.nextInt(taille);
+            b = ga.nextInt(taille);
+        }
+        Creature C = listeC.get(W[a][b]);
+        
+        if(C==joueur.getPerso()){
+            String s = joueur.choixJeu();
+            if("combattre".equals(s)){
+                System.out.println("Entrez le nom de la créature que vous voulez combattre :");
+                Scanner sc = new Scanner(System.in);
+                String c = sc.nextLine();
+                Creature cr = listeC.get(c);
+                if(joueur.getPerso() instanceof Guerrier){
+                    ((Guerrier) joueur.getPerso()).combattre(cr);
+                }
+                if(joueur.getPerso() instanceof Archer){
+                    ((Archer) joueur.getPerso()).combattre(cr);
+                }
+            }
+            else{
+                joueur.deplacerJoueur(this);
+            }
+        }
+        
+        
         
     }
 

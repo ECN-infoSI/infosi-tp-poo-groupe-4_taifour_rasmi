@@ -8,7 +8,7 @@ package org.centrale.objet.woe.TP_POO;
  * Classe Objet
  * @author Mouad, kaoutar
  */
-public class Objet {
+public abstract class Objet extends ElementDeJeu{
     //Attributs de la classe
     /**
      * pos: la position de l'objet

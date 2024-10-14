@@ -20,12 +20,13 @@ public class TestWoE {
         World monde=new World();
         Joueur kaoutar = new Joueur();
         kaoutar.choisirType();
-        kaoutar.getPerso().setPos(new Point2D(0,0));
+        /*kaoutar.getPerso().setPos(new Point2D(0,0));
         monde.creerMondeAlea();
         monde.W[0][0]=kaoutar.getPerso().getNom();
         monde.afficheWorld();
         kaoutar.deplacerJoueur(monde);
-        monde.afficheWorld();
+        monde.afficheWorld();*/
+        monde.tourDeJeu(kaoutar);
         
        
     }

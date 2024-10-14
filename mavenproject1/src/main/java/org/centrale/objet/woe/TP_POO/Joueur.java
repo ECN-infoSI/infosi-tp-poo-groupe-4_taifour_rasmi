@@ -20,6 +20,7 @@ public class Joueur {
     private Personnage perso;
     
     public Joueur(){
+        
     }
      public Personnage getPerso() {
         return perso;
@@ -75,7 +76,8 @@ public class Joueur {
             perso.setPagePar(30+ga.nextInt(20));
         }
         
-        System.out.println(perso instanceof Guerrier);
+        
+        //System.out.println(perso instanceof Guerrier);
         
     }
     /**
