@@ -5,6 +5,7 @@
 package org.centrale.objet.woe.TP_POO;
 
 import static java.lang.Math.sqrt;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.StringTokenizer;
 
@@ -12,7 +13,7 @@ import java.util.StringTokenizer;
  * Cette class définit un type de personnage qui est Guerrier
  * @author Mouad, Kaoutar
  */
-public class Guerrier extends Personnage{
+public class Guerrier extends Personnage implements Combattant{
     
     public Guerrier(String n, int pV, int dA, int pPar, int paAtt, int paPar, int dMax, Point2D p){
         super(n,pV,dA,pPar,paAtt,paPar,dMax,p);
@@ -29,6 +30,7 @@ public class Guerrier extends Personnage{
      * cette méthode a pour but de permettre le combat entre deux creature
      * @param creature 
      */
+    @Override
     public void combattre(Creature creature){
         if(getPos().distance(creature.getPos())==1 || getPos().distance(creature.getPos())==sqrt(2)){ 
             Random ga = new Random();
@@ -47,6 +49,27 @@ public class Guerrier extends Personnage{
                 }
             }
         }  
+    }
+    
+    
+    @Override
+    public ArrayList<String> CombatsPotentiels(World monde){
+        ArrayList<String> l = new ArrayList<>();
+        String s;
+        for(int i=-1;i<2;i++){
+            for(int j=-1;j<2;j++){
+                if(i==0 && j==0){
+                    
+                }
+                else{
+                    s=monde.getW()[this.getPos().getX()+i][this.getPos().getY()+j];
+                    if (!(".".equals(s))){
+                        l.add(s);
+                    }
+                }
+            }
+        }
+        return l;
     }
     
     

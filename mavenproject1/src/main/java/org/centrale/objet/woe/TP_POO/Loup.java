@@ -5,6 +5,7 @@
 package org.centrale.objet.woe.TP_POO;
 
 import static java.lang.Math.sqrt;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.StringTokenizer;
 
@@ -57,6 +58,26 @@ public class Loup extends Monstre implements Combattant{
                 }
             }
         }  
+    }
+    
+    @Override
+    public ArrayList<String> CombatsPotentiels(World monde){
+        ArrayList<String> l = new ArrayList<>();
+        String s;
+        for(int i=-1;i<2;i++){
+            for(int j=-1;j<2;j++){
+                if(i==0 && j==0){
+                    
+                }
+                else{
+                    s=monde.getW()[this.getPos().getX()+i][this.getPos().getY()+j];
+                    if (!(".".equals(s))){
+                        l.add(s);
+                    }
+                }
+            }
+        }
+        return l;
     }
     
 }
