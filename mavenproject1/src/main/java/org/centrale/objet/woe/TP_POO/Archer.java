@@ -4,6 +4,7 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.StringTokenizer;
 
@@ -45,7 +46,7 @@ public class Archer extends Personnage implements Combattant{
     */
     @Override
     public void combattre(Creature crea){
-        if(getPos().distance(crea.getPos())>1 && getPos().distance(crea.getPos())<getDistAttMax()){ 
+        if(getPos().distance(crea.getPos())<getDistAttMax()){ 
             nbFleches -= 1;
             Random ga = new Random();
             int rand = (int)(ga.nextInt(100)+1);
@@ -67,5 +68,25 @@ public class Archer extends Personnage implements Combattant{
         String mot = tokenizer.nextToken();
         super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
         this.nbFleches=Integer.parseInt(tokenizer.nextToken());
+    }
+    
+    @Override
+    public ArrayList<String> CombatsPotentiels(World monde){
+        ArrayList<String> l = new ArrayList<>();
+        String s;
+        for(int i=-2;i<3;i++){
+            for(int j=-2;j<3;j++){
+                if(i==0 && j==0){
+                    
+                }
+                else{
+                    s=monde.getW()[this.getPos().getX()+i][this.getPos().getY()+j];
+                    if (!(".".equals(s))){
+                        l.add(s);
+                    }
+                }
+            }
+        }
+        return l;
     }
 }

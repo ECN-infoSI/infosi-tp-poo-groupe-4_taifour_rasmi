@@ -10,5 +10,6 @@ package org.centrale.objet.woe.TP_POO;
  */
 public interface Utilisable {
     
-    public void activer(Joueur j,Integer s);
+    public void activer(Joueur j,String s);
+ 
 }

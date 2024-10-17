@@ -27,7 +27,7 @@ public  class World {
      * listeC: la liste de l'ensemble des crétures 
      * listeO: la liste de l'ensemble des objets 
      */
-    public String[][] W;
+    private String[][] W;
     private final int taille=20;
     //public ArrayList<Creature> listeC;
     private HashMap<String,Creature> listeC;
@@ -35,6 +35,10 @@ public  class World {
 
     public int getTaille() {
         return taille;
+    }
+
+    public String[][] getW() {
+        return W;
     }
 
     public HashMap<String, Creature> getListeC() {
@@ -174,7 +178,7 @@ public  class World {
             a.setPos(new Point2D(genererPosUnique()));
             a.setNom("Soin"+i);
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
-            a.setPtSoin(20);
+            a.setVal(20);
             listeO.put(a.getNom(),a);
         }    
     }
@@ -258,40 +262,78 @@ public  class World {
      * @param joueur: le joueur humain
     */
     public void tourDeJeu(Joueur joueur){
-        
-        Random ga = new Random();
-        //Random gc = new Random();
-        int a = ga.nextInt(taille);
-        int b = ga.nextInt(taille);
-        
-        while(".".equals(W[a][b])){
-            a = ga.nextInt(taille);
-            b = ga.nextInt(taille);
-        }
-        Creature C = listeC.get(W[a][b]);
-        
-        if(C==joueur.getPerso()){
-            String s = joueur.choixJeu();
-            if("combattre".equals(s)){
-                System.out.println("Entrez le nom de la créature que vous voulez combattre :");
-                Scanner sc = new Scanner(System.in);
-                String c = sc.nextLine();
-                Creature cr = listeC.get(c);
-                if(joueur.getPerso() instanceof Guerrier){
-                    ((Guerrier) joueur.getPerso()).combattre(cr);
+        while(joueur.getPerso().getPtVie()>0){
+            Random ga = new Random();
+            //Random gc = new Random();
+            int a = ga.nextInt(taille);
+            int b = ga.nextInt(taille);
+
+            while(".".equals(W[a][b])){
+                a = ga.nextInt(taille);
+                b = ga.nextInt(taille);
+            }
+            Creature c = listeC.get(W[a][b]);
+
+            if(c==joueur.getPerso()){
+                String s = joueur.choixJeu();
+                if("combattre".equals(s)){
+                    ArrayList<String> l = ((Combattant)joueur.getPerso()).CombatsPotentiels(this);
+                    if(l.isEmpty()){
+                        System.out.println("Il n'a aucune créature à portée.");
+                    }
+                    System.out.println("Entrez le nom de la créature que vous voulez combattre :");
+                    Scanner sc = new Scanner(System.in);
+                    String crea = sc.nextLine();
+                    Creature cr = listeC.get(crea);
+                    if(joueur.getPerso() instanceof Guerrier guerrier){
+                        guerrier.combattre(cr);
+                    }
+                    if(joueur.getPerso() instanceof Archer archer){
+                        archer.combattre(cr);
+                    }
                 }
-                if(joueur.getPerso() instanceof Archer){
-                    ((Archer) joueur.getPerso()).combattre(cr);
+                else if ("se deplacer".equals(s)){
+                    joueur.deplacerJoueur(this);
+                }
+                else{
+                    joueur.activerobjetChoix();
                 }
             }
             else{
-                joueur.deplacerJoueur(this);
+                a = ga.nextInt(2);
+                if(a==0){
+                    c.deplacer();
+                }
+                else{
+                    if(c instanceof Paysan || c instanceof Lapin){
+                        c.deplacer();
+                    }
+                    else{
+                        ArrayList<String> l = ((Combattant)c).CombatsPotentiels(this);
+                        if(l.isEmpty()){
+                            a = ga.nextInt(2);
+                            if(a==0){
+                                
+                            }
+                            else c.deplacer();     
+                        }
+                        else{
+                            b = ga.nextInt(l.size());
+                            ((Combattant)c).combattre(listeC.get(l.get(b)));
+                        }
+                        
+                    }
+                }
+                        
             }
+            
         }
         
-        
-        
+         
     }
+    
+    
+    
     
     
     

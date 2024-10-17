@@ -21,8 +21,8 @@ public class Joueur {
  inventaire : une collection des objets collectés par le joueur
      */
     private Personnage perso;
-    private HashMap<Integer,Objet> inventaire;
-    private HashMap<Integer,Objet> effets;
+    private HashMap<String,Utilisable> inventaire;
+    private HashMap<String,Utilisable> effets;
     
     public Joueur(){
         effets = new HashMap<>();
@@ -37,17 +37,22 @@ public class Joueur {
         this.perso = perso;
     }
 
-    public HashMap<Integer, Objet> getInventaire() {
+    public HashMap<String, Utilisable> getInventaire() {
         return inventaire;
     }
 
-    public HashMap<Integer, Objet> getEffets() {
+    public HashMap<String, Utilisable> getEffets() {
         return effets;
     }
     
+    /**
+     * méthode qui place le personnage de notre joueur dans la liste de créature et dans la liste d'affichage   
+     * @param monde : le monde dans lequel on souhaite placer notre joueur
+    */
     public void PlacerJoueur(World monde){
+        perso.setPos(monde.genererPosUnique());
         monde.getListeC().put(perso.getNom(),perso);
-        
+        monde.getW()[perso.getPos().getX()][perso.getPos().getY()]=perso.getNom();
     }
     
     /**
@@ -136,7 +141,7 @@ public class Joueur {
      * @param monde : prend en paramètre le monde dans lequel le joueur souhaite effectuer son déplacement
      */
     public void deplacerJoueur(World monde){
-        int taille=monde.W.length;
+        int taille=monde.getW().length;
         int x=perso.getPos().getX();
         int y=perso.getPos().getY();
         valeurEntrer(monde,x,y,taille);
@@ -168,21 +173,22 @@ public class Joueur {
         switch(s){
             case 1:
                 if(x-1>=0){ // (i-1,j)
-                    if(".".equals(monde.W[x-1][y])) {
+                    if(".".equals(monde.getW()[x-1][y])) {
                         perso.setPos(new Point2D(x-1,y));
-                        monde.W[x][y]=".";
-                        monde.W[x-1][y]=perso.getNom();
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y]=perso.getNom();
                     }
+                    
                     else valeurEntrer(monde,x,y,taille);
                 }
                 else valeurEntrer(monde,x,y,taille);
                 break;
             case 2:
                 if(x+1<taille ){ // (i+1,j)
-                    if(".".equals(monde.W[x+1][y])) {
+                    if(".".equals(monde.getW()[x+1][y])) {
                         perso.setPos(new Point2D(x+1,y));
-                        monde.W[x][y]=".";
-                        monde.W[x+1][y]=perso.getNom();
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y]=perso.getNom();
                     }
                     else valeurEntrer(monde,x,y,taille);
                 }
@@ -190,10 +196,10 @@ public class Joueur {
                 break;
             case 3:
                 if(y+1<taille){ // (i,j+1)
-                    if(".".equals(monde.W[x][y+1])) {
+                    if(".".equals(monde.getW()[x][y+1])) {
                         perso.setPos(new Point2D(x,y+1));
-                        monde.W[x][y]=".";
-                        monde.W[x][y+1]=perso.getNom();
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x][y+1]=perso.getNom();
                     }
                         
                     else valeurEntrer(monde,x,y,taille);
@@ -202,11 +208,11 @@ public class Joueur {
                 break;
             case 4:
                 if(y-1>0){ // (i,j-1)
-                    if(".".equals(monde.W[x][y-1]))
+                    if(".".equals(monde.getW()[x][y-1]))
                     {
                      perso.setPos(new Point2D(x,y-1));
-                     monde.W[x][y]=".";
-                     monde.W[x][y-1]=perso.getNom();
+                     monde.getW()[x][y]=".";
+                     monde.getW()[x][y-1]=perso.getNom();
                     }
                     else valeurEntrer(monde,x,y,taille);
                 }
@@ -214,10 +220,10 @@ public class Joueur {
                 break;
             case 5:
                 if(x-1>=0 && y+1<taille){ // (i-1,j+1)
-                    if(".".equals(monde.W[x-1][y+1])){
+                    if(".".equals(monde.getW()[x-1][y+1])){
                          perso.setPos(new Point2D(x-1,y+1));
-                         monde.W[x][y]=".";
-                         monde.W[x-1][y+1]=perso.getNom();
+                         monde.getW()[x][y]=".";
+                         monde.getW()[x-1][y+1]=perso.getNom();
                     }
                     else valeurEntrer(monde,x,y,taille);
                 }
@@ -225,10 +231,10 @@ public class Joueur {
                 break;
             case 6:
                 if(y-1>=0 && x+1<taille){ // (i+1,j-1)
-                    if(".".equals(monde.W[x+1][y-1])) 
-                    {perso.setPos(new Point2D(x+1,y-1));
-                    monde.W[x][y]=".";
-                        monde.W[x+1][y-1]=perso.getNom();
+                    if(".".equals(monde.getW()[x+1][y-1])){
+                        perso.setPos(new Point2D(x+1,y-1));
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y-1]=perso.getNom();
                     
                     }
                     else valeurEntrer(monde,x,y,taille);
@@ -237,10 +243,10 @@ public class Joueur {
                 break;
             case 7: 
                 if(x-1>=0 && y-1>=0){  // (i-1,j-1)
-                    if(".".equals(monde.W[x-1][y-1])) {
+                    if(".".equals(monde.getW()[x-1][y-1])) {
                         perso.setPos(new Point2D(x-1,y-1));
-                        monde.W[x][y]=".";
-                         monde.W[x-1][y-1]=perso.getNom();
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y-1]=perso.getNom();
                     }
                     else valeurEntrer(monde,x,y,taille);
                 }
@@ -248,10 +254,10 @@ public class Joueur {
                 break;
             case 8:
                 if(x+1<taille && y+1<taille){ // (i+1,j+1)
-                    if(".".equals(monde.W[x+1][y+1])) {
+                    if(".".equals(monde.getW()[x+1][y+1])) {
                         perso.setPos(new Point2D(x+1,y+1));
-                        monde.W[x][y]=".";
-                        monde.W[x+1][y+1]=perso.getNom();
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y+1]=perso.getNom();
                     }
                     else valeurEntrer(monde,x,y,taille);
                 }
@@ -264,15 +270,15 @@ public class Joueur {
      * la méthode permet au joueur d'activer un objet qu'il dispose dans son inventaire
      * 
      */
-    public void activerobjet(){
+    public void activerobjetChoix(){
         System.out.println("Veuillez choisir l'objet à activer :");
         inventaire.forEach((key, value) -> {
-        System.out.println(key + "- " + value.getNom());
+        System.out.println(key + "- " + ((Objet)value).getVal());
         });
         Scanner sc = new Scanner(System.in);
-        Integer s = sc.nextInt();
-        inventaire.get(s).activer(this,s);
-        
+        String s = sc.nextLine();
+        Utilisable o = inventaire.get(s);
+        o.activer(this, s);
     }
     
    

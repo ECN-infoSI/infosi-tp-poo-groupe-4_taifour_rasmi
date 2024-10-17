@@ -8,7 +8,7 @@ package org.centrale.objet.woe.TP_POO;
  * Classe Objet
  * @author Mouad, kaoutar
  */
-public abstract class Objet extends ElementDeJeu implements Utilisable {
+public abstract class Objet extends ElementDeJeu {
     //Attributs de la classe
     /**
      * nom : nom de l'objet
@@ -18,9 +18,17 @@ public abstract class Objet extends ElementDeJeu implements Utilisable {
     private Point2D pos;
     private String nom;
     private int duree;
+    private int val;
 
     public Objet(){
         pos = new Point2D();
+    }
+    
+    public Objet(String nom,int duree,int val,Point2D pos){
+        this.nom=nom;
+        this.duree=duree;
+        this.val=val;
+        this.pos=new Point2D(pos);
     }
 
     public Point2D getPos() {
@@ -39,6 +47,13 @@ public abstract class Objet extends ElementDeJeu implements Utilisable {
         this.nom = nom;
     }
 
+    public int getVal() {
+        return val;
+    }
+    
+    public void setVal(int val) {
+        this.val = val;
+    }
     
     
 }

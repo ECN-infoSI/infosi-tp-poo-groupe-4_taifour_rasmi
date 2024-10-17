@@ -4,6 +4,7 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 /**
@@ -14,6 +15,7 @@ import java.util.StringTokenizer;
  */
 public class NuageToxique extends Objet implements Combattant{
     
+
     private int paAtt;
     private int degAtt;
 
@@ -33,11 +35,13 @@ public class NuageToxique extends Objet implements Combattant{
         this.degAtt = degAtt;
     }
     
+
     @Override
     public void combattre(Creature c){
         
     }
     
+
      /**
      * @param ligne
      */
@@ -51,5 +55,23 @@ public class NuageToxique extends Objet implements Combattant{
         
         
     }
-    
+
+    public ArrayList<String> CombatsPotentiels(World monde){
+        ArrayList<String> l = new ArrayList<>();
+        String s;
+        for(int i=-1;i<2;i++){
+            for(int j=-1;j<2;j++){
+                if(i==0 && j==0){
+                    
+                }
+                else{
+                    s=monde.getW()[this.getPos().getX()+i][this.getPos().getY()+j];
+                    if (!(".".equals(s))){
+                        l.add(s);
+                    }
+                }
+            }
+        }
+        return l;
+    }
 }

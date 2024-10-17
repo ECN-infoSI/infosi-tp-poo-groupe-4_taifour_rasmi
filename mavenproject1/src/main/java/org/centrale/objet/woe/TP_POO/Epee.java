@@ -10,21 +10,20 @@ import java.util.StringTokenizer;
  * Classe Epee
  * @author Mouad, Kaoutar
  */
-public class Epee extends Objet{
+public class Epee extends Objet implements Utilisable{
     //Attribus de la classe 
     /**
      * 
      * ptEpee: 
      */
-    private int ptEpee;
-    
+    private int ptEpee;  
     @Override
-    public void activer(Joueur j,Integer s){
-        j.getPerso().setDegAtt(j.getPerso().getDegAtt()+5);
+    public void activer(Joueur j,String s){
+        j.getPerso().setDegAtt(j.getPerso().getDegAtt()+this.getVal());
         j.getEffets().put(s,j.getInventaire().get(s));
         j.getInventaire().remove(s);
     }
-    
+
      /**
      * @param ligne
      */

@@ -8,7 +8,7 @@ package org.centrale.objet.woe.TP_POO;
  *
  * @author Mouad, Kaoutar
  */
-public class Nourriture extends Objet {
+public class Nourriture extends Objet implements Utilisable{
     //Attributs de la classe
     /**
      * nom : on donne un nom à la nourriture
@@ -18,15 +18,16 @@ public class Nourriture extends Objet {
      */
     private boolean bonus;
     private String carac;
-    private int val;
+    
     
     //ask the teacher abt potions nd swords.
 
   
     public Nourriture(boolean bonus, String carac, int val) {
+        super();
         this.bonus = bonus;
         this.carac = carac;
-        this.val = val;
+        this.setVal(val);
     }
 
     public Nourriture() {
@@ -48,16 +49,11 @@ public class Nourriture extends Objet {
         this.carac = carac;
     }
 
-    public int getVal() {
-        return val;
-    }
 
-    public void setVal(int val) {
-        this.val = val;
-    }
+    
     
     @Override
-    public void activer(Joueur j,Integer s){
+    public void activer(Joueur j,String s){
         if(bonus ==true){
             System.out.println("Vous bénéficiez d'un bonus de dégats d'attack");
             j.getPerso().setDegAtt(j.getPerso().getDegAtt()+10);
