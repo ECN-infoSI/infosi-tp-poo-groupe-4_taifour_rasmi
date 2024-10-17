@@ -11,18 +11,20 @@ import java.util.StringTokenizer;
  * @author Mouad, Kaoutar
  */
 public class PotionSoin extends Objet implements Utilisable{
-    //Attribus de la classe 
+    
+    public PotionSoin(){
+        super();
+    }
+    
     /**
      * @param nom
      * @param duree
      * @param val
      * @param pos
      */
-    
     public PotionSoin(String nom,int duree,int val,Point2D pos){
        super(nom,duree,val,pos);
     }
-    
     
 
     @Override

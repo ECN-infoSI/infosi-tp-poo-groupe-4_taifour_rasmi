@@ -12,6 +12,9 @@ import java.util.StringTokenizer;
  */
 public class Epee extends Objet implements Utilisable{
     
+    public Epee(){
+    super();
+    }
      public Epee(String nom,int duree,int val,Point2D pos){
        super(nom,duree,val,pos);
     }
