@@ -25,7 +25,5 @@ public class TestWoE {
         monde.updateWorld();
         monde.afficheWorld();
 
-        
-       
     }
 }

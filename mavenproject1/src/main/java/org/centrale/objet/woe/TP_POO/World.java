@@ -258,7 +258,7 @@ public  class World {
      * @param joueur: le joueur humain
     */
     public void tourDeJeu(Joueur joueur){
-        listeC.put(joueur.getPerso().getNom(),joueur.getPerso());
+        
         Random ga = new Random();
         //Random gc = new Random();
         int a = ga.nextInt(taille);

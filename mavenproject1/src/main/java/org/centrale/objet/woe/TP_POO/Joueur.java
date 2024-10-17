@@ -27,8 +27,8 @@ public class Joueur {
     public Joueur(){
         effets = new HashMap<>();
         inventaire = new HashMap<>();
-        
     }
+    
      public Personnage getPerso() {
         return perso;
     }
@@ -45,7 +45,10 @@ public class Joueur {
         return effets;
     }
     
-    
+    public void PlacerJoueur(World monde){
+        monde.getListeC().put(perso.getNom(),perso);
+        
+    }
     
     /**
      * cette méthode a pour but de permettre au joueur le choix du personnage et so nom
