@@ -14,6 +14,15 @@ import java.util.ArrayList;
  */
 public class NuageToxique extends Objet implements Combattant{
     
+    ArrayList<Point2D> zone;
+
+    public NuageToxique(ArrayList<Point2D> zone) {
+        this.zone = zone;
+    }
+    
+    
+    
+    
     @Override
     public void combattre(Creature c){
         

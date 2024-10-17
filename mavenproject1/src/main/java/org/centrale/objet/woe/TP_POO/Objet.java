@@ -19,6 +19,7 @@ public abstract class Objet extends ElementDeJeu {
     private String nom;
     private int duree;
     private int val;
+    
 
     public Objet(){
         pos = new Point2D();

@@ -32,6 +32,7 @@ public  class World {
     //public ArrayList<Creature> listeC;
     private HashMap<String,Creature> listeC;
     private HashMap<String,Objet> listeO;
+    
 
     public int getTaille() {
         return taille;
@@ -212,6 +213,8 @@ public  class World {
     }
     
     
+    
+    
     /**
      * génération d'une position non occupée par un autre protagoniste / objet
      * @return une position unique de type Point2D
@@ -262,19 +265,24 @@ public  class World {
      * @param joueur: le joueur humain
     */
     public void tourDeJeu(Joueur joueur){
+        
         while(joueur.getPerso().getPtVie()>0){
+            this.afficheWorld();
             Random ga = new Random();
             //Random gc = new Random();
             int a = ga.nextInt(taille);
             int b = ga.nextInt(taille);
 
-            while(".".equals(W[a][b])){
+            while(".".equals(W[a][b]) && !(listeC.get(W[a][b]) instanceof Creature) ){
                 a = ga.nextInt(taille);
                 b = ga.nextInt(taille);
             }
+            
+           
             Creature c = listeC.get(W[a][b]);
 
             if(c==joueur.getPerso()){
+                
                 String s = joueur.choixJeu();
                 if("combattre".equals(s)){
                     ArrayList<String> l = ((Combattant)joueur.getPerso()).CombatsPotentiels(this);
@@ -296,7 +304,10 @@ public  class World {
                     joueur.deplacerJoueur(this);
                 }
                 else{
-                    joueur.activerobjetChoix();
+                    if(joueur.getInventaire().isEmpty()){
+                        System.out.println("Votre inventaire est vide ! vous ne pouvez pas activer aucun objet.");
+                    }
+                    else joueur.activerobjetChoix();
                 }
             }
             else{
@@ -309,27 +320,38 @@ public  class World {
                         c.deplacer();
                     }
                     else{
-                        ArrayList<String> l = ((Combattant)c).CombatsPotentiels(this);
-                        if(l.isEmpty()){
-                            a = ga.nextInt(2);
-                            if(a==0){
-                                
+                        if(c instanceof Guerrier){
+                            ArrayList<String> l = ((Guerrier) c).CombatsPotentiels(this);
+                            if(l.isEmpty()) c.deplacer();
+                            else{
+                                b = ga.nextInt(l.size());
+                                ((Guerrier) c).combattre(listeC.get(l.get(b)));
                             }
-                            else c.deplacer();     
+                        }
+                        else if(c instanceof Archer){
+                            ArrayList<String> l = ((Archer) c).CombatsPotentiels(this);
+                            if(l.isEmpty()) c.deplacer();
+                            else{
+                                b = ga.nextInt(l.size());
+                                ((Archer) c).combattre(listeC.get(l.get(b)));
+                            }
                         }
                         else{
-                            b = ga.nextInt(l.size());
-                            ((Combattant)c).combattre(listeC.get(l.get(b)));
+                            ArrayList<String> l = ((Loup) c).CombatsPotentiels(this);
+                            if(l.isEmpty()) c.deplacer();
+                            else{
+                                b = ga.nextInt(l.size());
+                                ((Loup) c).combattre(listeC.get(l.get(b)));
+                            }
                         }
                         
                     }
+                    
                 }
                         
             }
             
-        }
-        
-         
+        }   
     }
     
     

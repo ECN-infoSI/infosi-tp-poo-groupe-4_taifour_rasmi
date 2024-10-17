@@ -24,9 +24,14 @@ public class TestWoE {
         Joueur kaoutar = new Joueur();
         kaoutar.choisirType();
         kaoutar.getPerso().setPos(new Point2D(0,0));
-        monde.chargementPartie("source.txt");
-        monde.updateWorld();
-        monde.afficheWorld();
+        Loup l = new Loup();
+        l.setPos(new Point2D(2,2));
+        monde.getW()[0][0] = kaoutar.getPerso().getNom();
+        monde.getListeC().put(kaoutar.getPerso().getNom(), kaoutar.getPerso());
+        monde.tourDeJeu(kaoutar);
+        //monde.chargementPartie("source.txt");
+        //monde.updateWorld();
+        //monde.afficheWorld();
         /*Joueur kaoutar = new Joueur();
         kaoutar.choisirType();*/
         /*kaoutar.getPerso().setPos(new Point2D(0,0));
