@@ -16,7 +16,7 @@ public class PotionSoin extends Objet implements Utilisable{
      */
     
     public PotionSoin() {
-
+        
     }
 
     
