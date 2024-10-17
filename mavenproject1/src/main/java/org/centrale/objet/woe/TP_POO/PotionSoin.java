@@ -13,14 +13,16 @@ import java.util.StringTokenizer;
 public class PotionSoin extends Objet implements Utilisable{
     //Attribus de la classe 
     /**
-     * 
-     * val: le nombre de soins
+     * @param nom
+     * @param duree
+     * @param val
+     * @param pos
      */
     
-    public PotionSoin() {
-
+    public PotionSoin(String nom,int duree,int val,Point2D pos){
+       super(nom,duree,val,pos);
     }
-
+    
     
 
     @Override
@@ -42,7 +44,7 @@ public class PotionSoin extends Objet implements Utilisable{
     public PotionSoin(String ligne){
         StringTokenizer tokenizer = new StringTokenizer(ligne);
         String mot = tokenizer.nextToken();
-        this.ptSoin=Integer.parseInt(tokenizer.nextToken());
+        setVal(Integer.parseInt(tokenizer.nextToken()));
         setPos(new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
     }
 }

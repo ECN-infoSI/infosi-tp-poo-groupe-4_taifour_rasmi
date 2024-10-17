@@ -275,10 +275,13 @@ public class Joueur {
         inventaire.forEach((key, value) -> {
         System.out.println(key + "- " + ((Objet)value).getVal());
         });
+        
         Scanner sc = new Scanner(System.in);
         String s = sc.nextLine();
         Utilisable o = inventaire.get(s);
+        
         o.activer(this, s);
+
     }
     
    

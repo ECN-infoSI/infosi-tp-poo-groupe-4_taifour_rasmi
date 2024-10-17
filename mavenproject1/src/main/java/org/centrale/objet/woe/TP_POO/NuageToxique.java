@@ -36,7 +36,15 @@ public class NuageToxique extends Objet implements Combattant{
     }
     
 
-    @Override
+    ArrayList<Point2D> zone;
+
+    public NuageToxique(ArrayList<Point2D> zone) {
+        this.zone = zone;
+    }
+    
+    
+    
+
     public void combattre(Creature c){
         
     }
