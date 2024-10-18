@@ -268,26 +268,32 @@ public  class World {
      * @param joueur: le joueur humain
     */
     public void tourDeJeu(Joueur joueur){
-        System.out.println("degAtt "+joueur.getPerso().getDegAtt());
-        if(!(joueur.getInventaire().isEmpty())) System.out.println("inventaire :");
-        if(!(joueur.getEffets().isEmpty())){
-            System.out.println("effet :");
-            System.out.println("durée epee "+joueur.getEffets());
-        }
         
-        decEffets(joueur);
+        Random ga = new Random();
+        int a = ga.nextInt(taille);
+        int b = ga.nextInt(taille);
+        
         
         while(joueur.getPerso().getPtVie()>0){
             this.afficheWorld();
-            Random ga = new Random();
+            System.out.println("degAtt "+joueur.getPerso().getDegAtt());
+            if(!(joueur.getInventaire().isEmpty())) System.out.println("inventaire :");
+            if(!(joueur.getEffets().isEmpty())){
+            System.out.println("effet :");
+            joueur.getEffets().forEach((key,value)-> {
+                System.out.println("durée epee "+((Objet)value).getDuree());
+            });
+            
+            }
+            decEffets(joueur);
             //Random gc = new Random();
-            int a = ga.nextInt(taille);
-            int b = ga.nextInt(taille);
+            
 
-            while(".".equals(W[a][b]) && !((listeC.get(W[a][b])) instanceof Creature) ){
+            while(".".equals(W[a][b]) || !((listeC.get(W[a][b])) instanceof Creature) ){
                 a = ga.nextInt(taille);
                 b = ga.nextInt(taille);
             }
+            
             Creature c = listeC.get(W[a][b]);
 
             if(c==joueur.getPerso()){
@@ -298,16 +304,19 @@ public  class World {
                     if(l.isEmpty()){
                         System.out.println("Il n'a aucune créature à portée.");
                     }
-                    System.out.println("Entrez le nom de la créature que vous voulez combattre :");
-                    Scanner sc = new Scanner(System.in);
-                    String crea = sc.nextLine();
-                    Creature cr = listeC.get(crea);
-                    if(joueur.getPerso() instanceof Guerrier guerrier){
-                        guerrier.combattre(cr);
+                    else{
+                        System.out.println("Entrez le nom de la créature que vous voulez combattre :");
+                        Scanner sc = new Scanner(System.in);
+                        String crea = sc.nextLine();
+                        Creature cr = listeC.get(crea);
+                        if(joueur.getPerso() instanceof Guerrier guerrier){
+                            guerrier.combattre(cr);
+                        }
+                        if(joueur.getPerso() instanceof Archer archer){
+                            archer.combattre(cr);
+                        }
                     }
-                    if(joueur.getPerso() instanceof Archer archer){
-                        archer.combattre(cr);
-                    }
+                    
                 }
                 else if ("se deplacer".equals(s)){
                     joueur.deplacerJoueur(this);

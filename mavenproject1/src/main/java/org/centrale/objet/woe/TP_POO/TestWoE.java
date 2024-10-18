@@ -33,7 +33,7 @@ public class TestWoE {
         monde.getListeC().put(kaoutar.getPerso().getNom(), kaoutar.getPerso());
         Epee p = new Epee();
         p.setNom("epee");
-        p.setDuree(10);
+        p.setDuree(2);
         p.setVal(5);
         kaoutar.getPerso().setPtVie(100);
         p.setPos(new Point2D(1,1));

@@ -144,7 +144,7 @@ public class Joueur {
         int taille=monde.getW().length;
         int x=perso.getPos().getX();
         int y=perso.getPos().getY();
-        valeurEntrer(monde,x,y,taille);
+        this.valeurEntrer(monde,x,y,taille,this);
         
     } 
     
@@ -152,7 +152,7 @@ public class Joueur {
      * la méthode sert à permettre au joueur de choisir les valeurs d'entrée pour son déplacement et gère les différents déplacements possibles
      * 
      */
-    private void valeurEntrer(World monde,int x,int y,int taille){
+    private void valeurEntrer(World monde,int x,int y,int taille, Joueur j){
         int s;
         do{
             Scanner sc = new Scanner(System.in);
@@ -174,139 +174,155 @@ public class Joueur {
             case 1:
                 if(x-1>=0){ // (i-1,j)
                     if(".".equals(monde.getW()[x-1][y])) {
-                        perso.setPos(new Point2D(x-1,y));
+                        perso.getPos().setPos(x-1,y);
                         monde.getW()[x][y]=".";
                         monde.getW()[x-1][y]=perso.getNom();
+                        
                     }
                     else if(monde.getListeO().containsKey(monde.getW()[x-1][y])){
                         ramasserObjet(monde,new Point2D(x-1,y));
-                        perso.setPos(new Point2D(x-1,y));
+                        perso.getPos().setPos(x-1,y);
                         monde.getW()[x][y]=".";
                         monde.getW()[x-1][y]=perso.getNom();
+                        
                     }
-                    else valeurEntrer(monde,x,y,taille);
+                    else valeurEntrer(monde,x,y,taille,j);
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;
             case 2:
                 if(x+1<taille ){ // (i+1,j)
                     if(".".equals(monde.getW()[x+1][y])) {
-                        perso.setPos(new Point2D(x+1,y));
+                        perso.getPos().setPos(x+1,y);
                         monde.getW()[x][y]=".";
                         monde.getW()[x+1][y]=perso.getNom();
+                        
                     }
                     else if(monde.getListeO().containsKey(monde.getW()[x+1][y])){
                         ramasserObjet(monde,new Point2D(x+1,y));
-                        perso.setPos(new Point2D(x+1,y));
+                        perso.getPos().setPos(x+1,y);
                         monde.getW()[x][y]=".";
                         monde.getW()[x+1][y]=perso.getNom();
+                        
                     }
-                    else valeurEntrer(monde,x,y,taille);
+                    else valeurEntrer(monde,x,y,taille,j);
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;
             case 3:
                 if(y+1<taille){ // (i,j+1)
                     if(".".equals(monde.getW()[x][y+1])) {
-                        perso.setPos(new Point2D(x,y+1));
+                        perso.getPos().setPos(x,y+1);
                         monde.getW()[x][y]=".";
                         monde.getW()[x][y+1]=perso.getNom();
+                        
                     }
                     else if(monde.getListeO().containsKey(monde.getW()[x][y+1])){
                         ramasserObjet(monde,new Point2D(x,y+1));
-                        perso.setPos(new Point2D(x,y+1));
+                        perso.getPos().setPos(x,y+1);
                         monde.getW()[x][y]=".";
                         monde.getW()[x][y+1]=perso.getNom();
+                        
                     }  
-                    else valeurEntrer(monde,x,y,taille);
+                    else valeurEntrer(monde,x,y,taille,j);
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;
             case 4:
-                if(y-1>0){ // (i,j-1)
+                if(y-1>=0){ // (i,j-1)
                     if(".".equals(monde.getW()[x][y-1]))
                     {
-                     perso.setPos(new Point2D(x,y-1));
-                     monde.getW()[x][y]=".";
-                     monde.getW()[x][y-1]=perso.getNom();
+                        perso.getPos().setPos(x,y-1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x][y-1]=perso.getNom();
+                        
                     }
                     else if(monde.getListeO().containsKey(monde.getW()[x][y-1])){
                         ramasserObjet(monde,new Point2D(x,y-1));
-                        perso.setPos(new Point2D(x,y-1));
+                        perso.getPos().setPos(x,y-1);
                         monde.getW()[x][y]=".";
                         monde.getW()[x][y-1]=perso.getNom();
+                        
                     }
-                    else valeurEntrer(monde,x,y,taille);
+                    else valeurEntrer(monde,x,y,taille,j);
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;
             case 5:
                 if(x-1>=0 && y+1<taille){ // (i-1,j+1)
                     if(".".equals(monde.getW()[x-1][y+1])){
-                         perso.setPos(new Point2D(x-1,y+1));
-                         monde.getW()[x][y]=".";
-                         monde.getW()[x-1][y+1]=perso.getNom();
+                        perso.getPos().setPos(x-1,y+1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y+1]=perso.getNom();
+                        
                     }
                     else if(monde.getListeO().containsKey(monde.getW()[x-1][y+1])){
                         ramasserObjet(monde,new Point2D(x-1,y+1));
-                        perso.setPos(new Point2D(x-1,y+1));
+                        perso.getPos().setPos(x-1,y+1);
                         monde.getW()[x][y]=".";
                         monde.getW()[x-1][y+1]=perso.getNom();
+                        
                     }
-                    else valeurEntrer(monde,x,y,taille);
+                    else valeurEntrer(monde,x,y,taille,j);
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;
             case 6:
                 if(y-1>=0 && x+1<taille){ // (i+1,j-1)
                     if(".".equals(monde.getW()[x+1][y-1])){
-                        perso.setPos(new Point2D(x+1,y-1));
+                        perso.getPos().setPos(x+1,y-1);
                         monde.getW()[x][y]=".";
                         monde.getW()[x+1][y-1]=perso.getNom();
+                        
                     }
                     else if(monde.getListeO().containsKey(monde.getW()[x+1][y-1])){
                         ramasserObjet(monde,new Point2D(x+1,y-1));
-                        perso.setPos(new Point2D(x+1,y-1));
+                        perso.getPos().setPos(x+1,y-1);
                         monde.getW()[x][y]=".";
                         monde.getW()[x+1][y-1]=perso.getNom();
+                        
                     }
-                    else valeurEntrer(monde,x,y,taille);
+                    else valeurEntrer(monde,x,y,taille,j);
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;
             case 7: 
                 if(x-1>=0 && y-1>=0){  // (i-1,j-1)
                     if(".".equals(monde.getW()[x-1][y-1])) {
-                        perso.setPos(new Point2D(x-1,y-1));
+                        perso.getPos().setPos(x-1,y-1);
                         monde.getW()[x][y]=".";
                         monde.getW()[x-1][y-1]=perso.getNom();
+                        
                     }
                     else if(monde.getListeO().containsKey(monde.getW()[x-1][y-1])){
                         ramasserObjet(monde,new Point2D(x-1,y-1));
-                        perso.setPos(new Point2D(x-1,y-1));
+                        perso.getPos().setPos(x-1,y-1);
                         monde.getW()[x][y]=".";
                         monde.getW()[x-1][y-1]=perso.getNom();
+                        
                     }
-                    else valeurEntrer(monde,x,y,taille);
+                    else valeurEntrer(monde,x,y,taille,j);
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;
             case 8:
                 if(x+1<taille && y+1<taille){ // (i+1,j+1)
                     if(".".equals(monde.getW()[x+1][y+1])) {
-                        perso.setPos(new Point2D(x+1,y+1));
+                        perso.getPos().setPos(x+1,y+1);
                         monde.getW()[x][y]=".";
                         monde.getW()[x+1][y+1]=perso.getNom();
+                        
                     }
                     else if(monde.getListeO().containsKey(monde.getW()[x+1][y+1])){
                         ramasserObjet(monde,new Point2D(x+1,y+1));
-                        perso.setPos(new Point2D(x+1,y+1));
+                        perso.getPos().setPos(x+1,y+1);
                         monde.getW()[x][y]=".";
                         monde.getW()[x+1][y+1]=perso.getNom();
+                        
                     }
-                    else valeurEntrer(monde,x,y,taille);
+                    else valeurEntrer(monde,x,y,taille,j);
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;   
         }
     }

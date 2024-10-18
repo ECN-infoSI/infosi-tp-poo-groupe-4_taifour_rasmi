@@ -74,7 +74,7 @@ public abstract class Monstre extends Creature{
                 else deplacer(monde);
                 break;
             case 4:
-                if(y-1>0){ // (i,j-1)
+                if(y-1>=0){ // (i,j-1)
                     if(".".equals(monde.getW()[x][y-1]))
                     {
                         this.getPos().translate(0, -1);
