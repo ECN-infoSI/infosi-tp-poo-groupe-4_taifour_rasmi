@@ -67,6 +67,10 @@ public class Nourriture extends Objet implements Utilisable{
         
     }
     
-    
+    @Override
+    public void desactiver(Joueur j,String s){
+        j.getPerso().setDegAtt(j.getPerso().getDegAtt()-this.getVal());
+        j.getEffets().remove(s);
+    }
     
 }

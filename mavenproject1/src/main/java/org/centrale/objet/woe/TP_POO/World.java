@@ -450,7 +450,7 @@ public  class World {
             joueur.getEffets().forEach((key, value)-> {
                 ((Objet)value).setDuree(((Objet)value).getDuree()-1);
                 if(((Objet)value).getDuree()==0){
-                    
+                    value.desactiver(joueur,((Objet)value).getNom());
                 }
             });
         }

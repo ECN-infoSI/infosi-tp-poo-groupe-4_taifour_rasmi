@@ -37,6 +37,7 @@ public class Epee extends Objet implements Utilisable{
         j.getInventaire().remove(s);
     }
     
+    @Override
     public void desactiver(Joueur j,String s){
         j.getPerso().setDegAtt(j.getPerso().getDegAtt()-this.getVal());
         j.getEffets().remove(s);

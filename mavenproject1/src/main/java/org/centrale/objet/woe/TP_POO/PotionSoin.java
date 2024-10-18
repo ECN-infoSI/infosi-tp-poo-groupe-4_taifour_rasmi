@@ -39,6 +39,12 @@ public class PotionSoin extends Objet implements Utilisable{
         }
         j.getInventaire().remove(s);
     }
+    
+    @Override
+    public void desactiver(Joueur j,String s){
+        j.getEffets().remove(s);
+    }
+    
      /**
      * @param ligne
      */
@@ -49,4 +55,6 @@ public class PotionSoin extends Objet implements Utilisable{
         setVal(Integer.parseInt(tokenizer.nextToken()));
         setPos(new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
     }
+    
+    
 }

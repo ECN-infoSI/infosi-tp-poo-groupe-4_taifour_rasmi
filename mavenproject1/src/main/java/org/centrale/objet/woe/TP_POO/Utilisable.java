@@ -11,5 +11,5 @@ package org.centrale.objet.woe.TP_POO;
 public interface Utilisable {
     
     public void activer(Joueur j,String s);
- 
+    public void desactiver(Joueur j,String s);
 }
