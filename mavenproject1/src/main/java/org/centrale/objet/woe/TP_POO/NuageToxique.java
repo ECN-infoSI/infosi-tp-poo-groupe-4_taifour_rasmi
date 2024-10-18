@@ -5,6 +5,7 @@
 package org.centrale.objet.woe.TP_POO;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  *Cette classe définit un nuage toxique
@@ -14,6 +15,27 @@ import java.util.ArrayList;
  */
 public class NuageToxique extends Objet implements Combattant{
     
+
+    private int paAtt;
+    private int degAtt;
+
+    public int getPaAtt() {
+        return paAtt;
+    }
+
+    public void setPaAtt(int paAtt) {
+        this.paAtt = paAtt;
+    }
+
+    public int getDegAtt() {
+        return degAtt;
+    }
+
+    public void setDegAtt(int degAtt) {
+        this.degAtt = degAtt;
+    }
+    
+
     ArrayList<Point2D> zone;
 
     public NuageToxique(ArrayList<Point2D> zone) {
@@ -22,12 +44,26 @@ public class NuageToxique extends Objet implements Combattant{
     
     
     
-    
-    @Override
+
     public void combattre(Creature c){
         
     }
     
+
+     /**
+     * @param ligne
+     */
+    //constructeur pour le chargement de l'élément 
+    public NuageToxique(String ligne){
+        StringTokenizer tokenizer = new StringTokenizer(ligne);
+        String mot = tokenizer.nextToken();
+        this.paAtt=Integer.parseInt(tokenizer.nextToken());
+        this.degAtt=Integer.parseInt(tokenizer.nextToken());
+        setPos(new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
+        
+        
+    }
+
     public ArrayList<String> CombatsPotentiels(World monde){
         ArrayList<String> l = new ArrayList<>();
         String s;

@@ -4,21 +4,27 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.util.StringTokenizer;
+
 /**
  * Cette classe a pour rôle de définir une postion de soin pour les protagonistes 
  * @author Mouad, Kaoutar
  */
 public class PotionSoin extends Objet implements Utilisable{
-    //Attribus de la classe 
-    /**
-     * 
-     * val: le nombre de soins
-     */
     
-    public PotionSoin() {
-        
+    public PotionSoin(){
+        super();
     }
-
+    
+    /**
+     * @param nom
+     * @param duree
+     * @param val
+     * @param pos
+     */
+    public PotionSoin(String nom,int duree,int val,Point2D pos){
+       super(nom,duree,val,pos);
+    }
     
 
     @Override
@@ -32,5 +38,15 @@ public class PotionSoin extends Objet implements Utilisable{
             else j.getPerso().setPtVie(ptVie+getVal());
         }
         j.getInventaire().remove(s);
+    }
+     /**
+     * @param ligne
+     */
+    //constructeur pour le chargement de l'élément 
+    public PotionSoin(String ligne){
+        StringTokenizer tokenizer = new StringTokenizer(ligne);
+        String mot = tokenizer.nextToken();
+        setVal(Integer.parseInt(tokenizer.nextToken()));
+        setPos(new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
     }
 }

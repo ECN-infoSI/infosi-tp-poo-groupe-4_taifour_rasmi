@@ -74,12 +74,113 @@ public abstract class Personnage extends Creature{
     
     
     /**
-     * deplace le personnage
+     * deplacer le personnage
+     * @param monde : monde dans lequel on effectue ce déplacement
      */
     @Override
-    public void deplacer(){
+    public void deplacer(World monde){
+        int x = getPos().getX();
+        int y = getPos().getY();
+        int taille = monde.getTaille();
         Random ga = new Random();
-        this.getPos().translate(ga.nextInt(2)-1, ga.nextInt(2)-1);
+        int s = ga.nextInt(9);
+        switch(s){
+            case 1:
+                if(x-1>=0){ // (i-1,j)
+                    if(".".equals(monde.getW()[x-1][y])) {
+                        this.getPos().translate(-1, 0);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y]=getNom();
+                    }
+                    
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;
+            case 2:
+                if(x+1<taille ){ // (i+1,j)
+                    if(".".equals(monde.getW()[x+1][y])) {
+                        this.getPos().translate(1, 0);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y]=getNom();
+                    }
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;
+            case 3:
+                if(y+1<taille){ // (i,j+1)
+                    if(".".equals(monde.getW()[x][y+1])) {
+                        this.getPos().translate(0, 1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x][y+1]=getNom();
+                    }
+                        
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;
+            case 4:
+                if(y-1>0){ // (i,j-1)
+                    if(".".equals(monde.getW()[x][y-1]))
+                    {
+                        this.getPos().translate(0, -1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x][y-1]=getNom();
+                    }
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;
+            case 5:
+                if(x-1>=0 && y+1<taille){ // (i-1,j+1)
+                    if(".".equals(monde.getW()[x-1][y+1])){
+                        this.getPos().translate(-1, +1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y+1]=getNom();
+                    }
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;
+            case 6:
+                if(y-1>=0 && x+1<taille){ // (i+1,j-1)
+                    if(".".equals(monde.getW()[x+1][y-1])){
+                        this.getPos().translate(1, -1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y-1]=getNom();
+                    
+                    }
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;
+            case 7: 
+                if(x-1>=0 && y-1>=0){  // (i-1,j-1)
+                    if(".".equals(monde.getW()[x-1][y-1])) {
+                        this.getPos().translate(-1, -1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y-1]=getNom();
+                    }
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;
+            case 8:
+                if(x+1<taille && y+1<taille){ // (i+1,j+1)
+                    if(".".equals(monde.getW()[x+1][y+1])) {
+                        this.getPos().translate(1, 1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y+1]=getNom();
+                    }
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;   
+        }
+        
+        
+        
     }
     
     /**
@@ -91,16 +192,5 @@ public abstract class Personnage extends Creature{
         this.getPos().affiche();
     }
     
-    public Personnage(String ligne){
-        StringTokenizer tokenizer = new StringTokenizer(ligne);
-        String mot = tokenizer.nextToken();
-        setIdentifiant(tokenizer.nextToken());
-        setPtVie(Integer.parseInt(tokenizer.nextToken()));
-        setDegAtt(Integer.parseInt(tokenizer.nextToken()));
-        setPtPar(Integer.parseInt(tokenizer.nextToken()));
-        setPageAtt(Integer.parseInt(tokenizer.nextToken()));
-        setPagePar(Integer.parseInt(tokenizer.nextToken()));
-        this.distAttMax=Integer.parseInt(tokenizer.nextToken());
-        setPos(new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
-    } 
+    
 }

@@ -9,5 +9,5 @@ package org.centrale.objet.woe.TP_POO;
  * @author Mouad, Kaoutar
  */
 public interface Deplacable {
-    void deplacer();
+    void deplacer(World monde);
 }

@@ -24,6 +24,7 @@ public class Nourriture extends Objet implements Utilisable{
 
   
     public Nourriture(boolean bonus, String carac, int val) {
+        super();
         this.bonus = bonus;
         this.carac = carac;
         this.setVal(val);

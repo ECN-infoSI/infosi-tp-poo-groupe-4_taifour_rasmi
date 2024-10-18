@@ -60,20 +60,13 @@ public class Archer extends Personnage implements Combattant{
         }
     } 
     /**
-     * 
-     * @param ligne 
+     * @param ligne
      */
+    //constructeur pour le chargement de l'élément 
     public Archer(String ligne){
         StringTokenizer tokenizer = new StringTokenizer(ligne);
         String mot = tokenizer.nextToken();
-        setIdentifiant(tokenizer.nextToken());
-        setPtVie(Integer.parseInt(tokenizer.nextToken()));
-        setDegAtt(Integer.parseInt(tokenizer.nextToken()));
-        setPtPar(Integer.parseInt(tokenizer.nextToken()));
-        setPageAtt(Integer.parseInt(tokenizer.nextToken()));
-        setPagePar(Integer.parseInt(tokenizer.nextToken()));
-        setDistAttMax(Integer.parseInt(tokenizer.nextToken()));
-        setPos(new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
+        super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
         this.nbFleches=Integer.parseInt(tokenizer.nextToken());
     }
     
@@ -88,7 +81,7 @@ public class Archer extends Personnage implements Combattant{
                 }
                 else{
                     s=monde.getW()[this.getPos().getX()+i][this.getPos().getY()+j];
-                    if (!(".".equals(s))){
+                    if (!(".".equals(s)) && monde.getListeC().containsKey(s)){
                         l.add(s);
                     }
                 }

@@ -178,7 +178,12 @@ public class Joueur {
                         monde.getW()[x][y]=".";
                         monde.getW()[x-1][y]=perso.getNom();
                     }
-                    
+                    else if(monde.getListeO().containsKey(monde.getW()[x-1][y])){
+                        ramasserObjet(monde,new Point2D(x-1,y));
+                        perso.setPos(new Point2D(x-1,y));
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y]=perso.getNom();
+                    }
                     else valeurEntrer(monde,x,y,taille);
                 }
                 else valeurEntrer(monde,x,y,taille);
@@ -186,6 +191,12 @@ public class Joueur {
             case 2:
                 if(x+1<taille ){ // (i+1,j)
                     if(".".equals(monde.getW()[x+1][y])) {
+                        perso.setPos(new Point2D(x+1,y));
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y]=perso.getNom();
+                    }
+                    else if(monde.getListeO().containsKey(monde.getW()[x+1][y])){
+                        ramasserObjet(monde,new Point2D(x+1,y));
                         perso.setPos(new Point2D(x+1,y));
                         monde.getW()[x][y]=".";
                         monde.getW()[x+1][y]=perso.getNom();
@@ -201,7 +212,12 @@ public class Joueur {
                         monde.getW()[x][y]=".";
                         monde.getW()[x][y+1]=perso.getNom();
                     }
-                        
+                    else if(monde.getListeO().containsKey(monde.getW()[x][y+1])){
+                        ramasserObjet(monde,new Point2D(x,y+1));
+                        perso.setPos(new Point2D(x,y+1));
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x][y+1]=perso.getNom();
+                    }  
                     else valeurEntrer(monde,x,y,taille);
                 }
                 else valeurEntrer(monde,x,y,taille);
@@ -214,6 +230,12 @@ public class Joueur {
                      monde.getW()[x][y]=".";
                      monde.getW()[x][y-1]=perso.getNom();
                     }
+                    else if(monde.getListeO().containsKey(monde.getW()[x][y-1])){
+                        ramasserObjet(monde,new Point2D(x,y-1));
+                        perso.setPos(new Point2D(x,y-1));
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x][y-1]=perso.getNom();
+                    }
                     else valeurEntrer(monde,x,y,taille);
                 }
                 else valeurEntrer(monde,x,y,taille);
@@ -225,6 +247,12 @@ public class Joueur {
                          monde.getW()[x][y]=".";
                          monde.getW()[x-1][y+1]=perso.getNom();
                     }
+                    else if(monde.getListeO().containsKey(monde.getW()[x-1][y+1])){
+                        ramasserObjet(monde,new Point2D(x-1,y+1));
+                        perso.setPos(new Point2D(x-1,y+1));
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y+1]=perso.getNom();
+                    }
                     else valeurEntrer(monde,x,y,taille);
                 }
                 else valeurEntrer(monde,x,y,taille);
@@ -235,7 +263,12 @@ public class Joueur {
                         perso.setPos(new Point2D(x+1,y-1));
                         monde.getW()[x][y]=".";
                         monde.getW()[x+1][y-1]=perso.getNom();
-                    
+                    }
+                    else if(monde.getListeO().containsKey(monde.getW()[x+1][y-1])){
+                        ramasserObjet(monde,new Point2D(x+1,y-1));
+                        perso.setPos(new Point2D(x+1,y-1));
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y-1]=perso.getNom();
                     }
                     else valeurEntrer(monde,x,y,taille);
                 }
@@ -248,6 +281,12 @@ public class Joueur {
                         monde.getW()[x][y]=".";
                         monde.getW()[x-1][y-1]=perso.getNom();
                     }
+                    else if(monde.getListeO().containsKey(monde.getW()[x-1][y-1])){
+                        ramasserObjet(monde,new Point2D(x-1,y-1));
+                        perso.setPos(new Point2D(x-1,y-1));
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y-1]=perso.getNom();
+                    }
                     else valeurEntrer(monde,x,y,taille);
                 }
                 else valeurEntrer(monde,x,y,taille);
@@ -255,6 +294,12 @@ public class Joueur {
             case 8:
                 if(x+1<taille && y+1<taille){ // (i+1,j+1)
                     if(".".equals(monde.getW()[x+1][y+1])) {
+                        perso.setPos(new Point2D(x+1,y+1));
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y+1]=perso.getNom();
+                    }
+                    else if(monde.getListeO().containsKey(monde.getW()[x+1][y+1])){
+                        ramasserObjet(monde,new Point2D(x+1,y+1));
                         perso.setPos(new Point2D(x+1,y+1));
                         monde.getW()[x][y]=".";
                         monde.getW()[x+1][y+1]=perso.getNom();
@@ -278,10 +323,18 @@ public class Joueur {
         
         Scanner sc = new Scanner(System.in);
         String s = sc.nextLine();
-        Utilisable o = inventaire.get(s);
         
-        o.activer(this, s);
+        inventaire.get(s).activer(this, s);
+        
+        
+        
 
+    }
+    
+    public void ramasserObjet(World monde, Point2D p){
+        String s = monde.getW()[p.getX()][p.getY()];
+        inventaire.put(s, (Utilisable)monde.getListeO().get(s));
+        monde.getListeO().remove(s);
     }
     
    

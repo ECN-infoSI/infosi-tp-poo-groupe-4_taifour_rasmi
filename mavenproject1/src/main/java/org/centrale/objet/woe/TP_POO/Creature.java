@@ -110,8 +110,9 @@ public abstract class Creature extends ElementDeJeu implements Deplacable  {
      * affichage de la creature
      */
     public abstract void afficher();
+   
     @Override
-    public abstract void deplacer();
+    public abstract void deplacer(World monde);
     
     
 }

@@ -174,12 +174,13 @@ public  class World {
      * @param k: le nombre aléatoire de potions
      */
     public void creerPotions(int k){
+        Random ga = new Random();
         for(int i=0;i<k;i++){
             PotionSoin a=new PotionSoin();
             a.setPos(new Point2D(genererPosUnique()));
             a.setNom("Soin"+i);
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
-            a.setVal(20);
+            a.setVal(10+ga.nextInt(41));
             listeO.put(a.getNom(),a);
         }    
     }
@@ -189,11 +190,13 @@ public  class World {
      * @param k: le nombre aléatoire de potions
      */
     public void creerEpee(int k){
+        Random ga = new Random();
         for(int i=0;i<k;i++){
             Epee a=new Epee();
             a.setNom("Epee"+i);
             a.setPos(new Point2D(genererPosUnique()));
             W[a.getPos().getX()][a.getPos().getY()]="epee"+1;
+            a.setVal(5+ga.nextInt(26));
             listeO.put(a.getNom(),a);
         }    
     }
@@ -265,6 +268,14 @@ public  class World {
      * @param joueur: le joueur humain
     */
     public void tourDeJeu(Joueur joueur){
+        System.out.println("degAtt "+joueur.getPerso().getDegAtt());
+        if(!(joueur.getInventaire().isEmpty())) System.out.println("inventaire :");
+        if(!(joueur.getEffets().isEmpty())){
+            System.out.println("effet :");
+            System.out.println("durée epee "+joueur.getEffets());
+        }
+        
+        decEffets(joueur);
         
         while(joueur.getPerso().getPtVie()>0){
             this.afficheWorld();
@@ -273,12 +284,10 @@ public  class World {
             int a = ga.nextInt(taille);
             int b = ga.nextInt(taille);
 
-            while(".".equals(W[a][b]) && !(listeC.get(W[a][b]) instanceof Creature) ){
+            while(".".equals(W[a][b]) && !((listeC.get(W[a][b])) instanceof Creature) ){
                 a = ga.nextInt(taille);
                 b = ga.nextInt(taille);
             }
-            
-           
             Creature c = listeC.get(W[a][b]);
 
             if(c==joueur.getPerso()){
@@ -313,16 +322,16 @@ public  class World {
             else{
                 a = ga.nextInt(2);
                 if(a==0){
-                    c.deplacer();
+                    c.deplacer(this);
                 }
                 else{
                     if(c instanceof Paysan || c instanceof Lapin){
-                        c.deplacer();
+                        c.deplacer(this);
                     }
                     else{
                         if(c instanceof Guerrier){
                             ArrayList<String> l = ((Guerrier) c).CombatsPotentiels(this);
-                            if(l.isEmpty()) c.deplacer();
+                            if(l.isEmpty()) c.deplacer(this);
                             else{
                                 b = ga.nextInt(l.size());
                                 ((Guerrier) c).combattre(listeC.get(l.get(b)));
@@ -330,7 +339,7 @@ public  class World {
                         }
                         else if(c instanceof Archer){
                             ArrayList<String> l = ((Archer) c).CombatsPotentiels(this);
-                            if(l.isEmpty()) c.deplacer();
+                            if(l.isEmpty()) c.deplacer(this);
                             else{
                                 b = ga.nextInt(l.size());
                                 ((Archer) c).combattre(listeC.get(l.get(b)));
@@ -338,7 +347,7 @@ public  class World {
                         }
                         else{
                             ArrayList<String> l = ((Loup) c).CombatsPotentiels(this);
-                            if(l.isEmpty()) c.deplacer();
+                            if(l.isEmpty()) c.deplacer(this);
                             else{
                                 b = ga.nextInt(l.size());
                                 ((Loup) c).combattre(listeC.get(l.get(b)));
@@ -422,4 +431,20 @@ public  class World {
         });
     
     }
+    
+    
+    public void decEffets(Joueur joueur){
+        if(joueur.getEffets().isEmpty()){
+            
+        }
+        else{
+            joueur.getEffets().forEach((key, value)-> {
+                ((Objet)value).setDuree(((Objet)value).getDuree()-1);
+                if(((Objet)value).getDuree()==0){
+                    
+                }
+            });
+        }
+    }
+    
 }

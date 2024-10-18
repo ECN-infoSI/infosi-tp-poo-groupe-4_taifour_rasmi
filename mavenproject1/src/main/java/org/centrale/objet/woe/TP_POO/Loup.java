@@ -15,8 +15,10 @@ import java.util.StringTokenizer;
  */
 public class Loup extends Monstre implements Combattant{
     
+
     public Loup(String identifiant,int pV, int dA, int pPar, int paAtt, int paPar, Point2D p){
         super(identifiant,pV, dA, pPar, paAtt, paPar, p);
+
     }
     
     public Loup(Loup l){
@@ -28,8 +30,17 @@ public class Loup extends Monstre implements Combattant{
     public Loup(){
         super();
     }
-    
-    
+    /**
+     * @param ligne
+     */
+    //constructeur pour le chargement de l'élément 
+    public Loup(String ligne){
+        StringTokenizer tokenizer = new StringTokenizer(ligne);
+        String mot = tokenizer.nextToken();
+        super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
+    }
+
+     
 
     public void affiche(){
         System.out.print("le loup est dans la position : ");
@@ -71,7 +82,7 @@ public class Loup extends Monstre implements Combattant{
                 }
                 else{
                     s=monde.getW()[this.getPos().getX()+i][this.getPos().getY()+j];
-                    if (!(".".equals(s))){
+                    if (!(".".equals(s)) && monde.getListeC().containsKey(s)){
                         l.add(s);
                     }
                 }

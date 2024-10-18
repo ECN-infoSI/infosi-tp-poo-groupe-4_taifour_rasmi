@@ -24,6 +24,16 @@ public class Paysan extends Personnage{
         super();
     }
     
+    /**
+     * @param ligne
+     */
+    //constructeur pour le chargement de l'élément 
+    public Paysan(String ligne){
+        StringTokenizer tokenizer = new StringTokenizer(ligne);
+        String mot = tokenizer.nextToken();
+        super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
+    }
+    
     
     
 }

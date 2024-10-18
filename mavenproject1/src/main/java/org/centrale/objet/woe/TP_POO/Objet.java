@@ -24,6 +24,13 @@ public abstract class Objet extends ElementDeJeu {
     public Objet(){
         pos = new Point2D();
     }
+    
+    public Objet(String nom,int duree,int val,Point2D pos){
+        this.nom=nom;
+        this.duree=duree;
+        this.val=val;
+        this.pos=new Point2D(pos);
+    }
 
     public Point2D getPos() {
         return pos;
@@ -47,6 +54,14 @@ public abstract class Objet extends ElementDeJeu {
     
     public void setVal(int val) {
         this.val = val;
+    }
+
+    public int getDuree() {
+        return duree;
+    }
+
+    public void setDuree(int duree) {
+        this.duree = duree;
     }
     
     
