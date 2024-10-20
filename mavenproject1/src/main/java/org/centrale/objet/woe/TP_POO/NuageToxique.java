@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package org.centrale.objet.woe.TP_POO;
 
 import java.util.ArrayList;
@@ -9,16 +6,22 @@ import java.util.StringTokenizer;
 
 /**
  *Cette classe définit un nuage toxique
- * 
  * @author Mouad, Kaoutar
  * 
  */
 public class NuageToxique extends Objet implements Combattant{
-    
+    //Attributs de la classe
+    /**
+     *paAtt: pourcentage d'attack
+     *degAtt : dégats des attacks
+     */
 
     private int paAtt;
     private int degAtt;
-
+    
+    public NuageToxique(){
+        super();
+    }
     public int getPaAtt() {
         return paAtt;
     }
@@ -34,17 +37,11 @@ public class NuageToxique extends Objet implements Combattant{
     public void setDegAtt(int degAtt) {
         this.degAtt = degAtt;
     }
-    
 
-    
-    
-    
-
-
-     /**
+    /**
+     * constructeur pour le chargement du nuage 
      * @param ligne
      */
-    //constructeur pour le chargement de l'élément 
     public NuageToxique(String ligne){
         StringTokenizer tokenizer = new StringTokenizer(ligne);
         String mot = tokenizer.nextToken();
@@ -54,7 +51,11 @@ public class NuageToxique extends Objet implements Combattant{
         setPos(new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
   
     }
-
+    /**
+     * renvoie la liste des creatures que le nuage peut combattre 
+     * @param monde
+     * @return  la liste
+     */
     public ArrayList<String> CombatsPotentiels(World monde){
         ArrayList<String> l = new ArrayList<>();
         String s;

@@ -1,4 +1,5 @@
 package org.centrale.objet.woe.TP_POO;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -253,6 +254,25 @@ public  class World {
             listeO.put(a.getNom(),a);
         }    
     }
+    
+     /**
+     * creation de nourritures  
+     * @param k: le nombre aléatoire de potions
+     */
+    public void creerNuage(int k){
+        
+        for(int i=0;i<k;i++){
+            NuageToxique a=new NuageToxique();
+            a.setNom("nuage"+i);
+            a.setIdentifiant("nuage"+i);
+            a.setPos(new Point2D(genererPosUnique()));
+            W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
+            a.setDegAtt(80);
+            a.setPaAtt(66);
+            a.setVal(5);
+            listeO.put(a.getNom(),a);
+        }    
+    }
 
     
     /**
@@ -268,6 +288,7 @@ public  class World {
         creerPotions(8);
         creerEpee(15);
         creerNourriture(4);
+        creerNuage(5);
     }
     
     /**
@@ -288,7 +309,6 @@ public  class World {
     
     /**
      * méthode qui définit le tour du jeu   
-     * @param joueur: le joueur humain
     */
     public void tourDeJeu() throws IOException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
         String type=joueur.typeJeu();
@@ -450,7 +470,6 @@ public  class World {
             e.getMessage();
         }
         } 
-        //System.out.println(nomClass);
         else{
         try{
             Class classe= Class.forName(p.getName()+"."+nomClass);
@@ -486,7 +505,7 @@ public  class World {
          
         });
         
-        //this.joueur.PlacerJoueur(this);
+        
     
     }
     /**

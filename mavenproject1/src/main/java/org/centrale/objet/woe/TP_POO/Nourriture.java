@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package org.centrale.objet.woe.TP_POO;
 
-import java.util.StringTokenizer;
 
 /**
  *
@@ -35,7 +31,11 @@ public class Nourriture extends Objet implements Utilisable{
     }
 
 
-    
+    /**
+     * pour activer la nourriture 
+     * @param j: le joueur 
+     * @param s: l'identifiant de la nourriture 
+     */
     
     @Override
     public void activer(Joueur j,String s){
@@ -51,6 +51,19 @@ public class Nourriture extends Objet implements Utilisable{
         j.getInventaire().remove(s);
         
     }
+    
+    /**
+     * pour desactiver une nourriture 
+     * @param j: le joueur 
+     * @param s: l'identifiant de la nourriture 
+     */
+
+    @Override
+    public void desactiver(Joueur j,String s){
+        j.getPerso().setDegAtt(j.getPerso().getDegAtt()-this.getVal());
+        j.getEffets().remove(s);
+    }
+    
     @Override
     public String getTexteSauvegardeInve(){
         return " ";
@@ -59,12 +72,6 @@ public class Nourriture extends Objet implements Utilisable{
     @Override
     public String getTexteSauvegardeEffe(){
         return " ";
-    }
-    
-    @Override
-    public void desactiver(Joueur j,String s){
-        j.getPerso().setDegAtt(j.getPerso().getDegAtt()-this.getVal());
-        j.getEffets().remove(s);
     }
     
 }

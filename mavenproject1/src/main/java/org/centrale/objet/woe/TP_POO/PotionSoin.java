@@ -43,10 +43,10 @@ public class PotionSoin extends Objet implements Utilisable{
         j.getEffets().remove(s);
     }
     
-     /**
+    /**
+     * constructeur pour le chargement de l'élément  
      * @param ligne
      */
-    //constructeur pour le chargement de l'élément 
     public PotionSoin(String ligne){
         StringTokenizer tokenizer = new StringTokenizer(ligne);
         String mot = tokenizer.nextToken();
@@ -67,16 +67,31 @@ public class PotionSoin extends Objet implements Utilisable{
         }
         
     }
+    
+     /**
+     * cette méthode a pour rôle de sauvegarder une potionSoin sous format de ligne (comme étant inventaire du joueur)
+     * @return : la ligne
+     */
     @Override
      public String getTexteSauvegarde(){
         String s="PotionSoin "+getNom()+" "+getVal()+" "+getDuree()+" "+getPos().getX()+" "+getPos().getY();
         return s;
     }
+     
+    /**
+     * cette méthode a pour rôle de sauvegarder une potionSoin sous format de ligne 
+     * @return : la ligne
+     */
     @Override
     public String getTexteSauvegardeInve(){
         String s="Inventaire PotionSoin "+getNom()+" "+getVal()+" "+getDuree();
         return s;
     }
+    
+    /**
+     * cette méthode a pour rôle de sauvegarder une potionSoin sous format de ligne (comme étant effet du joueur)
+     * @return : la ligne
+     */
     @Override
     public String getTexteSauvegardeEffe(){
         String s="Effet PotionSoin "+getNom()+" "+getVal()+" "+getDuree();

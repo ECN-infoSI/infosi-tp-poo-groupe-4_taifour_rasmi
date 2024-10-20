@@ -1,16 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package org.centrale.objet.woe.TP_POO;
 
 import static java.lang.Math.sqrt;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.StringTokenizer;
 
 /**
- *
+ * Classe du loup
  * @author Mouad, Kaoutar
  */
 public class Loup extends Monstre implements Combattant{
@@ -30,23 +26,16 @@ public class Loup extends Monstre implements Combattant{
     public Loup(){
         super();
     }
+    
     /**
+     * constructeur pour le chargement de l'élément 
      * @param ligne
      */
-    //constructeur pour le chargement de l'élément 
     public Loup(String ligne){
-       /**StringTokenizer tokenizer = new StringTokenizer(ligne);
-        String mot = tokenizer.nextToken();
-        super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));*/
        super(ligne);
     }
 
-     
 
-    public void affiche(){
-        System.out.print("le loup est dans la position : ");
-        getPos().affiche();
-    }
     /**
      * méthode combattre de la creature de type Loup
      * @param crea 
@@ -72,6 +61,11 @@ public class Loup extends Monstre implements Combattant{
         }  
     }
     
+    /**
+     * cette méthode a pour rôle de renvoyer la liste des creatures que le loup a le droit de combattre
+     * @param monde
+     * @return la liste des creatures
+     */
     @Override
     public ArrayList<String> CombatsPotentiels(World monde){
         ArrayList<String> l = new ArrayList<>();
@@ -94,9 +88,22 @@ public class Loup extends Monstre implements Combattant{
         return l;
     }
     
+    /**
+     * pour le sauvegarde d'une partie
+     * @return la,ligne de sauvegarde
+     */
+    @Override
     public String getTexteSauvegarde(){
         String s="Loup "+getIdentifiant()+" "+getPtVie()+" "+getDegAtt()+" "+getPtPar()+" "+getPageAtt()+" "+getPagePar()+" "+getPos().getX()+" "+getPos().getY();
         return s;
+    }
+    
+    /**
+     * affiche un loup
+    */
+    public void affiche(){
+        System.out.print("le loup est dans la position : ");
+        getPos().affiche();
     }
     
 }

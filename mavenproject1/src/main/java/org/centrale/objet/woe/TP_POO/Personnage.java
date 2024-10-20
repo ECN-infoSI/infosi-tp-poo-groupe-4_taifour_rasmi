@@ -1,7 +1,6 @@
 
 package org.centrale.objet.woe.TP_POO;
 
-import java.util.Random;
 
 
 /**

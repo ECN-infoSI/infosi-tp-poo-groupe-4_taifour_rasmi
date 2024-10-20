@@ -1,7 +1,6 @@
 
 package org.centrale.objet.woe.TP_POO;
 
-import java.util.StringTokenizer;
 
 /**
  * Classe Paysan
@@ -22,16 +21,17 @@ public class Paysan extends Personnage{
     }
     
     /**
+     * constructeur pour le chargement de l'élément 
      * @param ligne
      */
-    //constructeur pour le chargement de l'élément 
     public Paysan(String ligne){
-        /**StringTokenizer tokenizer = new StringTokenizer(ligne);
-        String mot = tokenizer.nextToken();
-        super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));*/
+        
         super(ligne);
     }
-    
+    /**
+     * pour la sauvegarde du paysan
+     * @return la ligne
+     */
     public String getTexteSauvegarde(){
         String s="Paysan "+getNom()+" "+getPtVie()+" "+getDegAtt()+" "+getPtPar()+" "+getPageAtt()+" "+getPagePar()+" "+getDistAttMax()+" "+getPos().getX()+" "+getPos().getY();
         return s;

@@ -14,12 +14,15 @@ public class TestWoE {
     /**
      *
      * @param args
+     * @throws java.io.IOException
+     * @throws java.lang.NoSuchMethodException
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.lang.InstantiationException
+     * @throws java.lang.IllegalAccessException
+     * @throws java.lang.reflect.InvocationTargetException
      */
     public static void main(String []args) throws IOException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
-    
         World monde=new World();
-        //Joueur joueur=new Joueur();
-        //monde.setJoueur(joueur);*/
         monde.tourDeJeu();
     }
 }

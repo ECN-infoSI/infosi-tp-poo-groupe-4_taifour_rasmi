@@ -7,8 +7,8 @@ package org.centrale.objet.woe.TP_POO;
 import java.util.StringTokenizer;
 
 /**
- *
- * @author HPSALAMA
+ *  Classe Miel
+ * @author Kaourar,Mouad
  */
 public class Miel extends Nourriture {
 
@@ -20,9 +20,10 @@ public class Miel extends Nourriture {
     }
     
     /**
+     * constructeur pour le chargement de l'élément
      * @param ligne
      */
-    //constructeur pour le chargement de l'élément 
+     
     public Miel(String ligne){
         StringTokenizer tokenizer = new StringTokenizer(ligne);
         String mot = tokenizer.nextToken();
@@ -45,16 +46,29 @@ public class Miel extends Nourriture {
         
     }
     
+    /**
+     * pour sauvegarder le miel
+     * @return la ligne de sauvegarde
+     */
     @Override
      public String getTexteSauvegarde(){
         String s="Miel "+getNom()+" "+getVal()+" "+getDuree()+" "+getPos().getX()+" "+getPos().getY();
         return s;
     }
+    /**
+     * pour sauvegarder le miel en tant qu'inventaire de joueur 
+     * @return la ligne de sauvegarde
+     */
      @Override
     public String getTexteSauvegardeInve(){
         String s="Inventaire Miel "+getNom()+" "+getVal()+" "+getDuree();
         return s;
     }
+    
+    /**
+     * pour sauvegarder le miel en tant qu'effet de joueur 
+     * @return la ligne de sauvegarde
+     */
     @Override
     public String getTexteSauvegardeEffe(){
         String s="Effet Miel "+getNom()+" "+getVal()+" "+getDuree();

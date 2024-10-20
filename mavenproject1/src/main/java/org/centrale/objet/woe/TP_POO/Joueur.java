@@ -550,12 +550,11 @@ public class Joueur {
                 else {
                    System.exit(0);
                 }
-                
-           
+ 
 
     }
     
-        /**
+    /**
      * decremente les effets des objets activés à chaque tour de jeu du joueur 
      */
     public void decEffets(){
