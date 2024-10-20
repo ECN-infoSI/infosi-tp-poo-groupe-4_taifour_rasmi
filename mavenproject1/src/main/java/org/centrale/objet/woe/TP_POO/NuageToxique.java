@@ -36,19 +36,10 @@ public class NuageToxique extends Objet implements Combattant{
     }
     
 
-    ArrayList<Point2D> zone;
-
-    public NuageToxique(ArrayList<Point2D> zone) {
-        this.zone = zone;
-    }
     
     
     
 
-    public void combattre(Creature c){
-        
-    }
-    
 
      /**
      * @param ligne
@@ -57,11 +48,11 @@ public class NuageToxique extends Objet implements Combattant{
     public NuageToxique(String ligne){
         StringTokenizer tokenizer = new StringTokenizer(ligne);
         String mot = tokenizer.nextToken();
+        setNom(tokenizer.nextToken());
         this.paAtt=Integer.parseInt(tokenizer.nextToken());
         this.degAtt=Integer.parseInt(tokenizer.nextToken());
         setPos(new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
-        
-        
+  
     }
 
     public ArrayList<String> CombatsPotentiels(World monde){
@@ -82,4 +73,19 @@ public class NuageToxique extends Objet implements Combattant{
         }
         return l;
     }
+    
+    
+    @Override
+    public void combattre(Creature c){
+        
+    }
+    
+    @Override
+     public String getTexteSauvegarde(){
+        String s="NuageToxique "+getNom()+" "+getPaAtt()+" "+getDegAtt()+" "+getPos().getX()+" "+getPos().getY();
+        return s;
+    }
+     
+   
+    
 }

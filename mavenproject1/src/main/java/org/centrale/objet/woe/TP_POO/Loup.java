@@ -35,9 +35,10 @@ public class Loup extends Monstre implements Combattant{
      */
     //constructeur pour le chargement de l'élément 
     public Loup(String ligne){
-        StringTokenizer tokenizer = new StringTokenizer(ligne);
+       /**StringTokenizer tokenizer = new StringTokenizer(ligne);
         String mot = tokenizer.nextToken();
-        super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
+        super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));*/
+       super(ligne);
     }
 
      
@@ -56,10 +57,10 @@ public class Loup extends Monstre implements Combattant{
             Random ga = new Random();
             int rand = (int)(ga.nextInt(100)+1);
             if(rand>getPageAtt()){
-                System.out.println("l'attaque est ratée.");
+                System.out.println("l'attaque de "+getIdentifiant()+" est ratée ");
             }
             else{
-                System.out.println("attaque réussite");
+                System.out.println("l'attaque de "+getIdentifiant()+" est réussie ");
                 rand = (int)(ga.nextInt(100)+1);
                 if(rand>crea.getPagePar()){
                     crea.setPtVie(crea.getPtVie()-getDegAtt());
@@ -77,18 +78,25 @@ public class Loup extends Monstre implements Combattant{
         String s;
         for(int i=-1;i<2;i++){
             for(int j=-1;j<2;j++){
-                if(i==0 && j==0){
+                int x=this.getPos().getX()+i;
+                int y=this.getPos().getY()+j;
+                if((i==0 && j==0)||x<0 || y<0 || x>=monde.getTaille() || y>=monde.getTaille()){
                     
                 }
                 else{
                     s=monde.getW()[this.getPos().getX()+i][this.getPos().getY()+j];
-                    if (!(".".equals(s))){
+                    if (!(".".equals(s)) && monde.getListeC().containsKey(s)){
                         l.add(s);
                     }
                 }
             }
         }
         return l;
+    }
+    
+    public String getTexteSauvegarde(){
+        String s="Loup "+getIdentifiant()+" "+getPtVie()+" "+getDegAtt()+" "+getPtPar()+" "+getPageAtt()+" "+getPagePar()+" "+getPos().getX()+" "+getPos().getY();
+        return s;
     }
     
 }

@@ -24,15 +24,116 @@ public abstract class Monstre extends Creature{
     public Monstre(){
         super();
     }
+    public Monstre(String s){
+        super(s);
+    }
 
     
      /**
      * deplace le personnage
+     * @param monde : monde dans lequel on effectue ce déplacement
      */
     @Override
-    public void deplacer(){
+    public void deplacer(World monde){
+        int x = getPos().getX();
+        int y = getPos().getY();
+        int taille = monde.getTaille();
         Random ga = new Random();
-        this.getPos().translate(ga.nextInt(2)-1, ga.nextInt(2)-1);
+        int s = ga.nextInt(9);
+        switch(s){
+            case 1:
+                if(x-1>=0){ // (i-1,j)
+                    if(".".equals(monde.getW()[x-1][y])) {
+                        this.getPos().translate(-1, 0);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y]=getIdentifiant();
+                    }
+                    
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;
+            case 2:
+                if(x+1<taille ){ // (i+1,j)
+                    if(".".equals(monde.getW()[x+1][y])) {
+                        this.getPos().translate(1, 0);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y]=getIdentifiant();
+                    }
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;
+            case 3:
+                if(y+1<taille){ // (i,j+1)
+                    if(".".equals(monde.getW()[x][y+1])) {
+                        this.getPos().translate(0, 1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x][y+1]=getIdentifiant();
+                    }
+                        
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;
+            case 4:
+                if(y-1>=0){ // (i,j-1)
+                    if(".".equals(monde.getW()[x][y-1]))
+                    {
+                        this.getPos().translate(0, -1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x][y-1]=getIdentifiant();
+                    }
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;
+            case 5:
+                if(x-1>=0 && y+1<taille){ // (i-1,j+1)
+                    if(".".equals(monde.getW()[x-1][y+1])){
+                        this.getPos().translate(-1, +1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y+1]=getIdentifiant();
+                    }
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;
+            case 6:
+                if(y-1>=0 && x+1<taille){ // (i+1,j-1)
+                    if(".".equals(monde.getW()[x+1][y-1])){
+                        this.getPos().translate(1, -1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y-1]=getIdentifiant();
+                    
+                    }
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;
+            case 7: 
+                if(x-1>=0 && y-1>=0){  // (i-1,j-1)
+                    if(".".equals(monde.getW()[x-1][y-1])) {
+                        this.getPos().translate(-1, -1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y-1]=getIdentifiant();
+                    }
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;
+            case 8:
+                if(x+1<taille && y+1<taille){ // (i+1,j+1)
+                    if(".".equals(monde.getW()[x+1][y+1])) {
+                        this.getPos().translate(1, 1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y+1]=getIdentifiant();
+                    }
+                    else deplacer(monde);
+                }
+                else deplacer(monde);
+                break;   
+        }
     }
     
     /**

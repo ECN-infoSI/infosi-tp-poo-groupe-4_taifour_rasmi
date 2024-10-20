@@ -4,6 +4,8 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.util.StringTokenizer;
+
 /**
  *
  * @author Mouad, Kaoutar
@@ -11,26 +13,17 @@ package org.centrale.objet.woe.TP_POO;
 public class Nourriture extends Objet implements Utilisable{
     //Attributs de la classe
     /**
-     * nom : on donne un nom à la nourriture
      * bonus : valeur boolean indique si l'effet est un bonus (1) ou un malus (0)
-     * carac : indique la caractéristique qui sera affectée par l'effet (sauf les points de vie)
-     * val : indique la valeur de l'effet
      */
     private boolean bonus;
-    private String carac;
     
-    
-    //ask the teacher abt potions nd swords.
-
-  
-    public Nourriture(boolean bonus, String carac, int val) {
-        super();
-        this.bonus = bonus;
-        this.carac = carac;
-        this.setVal(val);
+     public Nourriture(String nom,int duree,int val,Point2D pos,boolean bonus){
+       super(nom,duree,val,pos);
+       this.bonus=bonus;
     }
 
     public Nourriture() {
+        super();
     }
 
     public boolean isBonus() {
@@ -39,14 +32,6 @@ public class Nourriture extends Objet implements Utilisable{
 
     public void setBonus(boolean bonus) {
         this.bonus = bonus;
-    }
-
-    public String getCarac() {
-        return carac;
-    }
-
-    public void setCarac(String carac) {
-        this.carac = carac;
     }
 
 
@@ -66,7 +51,20 @@ public class Nourriture extends Objet implements Utilisable{
         j.getInventaire().remove(s);
         
     }
+    @Override
+    public String getTexteSauvegardeInve(){
+        return " ";
+    }
     
+    @Override
+    public String getTexteSauvegardeEffe(){
+        return " ";
+    }
     
+    @Override
+    public void desactiver(Joueur j,String s){
+        j.getPerso().setDegAtt(j.getPerso().getDegAtt()-this.getVal());
+        j.getEffets().remove(s);
+    }
     
 }

@@ -4,6 +4,8 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.util.StringTokenizer;
+
 
 
 
@@ -39,6 +41,19 @@ public abstract class Creature extends ElementDeJeu implements Deplacable  {
         pageAtt=paAtt;
         pagePar=paPar;
         pos=new Point2D(p);
+    }
+    public Creature(String ligne){
+        StringTokenizer tokenizer = new StringTokenizer(ligne);
+        String mot = tokenizer.nextToken();
+        setIdentifiant(tokenizer.nextToken());
+         ptVie=Integer.parseInt(tokenizer.nextToken());
+        degAtt=Integer.parseInt(tokenizer.nextToken());;
+        ptPar=Integer.parseInt(tokenizer.nextToken());;
+        pageAtt=Integer.parseInt(tokenizer.nextToken());;
+        pagePar=Integer.parseInt(tokenizer.nextToken());;
+        pos=new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()));
+        //super((new StringTokenizer(ligne)).nextToken());
+  
     }
     
     public Creature(){
@@ -110,8 +125,13 @@ public abstract class Creature extends ElementDeJeu implements Deplacable  {
      * affichage de la creature
      */
     public abstract void afficher();
+   
     @Override
-    public abstract void deplacer();
+    public abstract void deplacer(World monde);
+    
+    public String getTexteSauvegarde(){
+        return " ";
+    }
     
     
 }

@@ -7,29 +7,31 @@ package org.centrale.objet.woe.TP_POO;
 import java.util.StringTokenizer;
 
 /**
- * Classe Epee
- * @author Mouad, Kaoutar
+ *
+ * @author HPSALAMA
  */
-public class Epee extends Objet implements Utilisable{
-    
-    public Epee(){
-    super();
-    }
-     public Epee(String nom,int duree,int val,Point2D pos){
-       super(nom,duree,val,pos);
-    }
+public class Miel extends Nourriture {
 
-     /**
+    public Miel() {
+        super();
+    }
+    public Miel(String nom,int duree,int val,Point2D pos,boolean bonus) {
+        super(nom,duree,val,pos,true);
+    }
+    
+    /**
      * @param ligne
      */
     //constructeur pour le chargement de l'élément 
-    public Epee(String ligne){
+    public Miel(String ligne){
         StringTokenizer tokenizer = new StringTokenizer(ligne);
         String mot = tokenizer.nextToken();
         setNom(tokenizer.nextToken());
         setVal(Integer.parseInt(tokenizer.nextToken()));
         setDuree(Integer.parseInt(tokenizer.nextToken()));
+        setBonus(true);
         if(tokenizer.hasMoreTokens()){
+           
             mot=tokenizer.nextToken();
             if(mot==null) {
 
@@ -38,37 +40,23 @@ public class Epee extends Objet implements Utilisable{
             }
         
         }
+        
     }
     
     @Override
-    public void activer(Joueur j,String s){
-        j.getPerso().setDegAtt(j.getPerso().getDegAtt()+this.getVal());
-        j.getEffets().put(s,j.getInventaire().get(s));
-        j.getInventaire().remove(s);
-    }
-    /**
-     * pour sauvegarder un epee
-     * @return 
-     */
-    @Override
      public String getTexteSauvegarde(){
-        String s="Epee "+getNom()+" "+getVal()+" "+getDuree()+" "+getPos().getX()+" "+getPos().getY();
+        String s="Miel "+getNom()+" "+getVal()+" "+getDuree()+" "+getPos().getX()+" "+getPos().getY();
         return s;
     }
      @Override
     public String getTexteSauvegardeInve(){
-        String s="Inventaire Epee "+getNom()+" "+getVal()+" "+getDuree();
+        String s="Inventaire Miel "+getNom()+" "+getVal()+" "+getDuree();
         return s;
     }
     @Override
     public String getTexteSauvegardeEffe(){
-        String s="Effet Epee "+getNom()+" "+getVal()+" "+getDuree();
+        String s="Effet Miel "+getNom()+" "+getVal()+" "+getDuree();
         return s;
     }
     
-    @Override
-    public void desactiver(Joueur j,String s){
-        j.getPerso().setDegAtt(j.getPerso().getDegAtt()-this.getVal());
-        j.getEffets().remove(s);
-    }
 }

@@ -29,14 +29,19 @@ public class Lapin extends Monstre {
      */
     //constructeur pour le chargement de l'élément 
     public Lapin(String ligne){
-        StringTokenizer tokenizer = new StringTokenizer(ligne);
+        /**StringTokenizer tokenizer = new StringTokenizer(ligne);
         String mot = tokenizer.nextToken();
-        super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
+        super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));**/
+        super(ligne);
     }
     public void affiche(){
         System.out.print("le lapin"+getIdentifiant()+" est dans la position : ");
         getPos().affiche();
     }
     
+    public String getTexteSauvegarde(){
+        String s="Lapin "+getIdentifiant()+" "+getPtVie()+" "+getDegAtt()+" "+getPtPar()+" "+getPageAtt()+" "+getPagePar()+" "+getPos().getX()+" "+getPos().getY();
+        return s;
+    }
     
 }

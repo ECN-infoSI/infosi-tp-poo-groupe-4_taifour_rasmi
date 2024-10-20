@@ -19,7 +19,7 @@ public class Guerrier extends Personnage implements Combattant{
         super(n,pV,dA,pPar,paAtt,paPar,dMax,p);
     }
     
-    public Guerrier(Paysan p){
+    public Guerrier(Guerrier p){
         super(p);
     }
     
@@ -33,9 +33,10 @@ public class Guerrier extends Personnage implements Combattant{
      */
     //constructeur pour le chargement de l'élément 
     public Guerrier(String ligne){
-        StringTokenizer tokenizer = new StringTokenizer(ligne);
-        String mot = tokenizer.nextToken();
-        super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
+        //StringTokenizer tokenizer = new StringTokenizer(ligne);
+        //String mot = tokenizer.nextToken();
+        //super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
+        super(ligne);
     }
     
     /**
@@ -48,10 +49,10 @@ public class Guerrier extends Personnage implements Combattant{
             Random ga = new Random();
             int rand = (int)(ga.nextInt(100)+1);
             if(rand>getPageAtt()){
-                System.out.println("l'attaque est ratée.");
+                System.out.println("l'attaque de "+getNom()+" est ratée ");
             }
             else{
-                System.out.println("attaque réussite");
+                System.out.println("l'attaque de "+getNom()+" est réussie ");
                 rand = (int)(ga.nextInt(100)+1);
                 if(rand>creature.getPagePar()){
                     creature.setPtVie(creature.getPtVie()-getDegAtt());
@@ -70,18 +71,24 @@ public class Guerrier extends Personnage implements Combattant{
         String s;
         for(int i=-1;i<2;i++){
             for(int j=-1;j<2;j++){
-                if(i==0 && j==0){
+                int x=this.getPos().getX()+i;
+                int y=this.getPos().getY()+j;
+                if((i==0 && j==0)||x<0 || y<0 || x>=monde.getTaille() || y>=monde.getTaille()){
                     
                 }
-                else{
+                else {
                     s=monde.getW()[this.getPos().getX()+i][this.getPos().getY()+j];
-                    if (!(".".equals(s))){
+                    if (!(".".equals(s))&& monde.getListeC().containsKey(s)){
                         l.add(s);
                     }
                 }
             }
         }
         return l;
+    }
+    public String getTexteSauvegarde(){
+        String s="Guerrier "+getNom()+" "+getPtVie()+" "+getDegAtt()+" "+getPtPar()+" "+getPageAtt()+" "+getPagePar()+" "+getDistAttMax()+" "+getPos().getX()+" "+getPos().getY();
+        return s;
     }
     
     

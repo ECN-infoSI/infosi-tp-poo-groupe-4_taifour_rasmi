@@ -4,9 +4,12 @@
  */
 package org.centrale.objet.woe.TP_POO;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 /**
  *Cette classe a pour but de céer un joueur. Ce joueur peut choisir le type de personnage et la manière de jeu (se déplacer ou bien combattre)
@@ -29,7 +32,48 @@ public class Joueur {
         inventaire = new HashMap<>();
     }
     
-     public Personnage getPerso() {
+    public Joueur(Joueur j){
+        this.effets=new HashMap<>(j.getInventaire());
+        this.effets=new HashMap<>(j.getEffets());
+        if(j.getPerso() instanceof Guerrier) this.perso=new Guerrier((Guerrier)j.getPerso());
+        else this.perso=new Archer((Archer)j.getPerso());
+    }
+    /**
+     * @param ligne
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.lang.InstantiationException
+     * @throws java.lang.IllegalAccessException
+     * @throws java.lang.reflect.InvocationTargetException
+     */
+    //constructeur pour le chargement de l'élément 
+    public Joueur(String ligne) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+        effets = new HashMap<>();
+        inventaire = new HashMap<>();
+        StringTokenizer tokenizer = new StringTokenizer(ligne);
+        String nomClass = tokenizer.nextToken();
+        nomClass = tokenizer.nextToken();
+        Package p = this.getClass().getPackage();
+        StringBuilder sb = new StringBuilder();
+        while (tokenizer.hasMoreTokens()) {
+            sb.append(tokenizer.nextToken());
+            if (tokenizer.hasMoreTokens()) {
+                sb.append(" ");  
+            }
+        }
+         String ligne2 = nomClass+" "+sb.toString();
+        //System.out.println(ligne2);
+        try{
+            Class classe= Class.forName(p.getName()+"."+nomClass);
+            Constructor ct= classe.getConstructor(String.class);
+            ElementDeJeu element = (ElementDeJeu)ct.newInstance((Object)ligne2);
+            if(element instanceof Guerrier) this.perso=new Guerrier((Guerrier)element);
+            else this.perso=new Archer((Archer)element);
+        }
+        catch(NoSuchMethodException e){
+            e.getMessage();
+        }  
+    }
+    public Personnage getPerso() {
         return perso;
     }
 
@@ -86,8 +130,10 @@ public class Joueur {
             perso.setPtPar(20+ga.nextInt(11));
             perso.setDegAtt(30+ga.nextInt(11));
             perso.setDistAttMax(1);
-            perso.setPageAtt(50+ga.nextInt(21));
+            perso.setPageAtt(80+ga.nextInt(21));
             perso.setPagePar(20+ga.nextInt(20));
+            //perso.setPos(new Point2D(ga.nextInt(20),ga.nextInt(14)));
+            
         }else{
             perso= new Archer();
             perso.setNom(nom);
@@ -95,8 +141,9 @@ public class Joueur {
             perso.setPtPar(30+ga.nextInt(21));
             perso.setDegAtt(10+ga.nextInt(11));
             perso.setDistAttMax(3);
-            perso.setPageAtt(40+ga.nextInt(11));
+            perso.setPageAtt(50+ga.nextInt(11));
             perso.setPagePar(30+ga.nextInt(20));
+            //perso.setPos(new Point2D(ga.nextInt(20),ga.nextInt(14)));
         }
         
         
@@ -113,15 +160,17 @@ public class Joueur {
         System.out.println("1- Combattre");
         System.out.println("2- Se déplacer");
         System.out.println("3- Utiliser un objet");
+        System.out.println("4- Sauvegarder");
         Scanner sc = new Scanner(System.in);
         int s = sc.nextInt();
         //tant que la saisie n'égale à 0 ni à 1
-        while(s!=1 && s!=2 && s!=3){
+        while(s!=1 && s!=2 && s!=3 && s!=4){
             
             System.out.println("Veuillez saisir le numéro correspondant à votre choix :");
             System.out.println("1- Combattre");
             System.out.println("2- Se déplacer");
             System.out.println("3- Utiliser un objet");
+            System.out.println("4- Sauvegarder");
             s = sc.nextInt();
         }
         switch (s) {
@@ -129,8 +178,10 @@ public class Joueur {
                 return ("combattre");
             case 2:
                 return ("se deplacer");
-            default:
+            case 3:
                 return ("utiliser un objet");
+            default:
+                return ("Sauvegarder");
         }
         
     }
@@ -144,7 +195,7 @@ public class Joueur {
         int taille=monde.getW().length;
         int x=perso.getPos().getX();
         int y=perso.getPos().getY();
-        valeurEntrer(monde,x,y,taille);
+        this.valeurEntrer(monde,x,y,taille,this);
         
     } 
     
@@ -152,11 +203,11 @@ public class Joueur {
      * la méthode sert à permettre au joueur de choisir les valeurs d'entrée pour son déplacement et gère les différents déplacements possibles
      * 
      */
-    private void valeurEntrer(World monde,int x,int y,int taille){
+    private void valeurEntrer(World monde,int x,int y,int taille, Joueur j){
         int s;
         do{
             Scanner sc = new Scanner(System.in);
-            System.out.println("choisir la position pour le déplacement: ");
+            System.out.println("choisir une position (parmi les suivantes et ne doit pas franchir les frontières du monde ) pour effectuer un déplacement: ");
             System.out.println("1- En haut"); // (i-1,j)
             System.out.println("2- En bas"); // (i+1,j)
             System.out.println("3- A droite"); // (i,j+1)
@@ -174,94 +225,172 @@ public class Joueur {
             case 1:
                 if(x-1>=0){ // (i-1,j)
                     if(".".equals(monde.getW()[x-1][y])) {
-                        perso.setPos(new Point2D(x-1,y));
+                        perso.getPos().setPos(x-1,y);
                         monde.getW()[x][y]=".";
                         monde.getW()[x-1][y]=perso.getNom();
+                        
                     }
-                    
-                    else valeurEntrer(monde,x,y,taille);
+                    else if(monde.getListeO().containsKey(monde.getW()[x-1][y])){
+                        ramasserObjet(monde,new Point2D(x-1,y));
+                        perso.getPos().setPos(x-1,y);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y]=perso.getNom();
+                        
+                    }
+                    else{
+                        valeurEntrer(monde,x,y,taille,j);
+                    }
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;
             case 2:
                 if(x+1<taille ){ // (i+1,j)
                     if(".".equals(monde.getW()[x+1][y])) {
-                        perso.setPos(new Point2D(x+1,y));
+                        perso.getPos().setPos(x+1,y);
                         monde.getW()[x][y]=".";
                         monde.getW()[x+1][y]=perso.getNom();
+                        
                     }
-                    else valeurEntrer(monde,x,y,taille);
+                    else if(monde.getListeO().containsKey(monde.getW()[x+1][y])){
+                        ramasserObjet(monde,new Point2D(x+1,y));
+                        perso.getPos().setPos(x+1,y);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y]=perso.getNom();
+                        
+                    }
+                    else{
+                        valeurEntrer(monde,x,y,taille,j);
+                    }
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;
             case 3:
                 if(y+1<taille){ // (i,j+1)
                     if(".".equals(monde.getW()[x][y+1])) {
-                        perso.setPos(new Point2D(x,y+1));
+                        perso.getPos().setPos(x,y+1);
                         monde.getW()[x][y]=".";
                         monde.getW()[x][y+1]=perso.getNom();
-                    }
                         
-                    else valeurEntrer(monde,x,y,taille);
+                    }
+                    else if(monde.getListeO().containsKey(monde.getW()[x][y+1])){
+                        ramasserObjet(monde,new Point2D(x,y+1));
+                        perso.getPos().setPos(x,y+1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x][y+1]=perso.getNom();
+                        
+                    }  
+                    else{
+                        valeurEntrer(monde,x,y,taille,j);
+                    }
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;
             case 4:
-                if(y-1>0){ // (i,j-1)
+                if(y-1>=0){ // (i,j-1)
                     if(".".equals(monde.getW()[x][y-1]))
                     {
-                     perso.setPos(new Point2D(x,y-1));
-                     monde.getW()[x][y]=".";
-                     monde.getW()[x][y-1]=perso.getNom();
+                        perso.getPos().setPos(x,y-1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x][y-1]=perso.getNom();
+                        
                     }
-                    else valeurEntrer(monde,x,y,taille);
+                    else if(monde.getListeO().containsKey(monde.getW()[x][y-1])){
+                        ramasserObjet(monde,new Point2D(x,y-1));
+                        perso.getPos().setPos(x,y-1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x][y-1]=perso.getNom();
+                        
+                    }
+                    else{
+                        valeurEntrer(monde,x,y,taille,j);
+                    }
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;
             case 5:
                 if(x-1>=0 && y+1<taille){ // (i-1,j+1)
                     if(".".equals(monde.getW()[x-1][y+1])){
-                         perso.setPos(new Point2D(x-1,y+1));
-                         monde.getW()[x][y]=".";
-                         monde.getW()[x-1][y+1]=perso.getNom();
+                        perso.getPos().setPos(x-1,y+1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y+1]=perso.getNom();
+                        
                     }
-                    else valeurEntrer(monde,x,y,taille);
+                    else if(monde.getListeO().containsKey(monde.getW()[x-1][y+1])){
+                        ramasserObjet(monde,new Point2D(x-1,y+1));
+                        perso.getPos().setPos(x-1,y+1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y+1]=perso.getNom();
+                        
+                    }
+                    else{
+                        valeurEntrer(monde,x,y,taille,j);
+                    }
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;
             case 6:
                 if(y-1>=0 && x+1<taille){ // (i+1,j-1)
                     if(".".equals(monde.getW()[x+1][y-1])){
-                        perso.setPos(new Point2D(x+1,y-1));
+                        perso.getPos().setPos(x+1,y-1);
                         monde.getW()[x][y]=".";
                         monde.getW()[x+1][y-1]=perso.getNom();
-                    
+                        
                     }
-                    else valeurEntrer(monde,x,y,taille);
+                    else if(monde.getListeO().containsKey(monde.getW()[x+1][y-1])){
+                        ramasserObjet(monde,new Point2D(x+1,y-1));
+                        perso.getPos().setPos(x+1,y-1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y-1]=perso.getNom();
+                        
+                    }
+                    else{
+                        valeurEntrer(monde,x,y,taille,j);
+                    }
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;
             case 7: 
                 if(x-1>=0 && y-1>=0){  // (i-1,j-1)
                     if(".".equals(monde.getW()[x-1][y-1])) {
-                        perso.setPos(new Point2D(x-1,y-1));
+                        perso.getPos().setPos(x-1,y-1);
                         monde.getW()[x][y]=".";
                         monde.getW()[x-1][y-1]=perso.getNom();
+                        
                     }
-                    else valeurEntrer(monde,x,y,taille);
+                    else if(monde.getListeO().containsKey(monde.getW()[x-1][y-1])){
+                        ramasserObjet(monde,new Point2D(x-1,y-1));
+                        perso.getPos().setPos(x-1,y-1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x-1][y-1]=perso.getNom();
+                        
+                    }
+                    else{
+                        valeurEntrer(monde,x,y,taille,j);
+                    }
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;
             case 8:
                 if(x+1<taille && y+1<taille){ // (i+1,j+1)
                     if(".".equals(monde.getW()[x+1][y+1])) {
-                        perso.setPos(new Point2D(x+1,y+1));
+                        perso.getPos().setPos(x+1,y+1);
                         monde.getW()[x][y]=".";
                         monde.getW()[x+1][y+1]=perso.getNom();
+                        
                     }
-                    else valeurEntrer(monde,x,y,taille);
+                    else if(monde.getListeO().containsKey(monde.getW()[x+1][y+1])){
+                        ramasserObjet(monde,new Point2D(x+1,y+1));
+                        perso.getPos().setPos(x+1,y+1);
+                        monde.getW()[x][y]=".";
+                        monde.getW()[x+1][y+1]=perso.getNom();
+                        
+                    }
+                    else{
+                        valeurEntrer(monde,x,y,taille,j);
+                    }
+                            
                 }
-                else valeurEntrer(monde,x,y,taille);
+                else valeurEntrer(monde,x,y,taille,j);
                 break;   
         }
     }
@@ -275,15 +404,37 @@ public class Joueur {
         inventaire.forEach((key, value) -> {
         System.out.println(key + "- " + ((Objet)value).getVal());
         });
+        String s;
+        do{
+            System.out.println("Selectionner votre objet:) ");
+            Scanner sc = new Scanner(System.in);
+            s = sc.nextLine();
+        }while(!(inventaire.containsKey(s)));
         
-        Scanner sc = new Scanner(System.in);
-        String s = sc.nextLine();
-        Utilisable o = inventaire.get(s);
         
-        o.activer(this, s);
+        inventaire.get(s).activer(this, s);
+        
+        
+        
 
     }
     
+    /**
+     * cette méthode a pour objectif de renvoyer un texte de sauvegarde
+     * @return 
+     */
+    public String getTexteSauvegarde(){
+        String s;
+        if(perso instanceof Guerrier)s=((Guerrier)perso).getTexteSauvegarde();
+        else s= ((Archer)perso).getTexteSauvegarde();
+        return "Joueur "+s;
+    }
+    public void ramasserObjet(World monde, Point2D p){
+        String s = monde.getW()[p.getX()][p.getY()];
+        inventaire.put(s, (Utilisable)monde.getListeO().get(s));
+        monde.getListeO().remove(s);
+    }
+
    
     
     
