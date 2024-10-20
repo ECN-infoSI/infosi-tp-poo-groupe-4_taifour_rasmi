@@ -213,6 +213,7 @@ public  class World {
             a.setIdentifiant("Soin"+i);
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
             a.setVal(10+ga.nextInt(41));
+            a.setDuree(1);
             listeO.put(a.getNom(),a);
         }    
     }
@@ -230,6 +231,7 @@ public  class World {
             a.setPos(new Point2D(genererPosUnique()));
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
             a.setVal(5+ga.nextInt(26));
+            a.setDuree(5+ga.nextInt(6));
             listeO.put(a.getNom(),a);
         }    
     }
@@ -239,13 +241,14 @@ public  class World {
      * @param k: le nombre aléatoire de potions
      */
     public void creerNourriture(int k){
+        
         for(int i=0;i<k;i++){
             Miel a=new Miel();
             a.setNom("miel"+i);
             a.setIdentifiant("miel"+i);
             a.setPos(new Point2D(genererPosUnique()));
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
-            a.setDuree(5);
+            a.setDuree(1);
             a.setVal(5);
             listeO.put(a.getNom(),a);
         }    
@@ -321,11 +324,7 @@ public  class World {
             System.out.println();
             this.afficheWorld();
             
-            
-            decEffets(joueur);
-            //Random gc = new Random();
-            
-
+ 
             while(".".equals(W[a][b]) || !((listeC.get(W[a][b])) instanceof Creature) ){
                 a = ga.nextInt(taille);
                 b = ga.nextInt(taille);
@@ -505,20 +504,7 @@ public  class World {
         
        
     }
-    
-    public void decEffets(Joueur joueur){
-        if(joueur.getEffets().isEmpty()){
-            
-        }
-        else{
-            joueur.getEffets().forEach((key, value)-> {
-                ((Objet)value).setDuree(((Objet)value).getDuree()-1);
-                if(((Objet)value).getDuree()==0){
-                    value.desactiver(joueur,((Objet)value).getNom());
-                }
-            });
-        }
-    }
+
     
     /**
      * cette méthode a pour but de sauvegarder une partie

@@ -185,9 +185,9 @@ public class Joueur {
         //tant que la saisie n'est pas correcte
         
         while(!"1".equals(s) && !"2".equals(s) && !"3".equals(s) && !"4".equals(s) && !"5".equals(s)){
-            System.out.println("Veuillez saisir le numéro correspondant à votre choix :");
+            System.out.println("Veuillez saisir le numero correspondant à votre choix :");
             System.out.println("1- Combattre");
-            System.out.println("2- Se déplacer");
+            System.out.println("2- Se deplacer");
             System.out.println("3- Utiliser un objet");
             System.out.println("4- Sauvegarder");
             System.out.println("5- Quitter");
@@ -215,14 +215,14 @@ public class Joueur {
     public String typeJeu(){
         
         System.out.println("Choisissez le chiffre correspondant au type de votre jeu: ");
-        System.out.println("1- créer un monde aléatoirement");
+        System.out.println("1- creer un monde aléatoirement");
         System.out.println("2- Charger une partie");
         Scanner sc = new Scanner(System.in);
         String s = sc.nextLine();
         //tant que la saisie n'égale à 0 ni à 1
         while(!"1".equals(s) && !"2".equals(s) ){
             System.out.println("Veuillez chosir le chiffre correspondant au type de votre jeu: ");
-            System.out.println("1- créer un monde aléatoirement");
+            System.out.println("1- creer un monde aléatoirement");
             System.out.println("2- Charger une partie");
             s = sc.nextLine();
         }
@@ -452,7 +452,7 @@ public class Joueur {
     public void activerobjetChoix(){
         System.out.println("Veuillez choisir l'objet à activer :");
         inventaire.forEach((key, value) -> {
-        System.out.println(key + "- " + ((Objet)value).getVal());
+        System.out.println(key);
         });
         String s;
         do{
@@ -500,7 +500,7 @@ public class Joueur {
      * @throws InvocationTargetException 
      */
     public void tourDuJoueur(World monde) throws IOException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
-
+                decEffets();
                 afficheJoueur();
                 String s = this.choixJeu();
                 if("combattre".equals(s)){
@@ -550,9 +550,31 @@ public class Joueur {
                 else {
                    System.exit(0);
                 }
+                
+           
 
     }
     
+        /**
+     * decremente les effets des objets activés à chaque tour de jeu du joueur 
+     */
+    public void decEffets(){
+        if(effets.isEmpty()){
+            
+        }
+        else{
+            effets.forEach((key, value)-> {
+                ((Objet)value).setDuree(((Objet)value).getDuree()-1);
+                if(((Objet)value).getDuree()==0){
+                    value.desactiver(this,((Objet)value).getNom());
+                }
+            });
+        }
+    }
+    
+    /**
+     * pour l'affichage des information de joueur 
+     */
     public void afficheJoueur(){
         System.out.println("___________________________________________");
         System.out.println("Nom du joueur :"+perso.getIdentifiant());
@@ -562,19 +584,20 @@ public class Joueur {
         System.out.println("Position :"+perso.getPos().toString());
         System.out.println();
         if(!(inventaire.isEmpty())) {
-            System.out.println("Inventiare:");
+            System.out.println("Inventaire:");
             inventaire.forEach((key,value)-> {
-                System.out.println(key+" sa durée est: "+((Objet)value).getDuree());
+                System.out.println(key+" sa duree est: "+((Objet)value).getDuree());
             }); 
         }
         else System.out.println("Votre Inventiare est vide");
         if(!(effets.isEmpty())){
             System.out.println("effet: ");
             effets.forEach((key,value)-> {
-                System.out.println(key+" durée "+((Objet)value).getDuree());
+                System.out.println(key+" duree "+((Objet)value).getDuree());
             });  
         }
         else System.out.println("Votre liste des effets est vide");
+        System.out.println("___________________________________________");
     }
 
 }
