@@ -1,0 +1,62 @@
+Taille 20
+Archer Ar2 100 0 0 0 0 0 10 12 0
+Lapin La6 50 0 0 0 0 6 1
+Archer Ar1 100 0 0 0 0 0 10 11 0
+Lapin La5 50 0 0 0 0 17 17
+Archer Ar4 100 0 0 0 0 0 13 14 0
+Lapin La8 50 0 0 0 0 1 17
+Archer Ar3 100 0 0 0 0 0 5 19 0
+Lapin La7 50 0 0 0 0 15 16
+Lapin La9 50 0 0 0 0 12 15
+Guerrier Guer4 100 0 0 0 0 0 0 16
+Guerrier Guer3 100 0 0 0 0 0 8 13
+Paysan Pay5 80 0 0 0 0 0 9 6
+Guerrier Guer2 100 0 0 0 0 0 12 11
+Paysan Pay4 80 0 0 0 0 0 7 8
+Guerrier Guer1 100 0 0 0 0 0 6 2
+Guerrier Guer0 100 0 0 0 0 0 3 10
+Paysan Pay1 80 0 0 0 0 0 17 0
+Paysan Pay0 80 0 0 0 0 0 14 17
+Paysan Pay3 80 0 0 0 0 0 11 12
+Paysan Pay2 80 0 0 0 0 0 13 1
+Loup Loup1 150 0 0 0 0 18 0
+Loup Loup0 150 0 0 0 0 5 8
+Loup Loup5 150 0 0 0 0 12 6
+Loup Loup4 150 0 0 0 0 10 13
+Loup Loup3 150 0 0 0 0 14 12
+Loup Loup2 150 0 0 0 0 6 13
+Guerrier koko 122 35 28 88 39 1 13 3
+Lapin La0 50 0 0 0 0 9 11
+Lapin La2 50 0 0 0 0 6 0
+Lapin La1 50 0 0 0 0 2 0
+Archer Ar0 100 0 0 0 0 0 3 18 0
+Lapin La4 50 0 0 0 0 13 8
+Lapin La3 50 0 0 0 0 19 15
+Epee Epee10 15 0 4 8
+Epee Epee11 20 0 11 19
+Epee Epee12 27 0 8 8
+Epee Epee13 12 0 2 8
+Epee Epee14 22 0 19 12
+Miel miel3 5 5 4 5
+Epee Epee0 7 0 9 3
+Epee Epee1 24 0 11 17
+Epee Epee2 23 0 19 11
+Epee Epee3 11 0 9 19
+Epee Epee4 9 0 11 4
+PotionSoin Soin0 35 0 11 8
+Epee Epee5 11 0 12 18
+Epee Epee6 23 0 7 3
+Epee Epee7 30 0 6 10
+Epee Epee8 8 0 0 11
+Epee Epee9 25 0 8 14
+PotionSoin Soin6 25 0 11 11
+PotionSoin Soin5 25 0 9 0
+PotionSoin Soin7 25 0 4 11
+PotionSoin Soin2 37 0 16 6
+PotionSoin Soin1 34 0 18 15
+PotionSoin Soin4 49 0 0 18
+PotionSoin Soin3 24 0 12 1
+Miel miel0 5 5 3 0
+Miel miel2 5 5 3 17
+Miel miel1 5 5 18 13
+Joueur Guerrier koko 122 35 28 88 39 1 13 3

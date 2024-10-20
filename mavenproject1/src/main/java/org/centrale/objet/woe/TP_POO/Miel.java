@@ -26,7 +26,9 @@ public class Miel extends Nourriture {
     public Miel(String ligne){
         StringTokenizer tokenizer = new StringTokenizer(ligne);
         String mot = tokenizer.nextToken();
-        setNom(tokenizer.nextToken());
+        String s=tokenizer.nextToken();
+        setNom(s);
+        setIdentifiant(s);
         setVal(Integer.parseInt(tokenizer.nextToken()));
         setDuree(Integer.parseInt(tokenizer.nextToken()));
         setBonus(true);

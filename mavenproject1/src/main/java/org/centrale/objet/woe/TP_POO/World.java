@@ -1,12 +1,14 @@
 package org.centrale.objet.woe.TP_POO;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -21,31 +23,50 @@ public  class World {
     //Attributs de la classe
     /**
      * W: la surface sur laquelle les pretagonistes se place
+     * taille: la taille du tableau
      * listeC: la liste de l'ensemble des crétures 
      * listeO: la liste de l'ensemble des objets 
+     * joueur: le joueur courant 
+     * fichiers: les fichiers de sauvegarde
      */
     private String[][] W;
     private  int taille=20;
-    //public ArrayList<Creature> listeC;
     private HashMap<String,Creature> listeC;
     private HashMap<String,Objet> listeO;
     private Joueur joueur;
+    private ArrayList<String> fichiers;
     
 
     public int getTaille() {
         return taille;
+    }
+    
+    public void setTaille(int taille) {
+        this.taille = taille;
     }
 
     public String[][] getW() {
         return W;
     }
 
+    public void setW(String[][] W) {
+        this.W = W;
+    }
+    
     public HashMap<String, Creature> getListeC() {
         return listeC;
     }
-
+    
+    public void setListeC(HashMap<String, Creature> listeC) {
+        this.listeC = listeC;
+    }
+    
     public HashMap<String, Objet> getListeO() {
         return listeO;
+    }
+    
+    public void setListeO(HashMap<String, Objet> listeO) {
+        this.listeO = listeO;
     }
 
     public Joueur getJoueur() {
@@ -55,61 +76,63 @@ public  class World {
     public void setJoueur(Joueur joueur) {
         this.joueur = joueur;
     }
+
+    public ArrayList<String> getFichiers() {
+        return fichiers;
+    }
+
+    public void setFichiers(ArrayList<String> fichiers) {
+        this.fichiers = fichiers;
+    }
     
     
-    public World(){
+    
+    public World() throws IOException{
         W = new String[taille][taille]; 
         //listeC = new ArrayList<>();
         listeC = new HashMap<>();
         listeO = new HashMap<>();
         joueur=new Joueur();
+        
+        //on stocke les fichiers de chargement
+        fichiers = new ArrayList<>(); 
+        Files.newDirectoryStream(new File(".").toPath(), "*.txt").forEach(path -> fichiers.add(path.getFileName().toString()));
+        
+        //on place les cases vides dans le tableau
         for (String[] W1 : W) {
             for (int j = 0; j < W1.length; j++) {
                 W1[j] = "."; 
             }
         }
     }
-    /**
-     * génération d'un nombre aléatoire 
-     * @return un nombre alèatoire
-     */
     
-    public int genNombreAleatoire(){
+//méthodes 
+    
+    
+    /**
+     * génération d'une position non occupée par un autre protagoniste / objet
+     * @return une position unique de type Point2D
+     */
+    public Point2D genererPosUnique(){
+        Point2D p;
         Random ga = new Random();
-        return ga.nextInt(100);
-    }
-    
-    /**
-     * génération d'un tableau des 5 nombres aléatoires 
-     * @return tableau de 5 nombres aléatoires 
-     */
-    
-    public int[] geneTabl(){
-        int[] t=new int[5];
-        t[0]=genNombreAleatoire();
-        //System.out.print("["+t[0]+"]");
-        for(int i=1;i<=4;i++){
-            t[i]=genNombreAleatoire();
-            for(int j=1;j<=i;j++){
-                while(t[j-1]==t[i]) t[i]=genNombreAleatoire();
-            }  
-            //System.out.print("["+t[i]+"]");
-        }
-        return t;
+        do{
+            p=new Point2D(ga.nextInt(W.length), ga.nextInt(W[0].length));
+        }while(!W[p.getX()][p.getY()].equals("."));
+        return p;
     }
     
     /**
      * creation des pretagonistes  
      * @param k: le nombre aléatoire d'archers
      */
-    
     public  void creaArcher(int k){
         for(int i=0;i<k;i++){
             Archer a=new Archer();
             a.setPos(new Point2D(genererPosUnique()));
             a.setNom("Ar"+i);
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
-            a.getPos().affiche();
+            a.setIdentifiant("Ar"+i);
             a.setPtVie(100);
             listeC.put(a.getNom(),a);
         }
@@ -124,6 +147,7 @@ public  class World {
             a.setPtVie(80);
             a.setPos(new Point2D(genererPosUnique()));
             a.setNom("Pay"+i);
+            a.setIdentifiant("Pay"+i);
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
             listeC.put(a.getNom(),a);
         }
@@ -142,8 +166,7 @@ public  class World {
             W[a.getPos().getX()][a.getPos().getY()]=a.getIdentifiant();
             a.setPtVie(50);
             listeC.put(a.getIdentifiant(),a);
-        }
-        
+        }  
     }
     /**
      * creation des pretagonistes  
@@ -154,6 +177,7 @@ public  class World {
             Guerrier a=new Guerrier();
             a.setPos(new Point2D(genererPosUnique()));
             a.setNom("Guer"+i);
+             a.setIdentifiant("Guer"+i);
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
             a.setPtVie(100);
             listeC.put(a.getNom(),a);
@@ -186,6 +210,7 @@ public  class World {
             PotionSoin a=new PotionSoin();
             a.setPos(new Point2D(genererPosUnique()));
             a.setNom("Soin"+i);
+            a.setIdentifiant("Soin"+i);
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
             a.setVal(10+ga.nextInt(41));
             listeO.put(a.getNom(),a);
@@ -201,6 +226,7 @@ public  class World {
         for(int i=0;i<k;i++){
             Epee a=new Epee();
             a.setNom("Epee"+i);
+            a.setIdentifiant("Epee"+i);
             a.setPos(new Point2D(genererPosUnique()));
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
             a.setVal(5+ga.nextInt(26));
@@ -216,6 +242,7 @@ public  class World {
         for(int i=0;i<k;i++){
             Miel a=new Miel();
             a.setNom("miel"+i);
+            a.setIdentifiant("miel"+i);
             a.setPos(new Point2D(genererPosUnique()));
             W[a.getPos().getX()][a.getPos().getY()]=a.getNom();
             a.setDuree(5);
@@ -223,28 +250,12 @@ public  class World {
             listeO.put(a.getNom(),a);
         }    
     }
-    
-    
-    
-    
-    /**
-     * génération d'une position non occupée par un autre protagoniste / objet
-     * @return une position unique de type Point2D
-     */
-    public Point2D genererPosUnique(){
-        Point2D p;
-        Random ga = new Random();
-        do{
-            p=new Point2D(ga.nextInt(W.length), ga.nextInt(W[0].length));
-        }while(!W[p.getX()][p.getY()].equals("."));
-        return p;
-    }
+
     
     /**
      * Crée le monde en positionant les protagonistes et les objets de manière aléatoire dans le monde.
      * les protagonistes et les objets n'ont pas les mêmes positions
      */
-    
     public void creerMondeAlea() {
         creaArcher(5);
         creaPaysan(6);
@@ -256,7 +267,6 @@ public  class World {
         creerNourriture(4);
     }
     
-         
     /**
      * Affichage de World
      */
@@ -277,28 +287,41 @@ public  class World {
      * méthode qui définit le tour du jeu   
      * @param joueur: le joueur humain
     */
-    public void tourDeJeu(Joueur joueur) throws IOException{
-        boolean sauve=false;
+    public void tourDeJeu() throws IOException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+        String type=joueur.typeJeu();
+        if ("char".equals(type)){
+            if(!fichiers.isEmpty()){
+                System.out.println("Veuillez choisir parmi les fichiers:");
+                for (String fichier:fichiers){
+                    System.out.println(fichier);
+                }
+                Scanner sc = new Scanner(System.in);
+                String fichier = sc.nextLine();
+                chargementPartie(fichier);
+                //joueur=this.joueur;
+                System.out.println(joueur.getPerso().getNom());
+                updateWorld();
+            }
+            
+        }
+        else{
+            creerMondeAlea();
+            joueur.choisirType();
+            joueur.PlacerJoueur(this);
+        }
+
         Random ga = new Random();
         int a = ga.nextInt(taille);
         int b = ga.nextInt(taille);
-        int k=0;
        // joueur.getPerso().getPtVie()>0
-        while(joueur.getPerso().getPtVie()>0 && !sauve){
+        while(joueur.getPerso().getPtVie()>0 ){
             //k++;
             System.out.println();
             System.out.println();
             System.out.println();
             this.afficheWorld();
-            System.out.println("degAtt "+joueur.getPerso().getDegAtt());
-            if(!(joueur.getInventaire().isEmpty())) System.out.println("inventaire :");
-            if(!(joueur.getEffets().isEmpty())){
-            System.out.println("effet :");
-            joueur.getEffets().forEach((key,value)-> {
-                System.out.println("durée epee "+((Objet)value).getDuree());
-            });
             
-            }
+            
             decEffets(joueur);
             //Random gc = new Random();
             
@@ -309,59 +332,12 @@ public  class World {
             }
             
             Creature c = listeC.get(W[a][b]);
-
+            
+            //le joueur qui va jouer maintenant 
             if(c==joueur.getPerso()){
-                
-                String s = joueur.choixJeu();
-                if("combattre".equals(s)){
-                    ArrayList<String> l = ((Combattant)joueur.getPerso()).CombatsPotentiels(this);
-                    if(l.isEmpty()){
-                        System.out.println("Il n'y a aucune créature à portée.");
-                    }
-                    else{
-                        System.out.println("Entrez le nom de la créature que vous voulez combattre parmi les suivants :");
-                        for(String elt : l){
-                            System.out.println(elt);
-                        }
-                        Scanner sc = new Scanner(System.in);
-                        String crea = sc.nextLine();
-                        while(!(l.contains(crea))){
-                            System.out.println("Veuillez entrer un nom de créature valide :)");
-                            crea = sc.nextLine();
-                        }
-                        
-                        
-                         /*while(!(listeC.containsKey(crea))){
-                                //1
-                                //sc = new Scanner(System.in);
-                                crea = sc.nextLine();
-                            }*/
-                        
-                        Creature cr = listeC.get(crea);
-                        if(joueur.getPerso() instanceof Guerrier){
-                            ((Guerrier)joueur.getPerso()).combattre(cr);
-                        }
-                        if(joueur.getPerso() instanceof Archer){
-                            ((Archer)joueur.getPerso()).combattre(cr);
-                        }
-                    }
-                    
-                }
-                else if ("se deplacer".equals(s)){
-                    joueur.deplacerJoueur(this);
-                }
-                else if ("utiliser un objet".equals(s)){
-                    if(joueur.getInventaire().isEmpty()){
-                        System.out.println("Votre inventaire est vide ! vous ne pouvez pas activer aucun objet.");
-                    }
-                    else joueur.activerobjetChoix();
-                }
-                else{
-                    sauvegardePartie("enregistre.txt");
-                    System.out.println("Votre partie est bien sauvegardée.");
-                    sauve=true;
-                }
+                joueur.tourDuJoueur(this);
             }
+            //une creature choisie aleatoirement va jouer 
             else{
                 a = ga.nextInt(2);
                 if(a==0){
@@ -388,7 +364,7 @@ public  class World {
                                 ((Archer) c).combattre(listeC.get(l.get(b)));
                             }
                         }
-                        else{
+                        else if(c instanceof Loup){
                             ArrayList<String> l = ((Loup) c).CombatsPotentiels(this);
                             if(l.isEmpty()) c.deplacer(this);
                             else{
@@ -405,12 +381,7 @@ public  class World {
             testMeurtre();
         }   
     }
-    
-    
-    
-    
-    
-    
+
     /**
      * cette méthode a pour but de charger une partie déjà enregistrée
      * @param source: le nom du fichier de sauvegarde à charger
@@ -424,6 +395,9 @@ public  class World {
     
     public void chargementPartie(String source) throws IOException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
            try{
+               
+               source = source + ".txt";
+               
                String ligne;
                BufferedReader fichier =new BufferedReader(new FileReader(source)) ;
                ligne=fichier.readLine();
@@ -440,18 +414,7 @@ public  class World {
                 e.getMessage();
            }
     }
-    /**
-     * Cette méthode a pour rôle de supprimer les créatures qui ont perdu leurs points de vie.
-     */
-    public void testMeurtre(){
-        listeC.forEach((key,value)-> {
-            if(value.getPtVie()<=0){
-                listeC.remove(key);
-                W[value.getPos().getX()][value.getPos().getY()]=".";
-            }
-        });
-    }
-    
+     
     /**
      * cette méthode a pour but de créer un élèment de jeu
      * @param ligne: c'est le tokenizer qu'on va découper (correspond à la ligne)
@@ -496,7 +459,11 @@ public  class World {
             Object element = (Object)ct.newInstance((Object)ligne);
             if(element instanceof Creature) listeC.put(((Creature)element).getIdentifiant(),(Creature)element);
             else if(element instanceof Objet) listeO.put(((Objet)element).getNom(),(Objet)element);
-            else if(element instanceof Joueur) this.joueur=(Joueur)element;    
+            else if(element instanceof Joueur) {
+                this.joueur=(Joueur)element;
+                System.out.println("test"+this.joueur.getPerso().getIdentifiant());
+                listeC.put(this.joueur.getPerso().getIdentifiant(),(Creature)this.joueur.getPerso());
+            }    
             if(element instanceof Utilisable && this.joueur.getInventaire()!=null) this.joueur.getInventaire().put(((Objet)element).getNom(),(Utilisable)element);
         }
         catch(NoSuchMethodException e){
@@ -513,15 +480,31 @@ public  class World {
         
         listeC.forEach((key,value)-> {
             W[value.getPos().getX()][value.getPos().getY()]=key;
+         
         });
         listeO.forEach((key,value)-> {
             W[value.getPos().getX()][value.getPos().getY()]=key;
+         
         });
         
-        this.joueur.PlacerJoueur(this);
+        //this.joueur.PlacerJoueur(this);
     
     }
-    
+    /**
+     * Cette méthode a pour rôle de supprimer les créatures qui ont perdu leurs points de vie.
+     */
+    public void testMeurtre(){
+
+        listeC.forEach((key,value)-> {
+            if(value.getPtVie()<=0){
+                
+                W[value.getPos().getX()][value.getPos().getY()]=".";
+                listeC.remove(key);
+            }
+        });
+        
+       
+    }
     
     public void decEffets(Joueur joueur){
         if(joueur.getEffets().isEmpty()){
@@ -544,6 +527,7 @@ public  class World {
     public void sauvegardePartie(String source) throws IOException{
         //BufferedWriter bufferedWriter=null;
         // System.out.println(this.joueur.getInventaire());
+        source = source + ".txt";
         String taille="Taille "+this.taille;
         try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(source))){
             bufferedWriter.write(taille);

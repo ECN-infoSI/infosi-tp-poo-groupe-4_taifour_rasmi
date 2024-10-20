@@ -18,19 +18,8 @@ public class TestWoE {
     public static void main(String []args) throws IOException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
     
         World monde=new World();
-        Joueur joueur=new Joueur();
-        monde.setJoueur(joueur);
-        joueur.choisirType();
-        joueur.PlacerJoueur(monde);
-        monde.creerMondeAlea();
-        monde.tourDeJeu(joueur);
-        //pour le sauvegarde et le chargement de partie, nous avons tourDuJeu qui s'arrete une fois le joueuer 
-        //a perdu toute ses points, donc on modifie la condition de tourDuJeU POUR VISUALISER SES PARTIES
-        //car pour l'arreter dans le premier cas ça prend du temps
-        //consulter le fichier dans la racine du fichier pour visualiser le résultat 
-        monde.sauvegardePartie("enregistre.txt");
-        System.out.println("Chargement de la partie");
-        monde.chargementPartie("enregistre.txt");
-        monde.afficheWorld();
+        //Joueur joueur=new Joueur();
+        //monde.setJoueur(joueur);*/
+        monde.tourDeJeu();
     }
 }

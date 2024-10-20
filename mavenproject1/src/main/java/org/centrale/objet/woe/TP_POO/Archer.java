@@ -55,17 +55,13 @@ public class Archer extends Personnage implements Combattant{
             }
         }
     } 
+    
     /**
      * @param ligne
      */
     //constructeur pour le chargement de l'élément 
     public Archer(String ligne){
-        /**StringTokenizer tokenizer = new StringTokenizer(ligne);
-        String mot = tokenizer.nextToken();
-        super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
-        this.nbFleches=Integer.parseInt(tokenizer.nextToken());*/
         super(ligne);
-          
     }
     
     @Override
@@ -90,6 +86,10 @@ public class Archer extends Personnage implements Combattant{
         return l;
     }
     
+    /**
+     * méthode pour récupérer la ligne de sauvegarde de l'acher 
+     * @return la ligne
+     */
     public String getTexteSauvegarde(){
         String s="Archer "+getNom()+" "+getPtVie()+" "+getDegAtt()+" "+getPtPar()+" "+getPageAtt()+" "+getPagePar()+" "+getDistAttMax()+" "+getPos().getX()+" "+getPos().getY()+" "+nbFleches;
         return s;

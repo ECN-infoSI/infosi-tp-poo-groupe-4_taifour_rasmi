@@ -48,16 +48,13 @@ public class PotionSoin extends Objet implements Utilisable{
      */
     //constructeur pour le chargement de l'élément 
     public PotionSoin(String ligne){
-        //System.out.println(ligne);
         StringTokenizer tokenizer = new StringTokenizer(ligne);
         String mot = tokenizer.nextToken();
-        //System.out.println(mot);
-        setNom(tokenizer.nextToken());
-        //System.out.println(getNom());
+        String s=tokenizer.nextToken();
+        setNom(s);
+        setIdentifiant(s);
         setVal(Integer.parseInt(tokenizer.nextToken()));
-        //System.out.println(getVal());
         setDuree(Integer.parseInt(tokenizer.nextToken()));
-        //System.out.println(getVal());
         if(tokenizer.hasMoreTokens()){
            
             mot=tokenizer.nextToken();

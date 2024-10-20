@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package org.centrale.objet.woe.TP_POO;
 
 import static java.lang.Math.sqrt;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.StringTokenizer;
+
 
 /**
  * Cette class définit un type de personnage qui est Guerrier
@@ -29,14 +26,12 @@ public class Guerrier extends Personnage implements Combattant{
     
      
     /**
+     * constructeur pour le chargement de l'élément 
      * @param ligne
      */
-    //constructeur pour le chargement de l'élément 
     public Guerrier(String ligne){
-        //StringTokenizer tokenizer = new StringTokenizer(ligne);
-        //String mot = tokenizer.nextToken();
-        //super(tokenizer.nextToken(),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken()),new Point2D(Integer.parseInt(tokenizer.nextToken()),Integer.parseInt(tokenizer.nextToken())));
         super(ligne);
+        System.out.println(ligne);
     }
     
     /**
@@ -63,7 +58,11 @@ public class Guerrier extends Personnage implements Combattant{
             }
         }  
     }
-    
+    /**
+     * cette méthode renvoie la liste des créatures que le joueur a le droit de combattre 
+     * @param monde
+     * @return : la liste des créatures 
+     */
     
     @Override
     public ArrayList<String> CombatsPotentiels(World monde){
@@ -86,6 +85,11 @@ public class Guerrier extends Personnage implements Combattant{
         }
         return l;
     }
+    
+    /**
+     * la ligne de sauvegarde de guerrier 
+     * @return la ligne
+     */
     public String getTexteSauvegarde(){
         String s="Guerrier "+getNom()+" "+getPtVie()+" "+getDegAtt()+" "+getPtPar()+" "+getPageAtt()+" "+getPagePar()+" "+getDistAttMax()+" "+getPos().getX()+" "+getPos().getY();
         return s;

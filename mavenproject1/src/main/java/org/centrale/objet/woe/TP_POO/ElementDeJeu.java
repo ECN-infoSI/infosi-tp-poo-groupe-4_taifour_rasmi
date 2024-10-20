@@ -5,10 +5,14 @@
 package org.centrale.objet.woe.TP_POO;
 
 /**
- *
- * @author user
+ * Classe définie l'element de jeu
+ * @author Mouad, Kaoutar
  */
 public abstract class ElementDeJeu {
+    //Attributs de la classe
+    /**
+     * identifiant: l'identifiant de l'element de jeu qu'on aura besoin dans notre HashMap
+     */
     private String identifiant;
     
     public ElementDeJeu(String identifiant){

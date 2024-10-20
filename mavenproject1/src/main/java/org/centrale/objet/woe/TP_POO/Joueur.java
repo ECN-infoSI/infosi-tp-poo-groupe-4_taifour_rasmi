@@ -1,11 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package org.centrale.objet.woe.TP_POO;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Random;
@@ -16,12 +15,13 @@ import java.util.StringTokenizer;
  * @author Mouad, Kaoutar
  * 
  */
+
 public class Joueur {
     //Attributs de la classe
     /**
      * perso: le personnage choisi par l'utilisateur 
- effets : une collection des effets activés par le joueur
- inventaire : une collection des objets collectés par le joueur
+     *effets : une collection des effets activés par le joueur
+     *inventaire : une collection des objets collectés par le joueur
      */
     private Personnage perso;
     private HashMap<String,Utilisable> inventaire;
@@ -54,21 +54,25 @@ public class Joueur {
         nomClass = tokenizer.nextToken();
         Package p = this.getClass().getPackage();
         StringBuilder sb = new StringBuilder();
+        //on supprime le nom de la classe Joueur pour appeler le constructeur de chargement pour le personnage de joueur 
         while (tokenizer.hasMoreTokens()) {
             sb.append(tokenizer.nextToken());
             if (tokenizer.hasMoreTokens()) {
                 sb.append(" ");  
             }
         }
-         String ligne2 = nomClass+" "+sb.toString();
-        //System.out.println(ligne2);
+        String ligne2 = nomClass+" "+sb.toString();
+        
         try{
             Class classe= Class.forName(p.getName()+"."+nomClass);
             Constructor ct= classe.getConstructor(String.class);
             ElementDeJeu element = (ElementDeJeu)ct.newInstance((Object)ligne2);
-            if(element instanceof Guerrier) this.perso=new Guerrier((Guerrier)element);
-            else this.perso=new Archer((Archer)element);
+            if(element instanceof Guerrier) this.perso=(Guerrier)element;
+            else this.perso=(Archer)element;
+            
+            //System.out.println("testJoueur"+this.perso.getIdentifiant());
         }
+        
         catch(NoSuchMethodException e){
             e.getMessage();
         }  
@@ -103,53 +107,65 @@ public class Joueur {
      * cette méthode a pour but de permettre au joueur le choix du personnage et so nom
      */
     public void choisirType(){
-        
         Scanner sc = new Scanner(System.in);
-        
+       
         System.out.println("Veuillez choisir le type de votre personnage en choisissant le numéro correspondant :");
         System.out.println("1 - Guerrier");
         System.out.println("2 - Archer");
         
-        int s = sc.nextInt();
+        String s = sc.nextLine();
         //pour gerer les valeurs saisies par le joueur 
-        while(s!=1 && s!=2){
-            
+        while(!"1".equals(s) && !"2".equals(s)){
             System.out.println("Veuillez saisir le numéro correspondant à votre choix :");
-            s = sc.nextInt();
+            s = sc.nextLine();
         }
         
-        sc.nextLine();
+        //sc.nextLine();
         System.out.println("Entrez le nom de votre personnage");
         String nom = sc.nextLine();
         
         Random ga = new Random();
-        if(s==1){
-            perso= new Guerrier();
-            perso.setNom(nom);
-            perso.setPtVie(100+ga.nextInt(51));
-            perso.setPtPar(20+ga.nextInt(11));
-            perso.setDegAtt(30+ga.nextInt(11));
-            perso.setDistAttMax(1);
-            perso.setPageAtt(80+ga.nextInt(21));
-            perso.setPagePar(20+ga.nextInt(20));
-            //perso.setPos(new Point2D(ga.nextInt(20),ga.nextInt(14)));
-            
+        
+        if("1".equals(s)){
+            creerGuerrierJoueur(ga,nom);
         }else{
+            creerArcherJoueur(ga,nom);
+        }
+    }
+    
+    /**
+     * cette méthode a pour rôle de créer un gerrier 
+     * @param ga 
+     */
+    private void creerGuerrierJoueur(Random ga,String nom){
+        perso= new Guerrier();
+        perso= new Guerrier();
+        perso.setNom(nom);
+        perso.setIdentifiant(nom);
+        perso.setPtVie(100+ga.nextInt(51));
+        perso.setPtPar(20+ga.nextInt(11));
+        perso.setDegAtt(30+ga.nextInt(11));
+        perso.setDistAttMax(1);
+        perso.setPageAtt(80+ga.nextInt(21));
+        perso.setPagePar(20+ga.nextInt(20));            
+    }
+    
+    /**
+     * cette méthode a pour rôle de créer un archer 
+     * @param ga 
+     */
+    private void creerArcherJoueur(Random ga,String nom){
             perso= new Archer();
             perso.setNom(nom);
+            perso.setIdentifiant(nom);
             perso.setPtVie(80+ga.nextInt(20));
             perso.setPtPar(30+ga.nextInt(21));
             perso.setDegAtt(10+ga.nextInt(11));
             perso.setDistAttMax(3);
             perso.setPageAtt(50+ga.nextInt(11));
-            perso.setPagePar(30+ga.nextInt(20));
-            //perso.setPos(new Point2D(ga.nextInt(20),ga.nextInt(14)));
-        }
-        
-        
-        //System.out.println(perso instanceof Guerrier);
-        
+            perso.setPagePar(30+ga.nextInt(20));                 
     }
+    
     /**
      * une méthode pour donner au joueur la possibilité de choisir de combattre ou bien de se déplacer
      * @return une chaîne de caractère correspondante au choix
@@ -161,34 +177,68 @@ public class Joueur {
         System.out.println("2- Se déplacer");
         System.out.println("3- Utiliser un objet");
         System.out.println("4- Sauvegarder");
+        System.out.println("5- Quitter");
+        
         Scanner sc = new Scanner(System.in);
-        int s = sc.nextInt();
-        //tant que la saisie n'égale à 0 ni à 1
-        while(s!=1 && s!=2 && s!=3 && s!=4){
-            
+        String s = sc.nextLine();
+        
+        //tant que la saisie n'est pas correcte
+        
+        while(!"1".equals(s) && !"2".equals(s) && !"3".equals(s) && !"4".equals(s) && !"5".equals(s)){
             System.out.println("Veuillez saisir le numéro correspondant à votre choix :");
             System.out.println("1- Combattre");
             System.out.println("2- Se déplacer");
             System.out.println("3- Utiliser un objet");
             System.out.println("4- Sauvegarder");
-            s = sc.nextInt();
+            System.out.println("5- Quitter");
+            s = sc.nextLine();
         }
         switch (s) {
-            case 1:
+            case "1":
                 return ("combattre");
-            case 2:
+            case "2":
                 return ("se deplacer");
-            case 3:
+            case "3":
                 return ("utiliser un objet");
-            default:
+            case "4":
                 return ("Sauvegarder");
+            default:
+                return ("Quitter");
+        }
+        
+    }
+ 
+    /**
+     * une méthode pour donner au joueur la possibilité de choisir entre charger une partie ou bien creer un monde de nouveau
+     * @return une chaîne de caractère correspondante au choix
+     */
+    public String typeJeu(){
+        
+        System.out.println("Choisissez le chiffre correspondant au type de votre jeu: ");
+        System.out.println("1- créer un monde aléatoirement");
+        System.out.println("2- Charger une partie");
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+        //tant que la saisie n'égale à 0 ni à 1
+        while(!"1".equals(s) && !"2".equals(s) ){
+            System.out.println("Veuillez chosir le chiffre correspondant au type de votre jeu: ");
+            System.out.println("1- créer un monde aléatoirement");
+            System.out.println("2- Charger une partie");
+            s = sc.nextLine();
+        }
+        switch (s) {
+            case "1":
+                return ("alea");
+            case "2":
+                return ("char");
+            default:
+                return ("");
         }
         
     }
      
     /**
      * la méthode a pour but de déplacer le joueur
-     * 
      * @param monde : prend en paramètre le monde dans lequel le joueur souhaite effectuer son déplacement
      */
     public void deplacerJoueur(World monde){
@@ -413,9 +463,6 @@ public class Joueur {
         
         
         inventaire.get(s).activer(this, s);
-        
-        
-        
 
     }
     
@@ -429,13 +476,105 @@ public class Joueur {
         else s= ((Archer)perso).getTexteSauvegarde();
         return "Joueur "+s;
     }
+    
+    /**
+     * cette méthode a pour rôle de permettre au joueur ou bien à un pretagoniste de ramasser un objet
+     * @param monde
+     * @param p : position de l'objet à ramasser 
+     */
     public void ramasserObjet(World monde, Point2D p){
         String s = monde.getW()[p.getX()][p.getY()];
         inventaire.put(s, (Utilisable)monde.getListeO().get(s));
         monde.getListeO().remove(s);
     }
+    
+    /**
+     * cette méthode définit le tour du joueur 
+     * @param monde
+     * @throws IOException
+     * @throws NoSuchMethodException
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException 
+     */
+    public void tourDuJoueur(World monde) throws IOException, NoSuchMethodException, ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
 
-   
+                afficheJoueur();
+                String s = this.choixJeu();
+                if("combattre".equals(s)){
+                    
+                    ArrayList<String> l = ((Combattant)this.getPerso()).CombatsPotentiels(monde);
+                    if(l.isEmpty()){
+                        System.out.println("Il n'y a aucune créature à portée.");
+                    }
+                    else{
+                        System.out.println("Entrez le nom de la créature que vous voulez combattre parmi les suivants :");
+                        for(String elt : l){
+                            System.out.println(elt);
+                        }
+                        Scanner sc = new Scanner(System.in);
+                        String crea = sc.nextLine();
+                        while(!(l.contains(crea))){
+                            System.out.println("Veuillez entrer un nom de créature valide :)");
+                            crea = sc.nextLine();
+                        }
+                        Creature cr = monde.getListeC().get(crea);
+                        if(perso instanceof Guerrier){
+                            ((Guerrier)perso).combattre(cr);
+                        }
+                        else if(perso instanceof Archer){
+                            ((Archer)perso).combattre(cr);
+                        }
+                    }
+                    
+                }
+                else if ("se deplacer".equals(s)){
+                    deplacerJoueur(monde);
+                }
+                else if ("utiliser un objet".equals(s)){
+                    if(inventaire.isEmpty()){
+                        System.out.println("Votre inventaire est vide ! vous ne pouvez pas activer aucun objet.");
+                    }
+                    else activerobjetChoix();
+                }
+                else if ("Sauvegarder".equals(s)){
+                    System.out.println("Veuillez saisir le nom de votre fichier: ");
+                    Scanner sc = new Scanner(System.in);
+                    String fichier = sc.nextLine();
+                    monde.sauvegardePartie(fichier);
+                    System.out.println("Votre partie est bien sauvegardée.");
+                    System.exit(0);
+                }
+                else {
+                   System.exit(0);
+                }
+
+    }
     
-    
+    public void afficheJoueur(){
+        System.out.println("___________________________________________");
+        System.out.println("Nom du joueur :"+perso.getIdentifiant());
+        System.out.println("Points de vie :"+perso.getPtVie());
+        System.out.println("dégats des attacks :"+perso.getDegAtt());
+        System.out.println("points de parade :"+perso.getPtPar());
+        System.out.println("Position :"+perso.getPos().toString());
+        System.out.println();
+        if(!(inventaire.isEmpty())) {
+            System.out.println("Inventiare:");
+            inventaire.forEach((key,value)-> {
+                System.out.println(key+" sa durée est: "+((Objet)value).getDuree());
+            }); 
+        }
+        else System.out.println("Votre Inventiare est vide");
+        if(!(effets.isEmpty())){
+            System.out.println("effet: ");
+            effets.forEach((key,value)-> {
+                System.out.println(key+" durée "+((Objet)value).getDuree());
+            });  
+        }
+        else System.out.println("Votre liste des effets est vide");
+    }
+
 }

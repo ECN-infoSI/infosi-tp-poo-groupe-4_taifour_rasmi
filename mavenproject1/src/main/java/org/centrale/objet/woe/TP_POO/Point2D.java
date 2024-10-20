@@ -104,19 +104,10 @@ public class Point2D {
     public boolean equals(Point2D pos){
         return this.x==pos.getX() && this.y==pos.getY();
     }
-    /**
-     * génération d'un point différent de celui passé en paramètre 
-     * @param p
-     * @return 
-     */
-    Point2D generePointDiff(Point2D p){
-        
-        Random ga = new Random();
-        Point2D p1 = new Point2D(ga.nextInt(50),ga.nextInt(50));
-        while(p.equals(p1)){
-            p1 = new Point2D(ga.nextInt(50),ga.nextInt(50));
-        }
-        return p1;
+    
+    @Override
+    public String toString(){
+        return "("+x+","+y+")" ;
     }
 }
 

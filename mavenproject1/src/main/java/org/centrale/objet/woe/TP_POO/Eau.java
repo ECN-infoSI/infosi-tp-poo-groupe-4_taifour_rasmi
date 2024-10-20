@@ -1,14 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package org.centrale.objet.woe.TP_POO;
 
 import java.util.StringTokenizer;
 
 /**
- *
- * @author HPSALAMA
+ * Cette classe a pour objectif de définir une nourriture: Eau
+ * @author Mouad, Kaoutar
  */
 public class Eau extends Nourriture {
 
@@ -18,7 +15,8 @@ public class Eau extends Nourriture {
     public Eau(String nom,int duree,int val,Point2D pos,boolean bonus) {
         super(nom,duree,val,pos,true);
     }
-     /**
+    
+    /**
      * @param ligne
      */
     //constructeur pour le chargement de l'élément 
@@ -40,16 +38,30 @@ public class Eau extends Nourriture {
         }
     }
     
+    /**
+     * Pour enregister l'eau
+     * @return 
+     */
+    @Override
     public String getTexteSauvegarde(){
         String s="Eau "+getNom()+" "+getVal()+" "+getDuree()+" "+getPos().getX()+" "+getPos().getY();
         return s;
     }
     
+    /**
+     * Pour enregister l'eau comme étant un inventaire
+     * @return 
+     */
     @Override
     public String getTexteSauvegardeInve(){
         String s="Inventaire Eau "+getNom()+" "+getVal()+" "+getDuree();
         return s;
     }
+    
+    /**
+     * Pour enregister l'eau étant un effet
+     * @return 
+     */
     @Override
     public String getTexteSauvegardeEffe(){
         String s="Effet Eau "+getNom()+" "+getVal()+" "+getDuree();

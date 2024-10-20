@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
+
 package org.centrale.objet.woe.TP_POO;
 
 import java.util.ArrayList;
 
 /**
- *
+ * Interdace de combattant
  * @author Mouad, Kaoutar
  */
 public interface Combattant {
@@ -18,6 +15,10 @@ public interface Combattant {
      */
     public void combattre(Creature creature);
     
-    
+    /**
+     * Cette méthode retourne la liste des créatures que le joueur a le doit de combattre.
+     * @param monde : dans lequel on joue
+     * @return : la liste des créatures
+     */
     public abstract ArrayList<String> CombatsPotentiels(World monde);
 }
